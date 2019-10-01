@@ -1,0 +1,30 @@
+{
+    "name": "frontend-setup",
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "A basic project setup for creating (static) html templates. Filled with automated tasks and configuration options.",
+    "author": "Dept",
+    "scripts": {
+        "lint-fix": "eslint src/ --ext .ts,.tsx --fix"
+    },
+    "contributors": [{
+        "name": "Dylan Vens",
+        "email": "dylan.vens@deptagency.com"
+    }],
+    "private": true,
+    "repository": {
+        "type": "git",
+        "url": "https://bitbucket.org/tamtam-nl/tamtam-frontend-setup"
+    },
+    "engines": {
+        "node": "8.9",
+        "npm": "5.4.1"
+    },
+    "devDependencies": {
+        "@frontend/eslint": "0.1.0",
+        "@frontend/prettier": "0.1.0"
+    },
+    "dependencies": {
+
+    }
+}

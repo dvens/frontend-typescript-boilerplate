@@ -1,0 +1,15 @@
+{
+    "name": "@frontend/prettier",
+    "version": "0.1.0",
+    "description": "Prettier config",
+    "author": "Dylan Vens",
+    "license": "MIT",
+    "publishConfig": {
+        "access": "public"
+    },
+    "main": "prettier.config.js",
+    "dependencies": {
+        "eslint-config-prettier": "^3.3.0",
+        "prettier": "^1.15.0"
+    }
+}
