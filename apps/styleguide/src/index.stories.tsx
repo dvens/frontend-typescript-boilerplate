@@ -8,5 +8,5 @@ storiesOf("Hello component", module).add(
     () => {
         return `<counter-element></counter-element>`;
     },
-    { notes: "Hello docs" }
+    { notes: "Hello docss" }
 );
