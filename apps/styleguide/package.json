@@ -27,6 +27,7 @@
         "@storybook/addon-notes": "^5.1.11",
         "@storybook/html": "^5.1.11",
         "@storybook/theming": "^5.1.11",
+        "@types/node": "^12.7.9",
         "@types/storybook__addon-actions": "^3.4.1",
         "@types/storybook__addon-backgrounds": "^3.2.1",
         "@types/storybook__addon-links": "^3.3.3",
