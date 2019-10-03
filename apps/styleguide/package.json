@@ -37,7 +37,12 @@
         "ts-loader": "5.4.3",
         "typescript": "3.4.5",
         "web-component-analyzer": "0.1.16",
-        "webpack": "4.30.0"
+        "webpack": "4.30.0",
+        "clean-css-loader": "^2.0.0",
+        "css-loader": "^3.2.0",
+        "postcss-loader": "^2.1.0",
+        "sass-loader": "^7.0.1",
+        "style-loader": "^1.0.0"
     },
     "dependencies": {
         "@atomify/core": "^2.1.0",

@@ -1,11 +1,11 @@
 import { storiesOf } from "@storybook/html";
 
-import "./counter-element";
+import CounterElement from "./counter-element";
 
 storiesOf("Hello component", module).add(
     "Hello story",
     () => {
-        return `<counter-element></counter-element>`;
+        return new CounterElement();
     },
     { notes: "Hello docss" }
 );
