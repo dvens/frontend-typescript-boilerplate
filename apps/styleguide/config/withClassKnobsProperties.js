@@ -9,22 +9,14 @@ import {
 
 /**
  * @example
- * class MyEl extends LitElement { ... }
+ * class MyEl extends HTMLElement { ... }
  *
  * .add('Playground', () => {
  *   return withClassPropertiesKnobs(MyEl);
  * });
  *
- * @example
- * .add('Playground', () => {
- *   return withClassPropertiesKnobs(MyEl, el => ([
- *     { key: 'type', fn: () => select('type', ['small', 'medium', 'large'], el.type, 'Element') },
- *     { key: 'complexItems', fn: () => object('complexItems', el.complexItems, 'Inherited') },
- *     { key: 'locked', group: 'Security' }, // change group of an default Element property
- *   ]));
- * });
  * @param {any} Klass The class (not instance) you want the knobs for
- * @param {OptionsWithClassPropertiesKnobs} Options Define overrides and a template if neeed
+ * @param {OptionsWithClassPropertiesKnobs} Options Define overrides and a template if needed
  */
 export function withClassPropertiesKnobs(Klass, {
     overrides: overrideFunction
