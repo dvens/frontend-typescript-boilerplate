@@ -1,4 +1,4 @@
-import { Component } from "@atomify/core";
+import { Component, Prop } from "@atomify/core";
 import { h } from "@atomify/jsx";
 
 @Component({
@@ -12,7 +12,9 @@ import { h } from "@atomify/jsx";
     shadow: true
 })
 export default class CounterElement extends HTMLElement {
+    @Prop({ type: "String" }) title: string = "Hello worldss!";
+    @Prop({ reflectToAttribute: true, type: "String" }) type: string = "small";
     render() {
-        return <div>hello world!</div>;
+        return <div>{this.title}</div>;
     }
 }

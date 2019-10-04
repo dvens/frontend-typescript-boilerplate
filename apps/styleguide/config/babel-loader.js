@@ -20,8 +20,7 @@ const options = {
 module.exports = configureBabelLoader = (transpilePackages = []) => {
 
     return {
-        test: /\.(ts|tsx)$/,
-        exclude: new RegExp(`/node_modules\/(?!${transpilePackages.join("|")})/`),
+        test: [/\.(ts|tsx)$/, new RegExp(`node_modules(\\/|\\\\)(${transpilePackages.join('|')})(.*)\\.js$`)],
         use: [{
             loader: require.resolve('babel-loader'),
             options
