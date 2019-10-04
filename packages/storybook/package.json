@@ -1,39 +1,27 @@
 {
     "name": "@frontend/storybook",
     "version": "0.1.0",
-    "description": "Storybook config",
+    "description": "Storybook setup",
     "author": "Dylan Vens",
     "license": "MIT",
     "publishConfig": {
         "access": "public"
     },
-    "main": "prettier.config.js",
-    "dependencies": {
-        "@babel/core": "7.4.3",
-        "@babel/plugin-syntax-dynamic-import": "7.2.0",
-        "@babel/plugin-transform-arrow-functions": "7.2.0",
-        "@babel/plugin-proposal-decorators": "^7.6.0",
-        "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
-        "@babel/plugin-transform-react-jsx": "^7.3.0",
-        "@babel/plugin-syntax-jsx": "^7.2.0",
-        "@babel/polyfill": "7.4.3",
-        "@babel/preset-env": "7.4.3",
-        "babel-loader": "8.0.5",
-        "ts-loader": "5.4.3",
-        "typescript": "3.4.5",
-        "webpack": "4.30.0",
-        "web-component-analyzer": "0.1.16",
+    "main": "babel-loader.js",
+    "devDependencies": {
+        "@frontend/css-loader": "0.1.0",
+        "@frontend/babel-loader": "0.1.0",
+        "@storybook/addon-a11y": "^5.1.11",
         "@storybook/addon-actions": "^5.1.11",
         "@storybook/addon-knobs": "^5.1.11",
         "@storybook/addon-notes": "^5.1.11",
         "@storybook/html": "^5.1.11",
-        "@webcomponents/webcomponentsjs": "^2.2.0",
-        "@storybook/addon-a11y": "^5.1.11",
         "@storybook/theming": "^5.1.11",
+        "@types/node": "^12.7.9",
         "@types/storybook__addon-actions": "^3.4.1",
         "@types/storybook__addon-backgrounds": "^3.2.1",
         "@types/storybook__addon-links": "^3.3.3",
         "@types/storybook__addon-notes": "^3.3.3",
-        "@babel/plugin-proposal-class-properties": "^7.5.5",
+        "web-component-analyzer": "0.1.16"
     }
 }
