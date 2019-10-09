@@ -28,12 +28,7 @@
             "@pages/*": ["./pages/*"],
             "@server/*": ["./server/*"],
             "@/*": ["./src/*"]
-        },
-        "include": [
-            "src/**/*",
-            "pages/**/*",
-            "types/**/*"
-        ]
+        }
     },
     "exclude": ["node_modules"]
 }

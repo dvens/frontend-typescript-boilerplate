@@ -3,8 +3,8 @@ const options = {
         '@babel/syntax-dynamic-import',
         '@babel/plugin-proposal-class-properties',
         '@babel/plugin-proposal-object-rest-spread',
-        "@babel/plugin-syntax-jsx",
-        ["@babel/plugin-transform-react-jsx", {
+        '@babel/plugin-syntax-jsx',
+        ['@babel/plugin-transform-react-jsx', {
             "pragma": "h"
         }]
     ],

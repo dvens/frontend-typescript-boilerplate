@@ -3,7 +3,7 @@ const path = require('path');
 const config = {};
 
 // Root folder
-config.root = path.resolve(process.cwd(), './');
+config.root = path.resolve(__dirname, '../');
 
 // Source folder
 config.source = path.resolve(config.root, 'src');
@@ -11,8 +11,8 @@ config.pages = path.resolve(config.source, 'pages');
 config.components = path.resolve(config.source, 'components');
 
 // Entries
-config.appEntry = path.resolve(config.source, 'app.ts');
-config.polyfillEntry = path.resolve(config.source, 'polyfill.ts');
+config.appEntry = 'app.ts';
+config.polyfillEntry = 'polyfill.ts';
 
 // Server folder
 config.server = path.resolve(config.root, 'server');

@@ -1,4 +1,5 @@
 const TerserPlugin = require('terser-webpack-plugin');
+const path = require('path');
 
 const config = require('../config/config');
 const getDefaultMode = require('./utilities/get-default-mode.js');
@@ -6,31 +7,28 @@ const setAliasConfig = require('../config/alias');
 
 const defaultOptions = {
     mode: getDefaultMode(),
-    input: config.appEntry,
+    entry: config.appEntry,
 };
+
+const configureBabelLoader = require('./settings/javascript-typescript');
 
 const createBaseConfig = (userOptions = {}, legacy = false) => {
 
     const options = {
-        ...userOptions,
-        ...defaultOptions
+        ...defaultOptions,
+        ...userOptions
     };
 
     const production = options.mode === 'production';
 
-    if (options.entry) {
-        console.warn('Options.entry is deprecated, Use options,input instead');
-    }
-
     const outputFilename = `${legacy ? `${ config.legacyPrefix }` : ''}[name].js`;
-    const outputChunkFilename = `${ legacy ? `chunks/${ config.legacyPrefix }` : '/chunks'}[name].js`;
+    const outputChunkFilename = `${ legacy ? `chunks/${ config.legacyPrefix }` : 'chunks/'}[name].js`;
 
-    let defaultConfig = {
-        context: config.root,
+    const defaultConfig = {
 
         mode: options.mode,
 
-        entry: config.appEntry,
+        entry: options.entry,
 
         devtool: config.sourceMap ? 'cheap-module-source-map' : undefined,
 
@@ -41,15 +39,12 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
         },
 
         resolve: {
-            alias: [],
-            extensions: [],
-        },
-
-        module: {
-            rules: [],
+            alias: setAliasConfig(),
+            extensions: ['.ts', '.tsx']
         },
 
         optimization: {
+            minimize: true,
             minimizer: [
                 production &&
                 new TerserPlugin({
@@ -66,11 +61,9 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
                     parallel: true,
                     sourceMap: true,
                 }),
-            ],
+            ].filter(_ => !!_)
         }
     };
-
-    setAliasConfig(defaultConfig);
 
     return defaultConfig;
 };

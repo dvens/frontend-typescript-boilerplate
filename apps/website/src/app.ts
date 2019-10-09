@@ -1,4 +1,4 @@
-class Test {
+export class Test {
     sayHi() {
         console.log('Hello!!');
     }

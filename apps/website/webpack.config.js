@@ -2,4 +2,8 @@ const {
     createModernLegacyConfig
 } = require('./tools');
 
-createModernLegacyConfig();
+const path = require('path');
+
+module.exports = createModernLegacyConfig({
+    entry: path.resolve(__dirname, 'src') + '/app.ts',
+});

@@ -12,19 +12,22 @@ const createConfig = (options, legacy = false) => {
     const baseConfig = createBaseConfig(options, legacy);
     const firstConfig = legacy;
 
-
-    console.log(baseConfig);
-
-    let modernLegacyConfig = {
+    const modernLegacyConfig = {
         ...baseConfig,
         plugins: [
             firstConfig && new CleanWebpackPlugin(),
-        ]
+        ].filter(_ => !!_),
+        module: {
+            rules: [
+                ...configureBabelLoader({
+                    transpilePackages: config.transpilePackages,
+                    plugins: config.plugins,
+                    presets: config.presets,
+                    legacy
+                })
+            ]
+        }
     };
-
-    // Configure babel
-    modernLegacyConfig.module.rules.push(configureBabelLoader(config.transpilePackages, config.plugins, config.presets, legacy));
-    modernLegacyConfig.resolve.extensions.push('.ts', '.tsx');
 
     return modernLegacyConfig;
 
