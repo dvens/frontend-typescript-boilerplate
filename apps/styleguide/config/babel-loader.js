@@ -17,7 +17,9 @@ const options = {
     ],
 };
 
-module.exports = configureBabelLoader = (transpilePackages = []) => {
+// the configureBabelLoader equality is really necessary? it was breaking the karma-webpack initialization saying that configureBabelLoader is not intialized
+
+module.exports = (transpilePackages = []) => {
 
     return {
         test: [/\.(ts|tsx)$/, new RegExp(`node_modules(\\/|\\\\)(${transpilePackages.join('|')})(.*)\\.js$`)],
