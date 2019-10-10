@@ -14,11 +14,7 @@ import { h } from "@atomify/jsx";
 export default class CounterElement extends HTMLElement {
     @Prop({ type: "String" }) title: string = "Hello worldss!";
     @Prop({ reflectToAttribute: true, type: "String" }) type: string = "small";
-
-    sayHello() {
-        return "AAAAA";
-    }
     render() {
-        return <div class="counter-element">{this.title}</div>;
+        return <div>{this.title}</div>;
     }
 }
