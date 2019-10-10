@@ -5,7 +5,8 @@ const config = require('../config/config');
 const createBaseConfig = require('./base-webpack-config');
 
 // Settings/loaders
-const configureBabelLoader = require('./settings/javascript-typescript');
+const configureBabelLoader = require('./loaders/javascript-typescript');
+const eslintConfig = require('./loaders/eslint');
 
 const createConfig = (options, legacy = false) => {
 
@@ -24,7 +25,8 @@ const createConfig = (options, legacy = false) => {
                     plugins: config.plugins,
                     presets: config.presets,
                     legacy
-                })
+                }),
+                eslintConfig
             ]
         }
     };

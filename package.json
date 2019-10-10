@@ -5,10 +5,8 @@
     "author": "Dylan Vens",
     "license": "ISC",
     "private": true,
-    "scripts": {
-        "postinstall": "lerna bootstrap"
-    },
-    "devDependencies": {
-        "lerna": "^3.15.0"
-    }
+    "workspaces": [
+        "packages/*",
+        "apps/*"
+    ]
 }

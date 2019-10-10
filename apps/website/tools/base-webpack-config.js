@@ -10,8 +10,6 @@ const defaultOptions = {
     entry: config.appEntry,
 };
 
-const configureBabelLoader = require('./settings/javascript-typescript');
-
 const createBaseConfig = (userOptions = {}, legacy = false) => {
 
     const options = {
@@ -44,7 +42,10 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
         },
 
         optimization: {
-            minimize: true,
+            splitChunks: {
+                chunks: 'async',
+                automaticNameDelimiter: '.'
+            },
             minimizer: [
                 production &&
                 new TerserPlugin({
