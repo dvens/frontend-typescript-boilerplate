@@ -1,6 +1,5 @@
 # Build results
 build/
-dist/
 
 # Dependency directory
 node_modules/
