@@ -2,7 +2,7 @@ const defaultConfig = require('./config');
 
 function setAliasConfig() {
     return {
-        '@': defaultConfig.source,
+        '@source': defaultConfig.source,
         '@static': defaultConfig.static,
         '@pages': defaultConfig.pages,
         '@server': defaultConfig.server,

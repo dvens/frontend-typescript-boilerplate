@@ -6,10 +6,11 @@
     "author": "Dept",
     "scripts": {
         "lint-fix": "eslint src/ --ext .ts,.tsx --fix",
-        "dev": "webpack --mode development --display-error-details",
+        "dev": "webpack --mode development --progress",
         "build": "webpack --mode production --display-error-details",
         "storybook": "start-storybook -p 9001",
-        "storybook:build": "build-storybook -o _site -s storybook-static"
+        "storybook:build": "build-storybook -o _site -s storybook-static",
+        "test": "karma start karma.conf.js"
     },
     "contributors": [{
         "name": "Dylan Vens",
@@ -45,7 +46,7 @@
         "@types/storybook__addon-notes": "^3.3.3",
         "@typescript-eslint/eslint-plugin": "^2.0.0",
         "@typescript-eslint/parser": "^2.0.0",
-        "@webcomponents/webcomponentsjs": "^2.2.0",
+        "@webcomponents/webcomponentsjs": "^2.3.0",
         "babel-loader": "8.0.5",
         "browserslist": "^4.3.4",
         "clean-css-loader": "^2.0.0",
@@ -59,6 +60,11 @@
         "eslint-plugin-jsx-a11y": "^6.2.3",
         "eslint-plugin-prettier": "^3.1.0",
         "eslint-plugin-simple-import-sort": "^4.0.0",
+        "jasmine": "^3.5.0",
+        "karma": "^4.3.0",
+        "karma-chrome-launcher": "^3.1.0",
+        "karma-jasmine": "^2.0.1",
+        "karma-webpack": "^4.0.2",
         "postcss-loader": "^2.1.0",
         "prettier": "^1.18.2",
         "sass-loader": "^7.0.1",
@@ -74,6 +80,7 @@
     },
     "dependencies": {
         "@atomify/core": "^2.3.0",
-        "@atomify/jsx": "^1.4.0"
+        "@atomify/jsx": "^1.4.0",
+        "@types/jasmine": "^3.4.4"
     }
 }

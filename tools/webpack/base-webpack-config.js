@@ -1,5 +1,4 @@
 const TerserPlugin = require('terser-webpack-plugin');
-const path = require('path');
 
 const config = require('../../config/config');
 const getDefaultMode = require('../utilities/get-default-mode.js');
@@ -23,6 +22,7 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
     const outputChunkFilename = `${ legacy ? `chunks/${ config.legacyPrefix }` : 'chunks/'}[name].js`;
 
     const defaultConfig = {
+        context: config.root,
 
         mode: options.mode,
 
@@ -38,7 +38,7 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
 
         resolve: {
             alias: setAliasConfig(),
-            extensions: ['.ts', '.tsx']
+            extensions: ['.ts', '.tsx', '.js', '.jsx']
         },
 
         optimization: {

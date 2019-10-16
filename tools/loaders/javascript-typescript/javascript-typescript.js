@@ -1,6 +1,6 @@
 const findSupportedBrowsers = require('../../utilities/get-browser-list');
 
-module.exports = configureBabelLoader = ({
+const configureBabelLoader = ({
     transpilePackages = [],
     plugins = [],
     presets = [],
@@ -25,8 +25,8 @@ module.exports = configureBabelLoader = ({
     };
 
     return [{
-        test: [/\.(ts|js)x?$/, new RegExp(`node_modules(\\/|\\\\)(${transpilePackages.join('|')})(.*)\\.js$`)],
-        exclude: /node_modules/,
+        test: /\.(ts|js)x?$/,
+        exclude: new RegExp(`/node_modules\/(?!${transpilePackages.join('|')})/`),
         use: [{
             loader: require.resolve('babel-loader'),
             options
@@ -36,3 +36,5 @@ module.exports = configureBabelLoader = ({
     }];
 
 };
+
+module.exports = configureBabelLoader;
