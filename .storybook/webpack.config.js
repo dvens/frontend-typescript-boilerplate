@@ -1,9 +1,34 @@
-const defaultConfig = require('./loaders/default-storybook-webpack-config');
+const configureBabelLoader = require('../tools/loaders/javascript-typescript');
+const configureCSSLoader = require('../tools/loaders/style-sass');
+const eslintConfig = require('../tools/loaders/eslint');
+const SassLintPlugin = require('sass-lint-webpack');
+
+const {
+    alias
+} = require('../tools/utilities/get-config');
 
 module.exports = ({
     config
 }) => {
-    return defaultConfig({
-        config
-    });
+
+    // Javascript/Typescript loader
+    config.module.rules.push(...configureBabelLoader({
+        includedPackages: [/node_modules\/(?!@atomify)/],
+        legacy: true
+    }));
+
+    // Eslint config
+    config.module.rules.push(eslintConfig);
+
+    // CSS/SASS loader
+    config.module.rules.push(...configureCSSLoader());
+    config.plugins.push(new SassLintPlugin());
+
+    // Valid extensions
+    config.resolve.extensions.push('.ts', '.tsx', '.js', '.jsx');
+
+    // Alias configuration
+    config.resolve.alias = alias;
+
+    return config;
 };

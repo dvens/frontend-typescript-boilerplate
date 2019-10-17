@@ -1,4 +1,11 @@
 const configureBabelLoader = require('./tools/loaders/javascript-typescript/');
+const configureCSSLoader = require('./tools/loaders/style-sass');
+const SassLintPlugin = require('sass-lint-webpack');
+const eslintConfig = require('./tools/loaders/eslint');
+
+const {
+    alias
+} = require('./tools/utilities/get-config');
 
 module.exports = function (config) {
 
@@ -37,19 +44,24 @@ module.exports = function (config) {
             mode: 'development',
             devtool: 'inline-source-maps',
             resolve: {
+                alias,
                 extensions: ['.tsx', '.ts', '.js', '.jsx']
             },
             module: {
-                rules: [...configureBabelLoader({
-                    plugins: ['@babel/plugin-syntax-jsx',
-                        ['@babel/plugin-transform-react-jsx', {
-                            'pragma': 'h'
-                        }]
-                    ],
-                    transpilePackages: ['@atomify'],
-                    legacy: true
-                })]
-            }
+                rules: [
+                    ...configureBabelLoader({
+                        includedPackages: [/node_modules\/(?!@atomify)/],
+                        legacy: true
+                    }),
+                    eslintConfig,
+
+                    //CSS/SASS
+                    ...configureCSSLoader()
+                ]
+            },
+            plugins: [
+                new SassLintPlugin()
+            ]
         },
 
 

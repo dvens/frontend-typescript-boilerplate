@@ -1,11 +1,11 @@
 import { Component } from '@atomify/core';
-import { h, Fragment } from '@atomify/jsx';
+import { h } from '@atomify/jsx';
 
-// import style from './counter-element.scss';
+import style from './counter-element.scss';
 
 @Component({
     tag: 'counter-element',
-    // style,
+    style,
     shadow: true,
 })
 export default class CounterElement extends HTMLElement {
@@ -13,6 +13,6 @@ export default class CounterElement extends HTMLElement {
         return 'Hello';
     }
     render() {
-        return <Fragment>Gello</Fragment>;
+        return <div>Gello</div>;
     }
 }

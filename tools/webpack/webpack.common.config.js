@@ -27,7 +27,6 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
         ...userOptions
     };
 
-
     const firstConfig = legacy;
 
     const outputFilename = `${legacy ? `${ config.legacyPrefix }` : ''}[name].js`;
@@ -55,8 +54,8 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
                 // Javascript/Typescript
                 ...configureBabelLoader({
                     includedPackages: options.includedPackages,
-                    plugins: options.plugins,
-                    presets: options.presets,
+                    plugins: options.babelLoaderPlugins,
+                    presets: options.babelLoaderPresets,
                     legacy
                 }),
                 eslintConfig,

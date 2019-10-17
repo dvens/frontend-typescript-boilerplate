@@ -35,4 +35,7 @@ config.legacyPrefix = 'legacy_';
 // Config source map
 config.sourceMap = true;
 
+// Config CSS in JS option
+config.cssInJS = true;
+
 module.exports = config;
