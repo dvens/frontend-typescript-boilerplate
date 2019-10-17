@@ -1,14 +1,11 @@
 import { Component } from '@atomify/core';
 import { h } from '@atomify/jsx';
 
+import style from './counter-element.scss';
+
 @Component({
     tag: 'counter-element',
-    style: `
-        :host {
-            display: block;
-            background-color: tomato;
-        }
-    `,
+    style,
     shadow: true,
 })
 export default class CounterElement extends HTMLElement {

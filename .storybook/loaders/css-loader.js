@@ -11,7 +11,7 @@ const BROWSERS = [
 module.exports = configureCSSLoader = () => {
 
     return {
-        test: /\.scss$/,
+        test: [/.css$|.scss$/],
         use: [{
             loader: 'postcss-loader',
             options: {

@@ -1,4 +1,5 @@
 const findSupportedBrowsers = require('../../utilities/get-browser-list');
+const getDefaultMode = require('../../utilities/get-default-mode');
 
 const configureBabelLoader = ({
     transpilePackages = [],
@@ -19,9 +20,11 @@ const configureBabelLoader = ({
                 targets: legacy ? ['ie 11'] : findSupportedBrowsers(),
                 useBuiltIns: false,
                 modules: false,
+                debug: false,
             }],
             ...presets,
         ],
+        cacheDirectory: getDefaultMode() === 'development',
     };
 
     return [{

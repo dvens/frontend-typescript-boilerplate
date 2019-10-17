@@ -6,8 +6,9 @@
     "author": "Dept",
     "scripts": {
         "lint-fix": "eslint src/ --ext .ts,.tsx --fix",
-        "dev": "webpack --mode development --progress",
-        "build": "webpack --mode production --display-error-details",
+        "start": "webpack --progress",
+        "dev": "yarn run start --mode development",
+        "build": "yarn run start --mode production",
         "storybook": "start-storybook -p 9001",
         "storybook:build": "build-storybook -o _site -s storybook-static",
         "test": "karma start karma.conf.js"
@@ -76,11 +77,12 @@
         "web-component-analyzer": "0.1.16",
         "webpack": "4.40.3",
         "webpack-cli": "^3.3.9",
-        "webpack-merge": "^4.1.5"
+        "webpack-merge": "^4.1.5",
+        "@types/jasmine": "^3.4.4",
+        "node-sass": "^4.12.0"
     },
     "dependencies": {
         "@atomify/core": "^2.3.0",
-        "@atomify/jsx": "^1.4.0",
-        "@types/jasmine": "^3.4.4"
+        "@atomify/jsx": "^1.4.0"
     }
 }

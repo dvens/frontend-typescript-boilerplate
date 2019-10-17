@@ -1,7 +1,7 @@
-const TerserPlugin = require('terser-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const config = require('../../config/config');
-const getDefaultMode = require('../utilities/get-default-mode.js');
+const getDefaultMode = require('../utilities/get-default-mode');
 const setAliasConfig = require('../../config/alias');
 
 const defaultOptions = {
@@ -16,7 +16,7 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
         ...userOptions
     };
 
-    const production = options.mode === 'production';
+    const firstConfig = legacy;
 
     const outputFilename = `${legacy ? `${ config.legacyPrefix }` : ''}[name].js`;
     const outputChunkFilename = `${ legacy ? `chunks/${ config.legacyPrefix }` : 'chunks/'}[name].js`;
@@ -29,6 +29,8 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
         entry: options.entry,
 
         devtool: config.sourceMap ? 'cheap-module-source-map' : undefined,
+
+        plugins: [],
 
         output: {
             filename: outputFilename,
@@ -45,26 +47,11 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
             splitChunks: {
                 chunks: 'async',
                 automaticNameDelimiter: '.'
-            },
-            minimizer: [
-                production &&
-                new TerserPlugin({
-                    cache: true,
-                    terserOptions: {
-                        keep_classnames: true,
-                        keep_fnames: true,
-                        mangle: true,
-                        safari10: true,
-                        output: {
-                            comments: false,
-                        },
-                    },
-                    parallel: true,
-                    sourceMap: true,
-                }),
-            ].filter(_ => !!_)
+            }
         }
     };
+
+    if (firstConfig) defaultConfig.plugins.push(new CleanWebpackPlugin());
 
     return defaultConfig;
 };
