@@ -13,10 +13,12 @@
         "storybook:build": "build-storybook -o _site -s storybook-static",
         "test": "karma start karma.conf.js"
     },
-    "contributors": [{
-        "name": "Dylan Vens",
-        "email": "dylan.vens@deptagency.com"
-    }],
+    "contributors": [
+        {
+            "name": "Dylan Vens",
+            "email": "dylan.vens@deptagency.com"
+        }
+    ],
     "private": true,
     "repository": {
         "type": "git",
@@ -40,6 +42,7 @@
         "@storybook/addon-notes": "^5.1.11",
         "@storybook/html": "^5.1.11",
         "@storybook/theming": "^5.1.11",
+        "@types/jasmine": "^3.4.4",
         "@types/node": "^12.7.9",
         "@types/storybook__addon-actions": "^3.4.1",
         "@types/storybook__addon-backgrounds": "^3.2.1",
@@ -54,6 +57,8 @@
         "clean-webpack-plugin": "^2.0.0",
         "copy-webpack-plugin": "^5.0.1",
         "css-loader": "^3.2.0",
+        "css-mqpacker": "^7.0.0",
+        "cssnano": "^4.1.10",
         "eslint": "^6.2.2",
         "eslint-config-prettier": "^6.1.0",
         "eslint-loader": "^3.0.2",
@@ -66,8 +71,12 @@
         "karma-chrome-launcher": "^3.1.0",
         "karma-jasmine": "^2.0.1",
         "karma-webpack": "^4.0.2",
+        "mini-css-extract-plugin": "^0.8.0",
+        "node-sass": "^4.12.0",
         "postcss-loader": "^2.1.0",
         "prettier": "^1.18.2",
+        "sass-lint": "^1.13.1",
+        "sass-lint-webpack": "^1.0.2",
         "sass-loader": "^7.0.1",
         "style-loader": "^1.0.0",
         "terser-webpack-plugin": "^1.4.1",
@@ -77,9 +86,7 @@
         "web-component-analyzer": "0.1.16",
         "webpack": "4.40.3",
         "webpack-cli": "^3.3.9",
-        "webpack-merge": "^4.1.5",
-        "@types/jasmine": "^3.4.4",
-        "node-sass": "^4.12.0"
+        "webpack-merge": "^4.1.5"
     },
     "dependencies": {
         "@atomify/core": "^2.3.0",

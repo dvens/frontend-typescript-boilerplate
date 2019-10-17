@@ -9,4 +9,4 @@ function setAliasConfig() {
     };
 }
 
-module.exports = setAliasConfig;
+module.exports = setAliasConfig();

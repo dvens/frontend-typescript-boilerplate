@@ -35,7 +35,4 @@ config.legacyPrefix = 'legacy_';
 // Config source map
 config.sourceMap = true;
 
-// Transpiled packages
-config.transpilePackages = ['@atomify'];
-
 module.exports = config;

@@ -1,8 +1,19 @@
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const SassLintPlugin = require('sass-lint-webpack');
 
-const config = require('../../config/config');
+// Utilities
+const {
+    config,
+    alias
+} = require('../utilities/get-config');
+
 const getDefaultMode = require('../utilities/get-default-mode');
-const setAliasConfig = require('../../config/alias');
+
+// Loaders
+const configureBabelLoader = require('../loaders/javascript-typescript');
+const eslintConfig = require('../loaders/eslint');
+const configureCSSLoader = require('../loaders/style-sass');
 
 const defaultOptions = {
     mode: getDefaultMode(),
@@ -15,6 +26,7 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
         ...defaultOptions,
         ...userOptions
     };
+
 
     const firstConfig = legacy;
 
@@ -30,7 +42,30 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
 
         devtool: config.sourceMap ? 'cheap-module-source-map' : undefined,
 
-        plugins: [],
+        plugins: [
+            new MiniCssExtractPlugin({
+                filename: '/assets/css/[name].css',
+            }),
+            new SassLintPlugin()
+        ],
+
+        module: {
+            rules: [
+
+                // Javascript/Typescript
+                ...configureBabelLoader({
+                    includedPackages: options.includedPackages,
+                    plugins: options.plugins,
+                    presets: options.presets,
+                    legacy
+                }),
+                eslintConfig,
+
+                //CSS/SASS
+                ...configureCSSLoader()
+
+            ]
+        },
 
         output: {
             filename: outputFilename,
@@ -39,7 +74,7 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
         },
 
         resolve: {
-            alias: setAliasConfig(),
+            alias,
             extensions: ['.ts', '.tsx', '.js', '.jsx']
         },
 

@@ -2,7 +2,7 @@ const findSupportedBrowsers = require('../../utilities/get-browser-list');
 const getDefaultMode = require('../../utilities/get-default-mode');
 
 const configureBabelLoader = ({
-    transpilePackages = [],
+    includedPackages = [],
     plugins = [],
     presets = [],
     legacy = false
@@ -28,13 +28,20 @@ const configureBabelLoader = ({
     };
 
     return [{
-        test: /\.(ts|js)x?$/,
-        exclude: new RegExp(`/node_modules\/(?!${transpilePackages.join('|')})/`),
+        test: /\.(ts)x?$/,
+        exclude: includedPackages,
         use: [{
             loader: require.resolve('babel-loader'),
             options
         }, {
             loader: require.resolve('ts-loader'),
+        }],
+    }, {
+        test: /\.(js)x?$/,
+        exclude: includedPackages,
+        use: [{
+            loader: require.resolve('babel-loader'),
+            options
         }],
     }];
 
