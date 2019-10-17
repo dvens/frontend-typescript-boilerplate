@@ -36,6 +36,6 @@ config.legacyPrefix = 'legacy_';
 config.sourceMap = true;
 
 // Transpiled packages
-config.transpilePackages = ['@frontend', '@atomify'],
+config.transpilePackages = ['@atomify'];
 
-    module.exports = config;
+module.exports = config;

@@ -35,5 +35,5 @@
         "pages/**/*",
         "types/**/*"
     ],
-    "exclude": ["node_modules", "tools/**/*.*", "config/**/*.*", ".storybook/**"]
+    "exclude": ["node_modules", "tools/**/*.*", "config/**/*.*", ".storybook/**/*.*"]
 }
