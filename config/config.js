@@ -32,11 +32,18 @@ config.dist = path.resolve(config.root, 'build');
 // Assets dist folders
 config.imagesOutputPath = '/assets/images/';
 config.fontsOutputPath = '/assets/fonts/';
+config.jsOutputPath = 'assets/js/'
 
 // Config legacy prefix
 config.legacyPrefix = 'legacy_';
 
 // Config CSS in JS option
 config.cssInJS = true;
+
+// Copy config
+config.copy = [{
+    from: `${config.static}/data`,
+    to: `assets/data`
+}]
 
 module.exports = config;

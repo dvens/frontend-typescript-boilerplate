@@ -1,6 +1,7 @@
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const SassLintPlugin = require('sass-lint-webpack');
+const CopyPlugin = require('copy-webpack-plugin');
 
 // Utilities
 const {
@@ -32,8 +33,8 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
 
     const firstConfig = legacy;
 
-    const outputFilename = `${legacy ? `${ config.legacyPrefix }` : ''}[name].js`;
-    const outputChunkFilename = `${ legacy ? `chunks/${ config.legacyPrefix }` : 'chunks/'}[name].js`;
+    const outputFilename = `${config.jsOutputPath}${legacy ? `${ config.legacyPrefix }` : ''}[name].js`;
+    const outputChunkFilename = `${config.jsOutputPath}${ legacy ? `chunks/${ config.legacyPrefix }` : 'chunks/'}[name].js`;
 
     const isProduction = options.mode === 'production';
 
@@ -50,7 +51,8 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
             new MiniCssExtractPlugin({
                 filename: '/assets/css/[name].css',
             }),
-            new SassLintPlugin()
+            new SassLintPlugin(),
+            new CopyPlugin(config.copy || []),
         ],
 
         module: {
