@@ -11,6 +11,7 @@
         "lib": ["dom", "es7", "scripthost", "es2015"],
         "module": "esnext",
         "moduleResolution": "node",
+        "esModuleInterop": true,
         "noImplicitAny": true,
         "noImplicitReturns": true,
         "noUnusedLocals": true,
@@ -22,7 +23,7 @@
         "strictNullChecks": true,
         "noEmitOnError": true,
         "baseUrl": ".",
-        "typeRoots": ["node_modules/@types", "types"],
+        "typeRoots": ["./node_modules/@types", "./types"],
         "paths": {
             "@static/*": ["./static/*"],
             "@pages/*": ["./pages/*"],
@@ -35,5 +36,12 @@
         "pages/**/*",
         "types/**/*"
     ],
-    "exclude": ["node_modules", "tools/**/*.*", "config/**/*.*"]
+    "exclude": [
+        "node_modules",
+        "tools/**/*.*",
+        "config/**/*.*",
+        "**/*.test.ts",
+        "**/*.stories.ts",
+        "server/**/*.*",
+    ]
 }
