@@ -9,11 +9,14 @@ const {
 } = require('../utilities/get-config');
 
 const getDefaultMode = require('../utilities/get-default-mode');
+const isVerbose = process.argv.includes('--verbose');
 
 // Loaders
 const configureBabelLoader = require('../loaders/javascript-typescript');
 const eslintConfig = require('../loaders/eslint');
 const configureCSSLoader = require('../loaders/style-sass');
+const imageLoader = require('../loaders/image-loader');
+const fontsLoader = require('../loaders/fonts-loader');
 
 const defaultOptions = {
     mode: getDefaultMode(),
@@ -32,6 +35,8 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
     const outputFilename = `${legacy ? `${ config.legacyPrefix }` : ''}[name].js`;
     const outputChunkFilename = `${ legacy ? `chunks/${ config.legacyPrefix }` : 'chunks/'}[name].js`;
 
+    const isProduction = options.mode === 'production';
+
     const defaultConfig = {
         context: config.root,
 
@@ -39,7 +44,7 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
 
         entry: options.entry,
 
-        devtool: config.sourceMap ? 'cheap-module-source-map' : undefined,
+        devtool: !isProduction ? 'cheap-module-source-map' : undefined,
 
         plugins: [
             new MiniCssExtractPlugin({
@@ -61,7 +66,11 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
                 eslintConfig,
 
                 //CSS/SASS
-                ...configureCSSLoader()
+                ...configureCSSLoader(),
+
+                //Assets
+                imageLoader(),
+                fontsLoader()
 
             ]
         },
@@ -82,7 +91,27 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
                 chunks: 'async',
                 automaticNameDelimiter: '.'
             }
-        }
+        },
+
+        // Don't attempt to continue if there are any errors.
+        bail: isProduction,
+
+        cache: !isProduction,
+
+        // Specify what bundle information gets displayed
+        // https://webpack.js.org/configuration/stats/
+        stats: {
+            cached: isVerbose,
+            cachedAssets: isVerbose,
+            chunks: isVerbose,
+            chunkModules: isVerbose,
+            colors: true,
+            hash: isVerbose,
+            modules: isVerbose,
+            reasons: !isProduction,
+            timings: true,
+            version: isVerbose,
+        },
     };
 
     if (firstConfig) defaultConfig.plugins.push(new CleanWebpackPlugin());

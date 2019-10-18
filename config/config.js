@@ -29,11 +29,12 @@ config.styles = path.resolve(config.static, 'styles');
 // Dist Folder
 config.dist = path.resolve(config.root, 'build');
 
+// Assets dist folders
+config.imagesOutputPath = '/assets/images/';
+config.fontsOutputPath = '/assets/fonts/';
+
 // Config legacy prefix
 config.legacyPrefix = 'legacy_';
-
-// Config source map
-config.sourceMap = true;
 
 // Config CSS in JS option
 config.cssInJS = true;
