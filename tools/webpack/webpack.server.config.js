@@ -15,7 +15,7 @@ const eslintConfig = require('../loaders/eslint');
 
 const defaultOptions = {
     mode: getDefaultMode(),
-    entry: config.appEntry,
+    entry: config.serverEntry,
 };
 
 const createBaseConfig = (userOptions = {}) => {
@@ -25,9 +25,7 @@ const createBaseConfig = (userOptions = {}) => {
         ...userOptions
     };
 
-    const firstConfig = legacy;
-
-    const outputFilename = `${config.jsOutputPath}${legacy ? `${ config.legacyPrefix }` : ''}[name].js`;
+    const outputFilename = `server.js`;
 
     const isProduction = options.mode === 'production';
 
@@ -44,11 +42,7 @@ const createBaseConfig = (userOptions = {}) => {
         devtool: !isProduction ? 'cheap-module-source-map' : undefined,
 
         externals: [
-            nodeExternals({
-                // we still want imported css from external files to be bundled otherwise 3rd party packages
-                // which require us to include their own css would not work properly
-                whitelist: /\.css$/,
-            }),
+            nodeExternals(),
         ],
 
         plugins: [
@@ -66,7 +60,7 @@ const createBaseConfig = (userOptions = {}) => {
                     includedPackages: options.includedPackages,
                     plugins: options.babelLoaderPlugins,
                     presets: options.babelLoaderPresets,
-                    legacy
+                    legacy: true
                 }),
                 eslintConfig
             ]
@@ -103,9 +97,11 @@ const createBaseConfig = (userOptions = {}) => {
         },
     };
 
-    if (firstConfig) defaultConfig.plugins.push(new CleanWebpackPlugin());
-
     return defaultConfig;
 };
 
-module.exports = createBaseConfig;
+module.exports = (userOptions) => {
+
+    return [createBaseConfig(userOptions)];
+
+};

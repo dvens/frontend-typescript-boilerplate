@@ -16,7 +16,7 @@ config.dotenv = resolveApp('.env');
 // Entries
 config.appEntry = 'app.ts';
 config.polyfillEntry = 'polyfill.ts';
-config.polyfillEntry = 'server.ts';
+config.serverEntry = 'server.ts';
 
 // Server folder
 config.server = resolveApp('server');
@@ -32,6 +32,7 @@ config.styles = resolveApp('static/styles');
 
 // Dist Folder
 config.dist = resolveApp('build');
+config.clientDist = resolveApp('build/static');
 
 // Assets dist folders
 config.imagesOutputPath = '/assets/images/';

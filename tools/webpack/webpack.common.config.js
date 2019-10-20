@@ -90,7 +90,7 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
         output: {
             filename: outputFilename,
             chunkFilename: outputChunkFilename,
-            path: config.dist,
+            path: config.clientDist,
         },
 
         resolve: {
