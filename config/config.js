@@ -1,33 +1,37 @@
 const path = require('path');
 
+const resolveApp = require('../tools/utilities/resolve-app')
+
 const config = {};
 
 // Root folder
-config.root = path.resolve(__dirname, '../');
+config.root = resolveApp('');
 
 // Source folder
-config.source = path.resolve(config.root, 'src');
-config.pages = path.resolve(config.source, 'pages');
-config.components = path.resolve(config.source, 'components');
+config.source = resolveApp('src');
+config.pages = resolveApp('pages');
+config.components = resolveApp('components');
+config.dotenv = resolveApp('.env');
 
 // Entries
 config.appEntry = 'app.ts';
 config.polyfillEntry = 'polyfill.ts';
+config.polyfillEntry = 'server.ts';
 
 // Server folder
-config.server = path.resolve(config.root, 'server');
+config.server = resolveApp('server');
 
 // Static folder
-config.static = path.resolve(config.root, 'static');
+config.static = resolveApp('static');
 
 // Assets Folder
-config.assets = path.resolve(config.static, 'assets');
+config.assets = resolveApp('static/assets');
 
 // Styles Folder
-config.styles = path.resolve(config.static, 'styles');
+config.styles = resolveApp('static/styles');
 
 // Dist Folder
-config.dist = path.resolve(config.root, 'build');
+config.dist = resolveApp('build');
 
 // Assets dist folders
 config.imagesOutputPath = '/assets/images/';

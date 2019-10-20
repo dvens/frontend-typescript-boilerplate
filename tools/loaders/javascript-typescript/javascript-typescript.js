@@ -18,8 +18,9 @@ const configureBabelLoader = ({
         presets: [
             ['@babel/preset-env', {
                 targets: legacy ? ['ie 11'] : findSupportedBrowsers(),
-                useBuiltIns: false,
+                useBuiltIns: 'usage',
                 modules: false,
+                corejs: 3,
                 debug: false,
             }],
             ...presets,

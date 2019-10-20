@@ -33,11 +33,11 @@ const imageLoader = (userOptions = {}) => {
     return {
         test: /\.(gif|png|jpe?g|svg)$/i,
         use: [{
-            loader: 'image-webpack-loader',
-            options: imageWebpackLoaderOptions
-        }, {
             loader: 'file-loader',
             options: Object.assign({}, defaultOptions, userOptions),
+        }, {
+            loader: 'image-webpack-loader',
+            options: imageWebpackLoaderOptions
         }]
     };
 

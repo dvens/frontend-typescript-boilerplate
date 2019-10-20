@@ -39,6 +39,9 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
     const isProduction = options.mode === 'production';
 
     const defaultConfig = {
+
+        target: 'web',
+
         context: config.root,
 
         mode: options.mode,
