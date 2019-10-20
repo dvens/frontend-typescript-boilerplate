@@ -1,3 +1,6 @@
+const webpack = require('webpack');
+const nodeExternals = require('webpack-node-externals');
+
 // Utilities
 const {
     config,
@@ -30,7 +33,7 @@ const createBaseConfig = (userOptions = {}) => {
 
     const defaultConfig = {
 
-        target: 'web',
+        target: 'node',
 
         context: config.root,
 
@@ -40,8 +43,19 @@ const createBaseConfig = (userOptions = {}) => {
 
         devtool: !isProduction ? 'cheap-module-source-map' : undefined,
 
-        plugins: [
+        externals: [
+            nodeExternals({
+                // we still want imported css from external files to be bundled otherwise 3rd party packages
+                // which require us to include their own css would not work properly
+                whitelist: /\.css$/,
+            }),
+        ],
 
+        plugins: [
+            new webpack.DefinePlugin({
+                __SERVER__: 'true',
+                __BROWSER__: 'false',
+            }),
         ],
 
         module: {
@@ -69,24 +83,23 @@ const createBaseConfig = (userOptions = {}) => {
             extensions: ['.ts', '.tsx', '.js', '.jsx']
         },
 
-        // Don't attempt to continue if there are any errors.
-        bail: isProduction,
-
-        cache: !isProduction,
-
-        // Specify what bundle information gets displayed
-        // https://webpack.js.org/configuration/stats/
         stats: {
-            cached: isVerbose,
-            cachedAssets: isVerbose,
-            chunks: isVerbose,
-            chunkModules: isVerbose,
+            assets: false,
+            cached: false,
+            cachedAssets: false,
+            chunks: false,
+            chunkModules: false,
+            children: false,
             colors: true,
-            hash: isVerbose,
-            modules: isVerbose,
-            reasons: !isProduction,
+            hash: false,
+            modules: false,
+            performance: false,
+            reasons: false,
             timings: true,
-            version: isVerbose,
+            version: false,
+        },
+        node: {
+            __dirname: false,
         },
     };
 

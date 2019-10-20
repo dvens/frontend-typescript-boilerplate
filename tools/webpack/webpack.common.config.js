@@ -2,6 +2,8 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const SassLintPlugin = require('sass-lint-webpack');
 const CopyPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
+const env = require('../utilities/env')();
 
 // Utilities
 const {
@@ -56,6 +58,11 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
             }),
             new SassLintPlugin(),
             new CopyPlugin(config.copy || []),
+            new webpack.DefinePlugin(env.stringified),
+            new webpack.DefinePlugin({
+                __SERVER__: 'false',
+                __BROWSER__: 'true',
+            }),
         ],
 
         module: {
