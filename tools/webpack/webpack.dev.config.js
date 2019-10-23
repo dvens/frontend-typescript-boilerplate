@@ -9,6 +9,7 @@ const createConfig = (options, legacy = false) => {
     const baseConfig = createBaseConfig(options, legacy);
 
     const devConfig = {
+        entry: ['webpack-hot-middleware/client'],
         plugins: [
             new webpack.HotModuleReplacementPlugin(),
         ]
@@ -18,12 +19,4 @@ const createConfig = (options, legacy = false) => {
 
 };
 
-module.exports = (userOptions) => {
-
-    // Uncomment: if you want to run legacy and modern in dev mode.
-    // return [createConfig(userOptions, true), createConfig(userOptions)];
-
-    // By default legacy is running in dev mode.
-    return [createConfig(userOptions, true)];
-
-};
+module.exports = createConfig;

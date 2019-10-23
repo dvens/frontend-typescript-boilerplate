@@ -21,7 +21,10 @@
     <title>{{ site.title }}</title>
 
     <!-- Style sheets -->
-    <link rel="stylesheet" href="/assets/css/main.css"/>
+
+    {% if not project.debug %}
+        <link rel="stylesheet" href="/assets/css/main.css"/>
+    {% endif %}
 
     <!-- Favicons -->
     <link rel="apple-touch-icon" sizes="120x120" href="/assets/images/favicons/apple-touch-icon.png">
@@ -56,7 +59,7 @@
     </script>
 
     {% if project.debug %}
-        <script async src="/assets/js/main.js"></script>
+        <script async src="/assets/js/legacy_main.js"></script>
     {% else %}
         <script type="module" async src="/assets/js/main.js"></script>
         <script nomodule async src="/assets/js/legacy_main.js"></script>

@@ -1,5 +1,5 @@
-// Config
 const createBaseConfig = require('./webpack.common.config');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const merge = require('webpack-merge');
 
@@ -8,6 +8,11 @@ const createConfig = (options, legacy = false) => {
     const baseConfig = createBaseConfig(options, legacy);
 
     const prodConfig = {
+        plugins: [
+            new MiniCssExtractPlugin({
+                filename: '/assets/css/[name].css',
+            }),
+        ],
         optimization: {
             minimizer: [
                 new TerserPlugin({
@@ -32,8 +37,4 @@ const createConfig = (options, legacy = false) => {
 
 };
 
-module.exports = (userOptions) => {
-
-    return [createConfig(userOptions, true), createConfig(userOptions)]
-
-};
+module.exports = createConfig;

@@ -12,6 +12,7 @@ export default class CounterElement extends HTMLElement {
     sayHello() {
         return 'Hello';
     }
+
     render() {
         return <div>Gello</div>;
     }

@@ -1,5 +1,4 @@
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const SassLintPlugin = require('sass-lint-webpack');
 const CopyPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
@@ -53,9 +52,6 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
         devtool: !isProduction ? 'cheap-module-source-map' : undefined,
 
         plugins: [
-            new MiniCssExtractPlugin({
-                filename: '/assets/css/[name].css',
-            }),
             new SassLintPlugin(),
             new CopyPlugin(config.copy || []),
             new webpack.DefinePlugin(env.stringified),
@@ -91,6 +87,7 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
             filename: outputFilename,
             chunkFilename: outputChunkFilename,
             path: config.clientDist,
+            publicPath: config.publicPath
         },
 
         resolve: {

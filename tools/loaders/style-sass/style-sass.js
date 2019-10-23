@@ -13,7 +13,7 @@ const configureCSSLoader = () => {
         include: /\main.(s*)css$/,
         use: [
             'style-loader',
-            MiniCssExtractPlugin.loader,
+            !isDevelopment && MiniCssExtractPlugin.loader,
             {
                 loader: 'css-loader',
                 options: {
@@ -33,7 +33,7 @@ const configureCSSLoader = () => {
                     sourceMap: isDevelopment
                 }
             }
-        ]
+        ].filter(Boolean),
     };
 
     const cssInJSConfig = {

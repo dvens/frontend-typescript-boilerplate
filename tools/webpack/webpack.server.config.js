@@ -100,8 +100,4 @@ const createBaseConfig = (userOptions = {}) => {
     return defaultConfig;
 };
 
-module.exports = (userOptions) => {
-
-    return [createBaseConfig(userOptions)];
-
-};
+module.exports = createBaseConfig;

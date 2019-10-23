@@ -1,6 +1,4 @@
-const path = require('path');
-
-const resolveApp = require('../tools/utilities/resolve-app')
+const resolveApp = require('../tools/utilities/resolve-app');
 
 const config = {};
 
@@ -14,7 +12,7 @@ config.components = resolveApp('components');
 config.dotenv = resolveApp('.env');
 
 // Entries
-config.appEntry = 'app.ts';
+config.appEntry = 'index.ts';
 config.polyfillEntry = 'polyfill.ts';
 config.serverEntry = 'server.ts';
 
@@ -32,12 +30,14 @@ config.styles = resolveApp('static/styles');
 
 // Dist Folder
 config.dist = resolveApp('build');
-config.clientDist = resolveApp('build/static');
+config.clientDist = config.dist;
 
 // Assets dist folders
 config.imagesOutputPath = '/assets/images/';
 config.fontsOutputPath = '/assets/fonts/';
 config.jsOutputPath = 'assets/js/'
+config.publicPath = '';
+
 
 // Config legacy prefix
 config.legacyPrefix = 'legacy_';
