@@ -23,7 +23,7 @@ const webRoutes = (app: any) => {
         }
 
         routes.forEach((route: string) => {
-            app.use(`/${route}`, (_: any, res: any) => {
+            app.get(`/${route}`, (_: any, res: any) => {
                 res.render(`${staticViewsPath}/${route}.html`, { project: { debug: true } });
             });
         });
