@@ -80,7 +80,7 @@ module.exports = function (config) {
             ]
         },
 
-        reporters: ['spec', 'progress', 'coverage-istanbul'],
+        reporters: ['spec', 'kjhtml', 'coverage-istanbul'],
 
         coverageIstanbulReporter: {
             reports: ['html', 'lcovonly', 'text-summary'],
