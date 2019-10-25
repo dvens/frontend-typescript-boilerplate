@@ -85,12 +85,11 @@ if (process.env.NODE_ENV === 'development') {
 /**
  * Routes
  */
+webRoutes(app);
 
-app.use('/', (_, res) => {
+app.use('/index.html', (_, res) => {
     res.render('index.html', { project: { debug: true } });
 });
-
-webRoutes(app);
 
 /**
  * Listen and browsersync
