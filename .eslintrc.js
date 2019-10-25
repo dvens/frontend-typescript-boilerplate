@@ -1,10 +1,6 @@
 module.exports = {
     parser: '@typescript-eslint/parser',
     plugins: ['simple-import-sort'],
-    env: {
-        browser: true,
-        mocha: true,
-    },
     extends: [
         'plugin:@typescript-eslint/recommended',
         'plugin:prettier/recommended',
@@ -36,7 +32,7 @@ module.exports = {
         'prettier/prettier': 'off',
         'jsx-a11y/click-events-have-key-events': 'off',
         'import/no-unresolved': 'off',
-        'simple-import-sort/sort': 'error',
+        'simple-import-sort/sort': 'warn',
         'import/named': 'off',
         'import/namespace': 'off',
         'jsx-a11y/anchor-is-valid': 'off',
