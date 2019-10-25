@@ -87,7 +87,7 @@ if (process.env.NODE_ENV === 'development') {
  */
 webRoutes(app);
 
-app.use('/index.html', (_, res) => {
+app.get('/', (_, res) => {
     res.render('index.html', { project: { debug: true } });
 });
 
