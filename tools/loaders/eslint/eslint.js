@@ -1,6 +1,6 @@
 const eslintConfig = {
     enforce: 'pre',
-    test: /\.(ts|js)x?$/,
+    test: /\.(ts|tsx)?$/,
     loader: require.resolve('eslint-loader'),
     exclude: /node_modules/
 }

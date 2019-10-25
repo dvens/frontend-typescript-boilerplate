@@ -29,7 +29,7 @@ const configureBabelLoader = ({
     };
 
     return [{
-        test: /\.(ts)x?$/,
+        test: /\.(ts|tsx)?$/,
         exclude: includedPackages,
         use: [{
             loader: require.resolve('babel-loader'),
@@ -38,7 +38,7 @@ const configureBabelLoader = ({
             loader: require.resolve('ts-loader'),
         }],
     }, {
-        test: /\.(js)x?$/,
+        test: /\.(js|jsx)?$/,
         exclude: includedPackages,
         use: [{
             loader: require.resolve('babel-loader'),
