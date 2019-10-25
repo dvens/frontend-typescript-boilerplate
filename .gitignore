@@ -31,3 +31,5 @@ atlassian-ide-plugin.xml
 # Logs
 logs
 *.log
+
+coverage/

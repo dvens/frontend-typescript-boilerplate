@@ -7,6 +7,8 @@ const {
     alias
 } = require('./tools/utilities/get-config');
 
+const path = require('path');
+
 module.exports = function (config) {
 
     config.set({
@@ -20,7 +22,6 @@ module.exports = function (config) {
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
         frameworks: ['jasmine'],
-
 
         // list of files / patterns to load in the browser
         files: [
@@ -37,7 +38,8 @@ module.exports = function (config) {
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
-            './**/*.test.ts': ['webpack'],
+            './**/*.ts': ['webpack', 'coverage'],
+            './**/*.tsx': ['webpack', 'coverage'],
         },
 
         webpack: {
@@ -59,7 +61,18 @@ module.exports = function (config) {
                     eslintConfig,
 
                     //CSS/SASS
-                    ...configureCSSLoader()
+                    ...configureCSSLoader(),
+                    {
+                        test: /\.ts$|\.tsx$/,
+                        enforce: 'post',
+                        use: {
+                            loader: 'istanbul-instrumenter-loader',
+                            options: {
+                                esModules: true
+                            }
+                        },
+                        exclude: /node_modules|\.test\.ts$/,
+                    }
                 ]
             },
             plugins: [
@@ -67,13 +80,23 @@ module.exports = function (config) {
             ]
         },
 
+        reporters: ['spec', 'progress', 'coverage-istanbul'],
 
-        // test results reporter to use
-        // possible values: 'dots', 'progress'
-        // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: ['progress'],
-
-
+        coverageIstanbulReporter: {
+            reports: ['html', 'lcovonly', 'text-summary'],
+            dir: 'coverage',
+            combineBrowserReports: true,
+            skipFilesWithNoCoverage: false,
+            fixWebpackSourcePaths: true,
+            thresholds: {
+                global: {
+                    statements: 80,
+                    branches: 80,
+                    functions: 80,
+                    lines: 80,
+                },
+            },
+        },
         // web server port
         port: 9876,
 
