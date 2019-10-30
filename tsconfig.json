@@ -41,7 +41,6 @@
         "tools/**/*.*",
         "config/**/*.*",
         "**/*.test.ts",
-        "**/*.stories.ts",
         "server/**/*.*",
     ]
 }
