@@ -18,10 +18,12 @@
         "node": ">=8.11.3",
         "yarn": "^1.12.3"
     },
-    "contributors": [{
-        "name": "Dylan Vens",
-        "email": "dylan.vens@deptagency.com"
-    }],
+    "contributors": [
+        {
+            "name": "Dylan Vens",
+            "email": "dylan.vens@deptagency.com"
+        }
+    ],
     "private": true,
     "repository": {
         "type": "git",

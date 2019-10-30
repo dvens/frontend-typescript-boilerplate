@@ -1,3 +1,4 @@
+import { Request, Response } from 'express-serve-static-core';
 import * as fs from 'fs';
 import path from 'path';
 
@@ -18,7 +19,7 @@ export const webRoutes = (app: any) => {
     const routes = getRoutes(files);
 
     routes.forEach((route: string) => {
-        app.get(`/${route}`, (_: any, res: any) => {
+        app.get(`/${route}`, (_: Request, res: Response) => {
             res.render(`${staticViewsPath}/${route}.html`, { project: { debug: true } });
         });
     });
