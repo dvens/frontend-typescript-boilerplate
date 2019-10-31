@@ -36,5 +36,5 @@ module.exports = {
         'import/named': 'off',
         'import/namespace': 'off',
         'jsx-a11y/anchor-is-valid': 'off',
-    }
-}
+    },
+};
