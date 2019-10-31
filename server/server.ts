@@ -3,22 +3,22 @@
  * @description The entry point, responsible to bootstrap all pages.
  * @version 1.0.0
  */
-import path from 'path';
-import express from 'express';
+import bodyParser from 'body-parser';
+import chalk from 'chalk';
 import compression from 'compression';
+import cors from 'cors';
 import dotenv from 'dotenv';
+import express from 'express';
 import logger from 'morgan';
 import nunjucks from 'nunjucks';
-import bodyParser from 'body-parser';
-import cors from 'cors';
-import chalk from 'chalk';
+import path from 'path';
 
 // Config/Utilities
 // import { config } from '../tools/utilities/get-config';
-
 // Middleware
 import errorHandler from './middleware/errorHandler';
 import hotReloadMiddleware from './middleware/hotReload';
+import webRoutes from './routes/webRoutes';
 
 /**
  * Application environment
@@ -85,7 +85,9 @@ if (process.env.NODE_ENV === 'development') {
 /**
  * Routes
  */
-app.use('/index.html', (_, res) => {
+webRoutes(app);
+
+app.get('/', (_, res) => {
     res.render('index.html', { project: { debug: true } });
 });
 
