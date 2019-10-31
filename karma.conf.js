@@ -7,6 +7,8 @@ const {
     alias
 } = require('./tools/utilities/get-config');
 
+const path = require('path');
+
 module.exports = function (config) {
 
     config.set({
@@ -21,12 +23,11 @@ module.exports = function (config) {
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
         frameworks: ['jasmine'],
 
-
         // list of files / patterns to load in the browser
         files: [
             'node_modules/@babel/polyfill/dist/polyfill.js',
             'node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js',
-            'src/**/*.test.ts'
+            './**/*.test.ts'
         ],
 
 
@@ -37,11 +38,15 @@ module.exports = function (config) {
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
-            'src/**/*.test.ts': ['webpack']
+            './**/*.ts': ['webpack', 'coverage'],
+            './**/*.tsx': ['webpack', 'coverage'],
         },
 
         webpack: {
             mode: 'development',
+            node: {
+                fs: 'empty'
+            },
             devtool: 'inline-source-maps',
             resolve: {
                 alias,
@@ -56,7 +61,18 @@ module.exports = function (config) {
                     eslintConfig,
 
                     //CSS/SASS
-                    ...configureCSSLoader()
+                    ...configureCSSLoader(),
+                    {
+                        test: /\.ts$|\.tsx$/,
+                        enforce: 'post',
+                        use: {
+                            loader: 'istanbul-instrumenter-loader',
+                            options: {
+                                esModules: true
+                            }
+                        },
+                        exclude: /node_modules|\.test\.ts$/,
+                    }
                 ]
             },
             plugins: [
@@ -64,13 +80,23 @@ module.exports = function (config) {
             ]
         },
 
+        reporters: ['spec', 'kjhtml', 'coverage-istanbul'],
 
-        // test results reporter to use
-        // possible values: 'dots', 'progress'
-        // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: ['progress'],
-
-
+        coverageIstanbulReporter: {
+            reports: ['html', 'lcovonly', 'text-summary'],
+            dir: 'coverage',
+            combineBrowserReports: true,
+            skipFilesWithNoCoverage: false,
+            fixWebpackSourcePaths: true,
+            thresholds: {
+                global: {
+                    statements: 80,
+                    branches: 80,
+                    functions: 80,
+                    lines: 80,
+                },
+            },
+        },
         // web server port
         port: 9876,
 
