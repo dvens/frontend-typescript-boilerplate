@@ -1,5 +1,5 @@
-import path from 'path';
 import { Response } from 'express';
+import path from 'path';
 
 const errorHandler = (err: Error, _req: any, res: Response, _next: any) =>
     res.status(404).json({
@@ -18,8 +18,8 @@ const errorHandler = (err: Error, _req: any, res: Response, _next: any) =>
                             .cwd()
                             .split(path.sep)
                             .join('/'),
-                        '.'
-                    )
+                        '.',
+                    ),
                 ),
     });
 

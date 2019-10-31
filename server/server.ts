@@ -10,15 +10,15 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import logger from 'morgan';
-import nunjucks from 'nunjucks';
 import path from 'path';
 
+import { nunjucksEnvironment } from '../tools/nunjucks';
 // Config/Utilities
-// import { config } from '../tools/utilities/get-config';
+import { config } from '../tools/utilities/get-config';
 // Middleware
 import errorHandler from './middleware/errorHandler';
 import hotReloadMiddleware from './middleware/hotReload';
-import webRoutes from './routes/webRoutes';
+import { webRoutes } from './routes/webRoutes';
 
 /**
  * Application environment
@@ -52,26 +52,16 @@ app.use(compression());
 /**
  * View templating engine
  */
-const appViews = [path.join(__dirname, '../pages')];
+const appViews = [path.join(__dirname, '../src/pages')];
 
-nunjucks.configure(appViews, { autoescape: true, express: app, watch: true });
+nunjucksEnvironment(appViews, {}, app);
 app.set('view engine', 'html');
-
-// TODO: transform to nunjucks plugin
-// configure(path.join(__dirname, '../pages'), {
-//     autoescape: true,
-//     express: app,
-//     noCache: true,
-//     watch: true
-// });
 
 /**
  * Body parser
  */
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
-// app.use(express.static(config.clientDist));
 
 /**
  * Error handler
@@ -83,10 +73,18 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 /**
+ * Static files for production
+ */
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, 'assets')));
+}
+
+/**
  * Routes
  */
-webRoutes(app);
+webRoutes({ routeExtension: '.html', rootFolder: config.pages, app });
 
+// Render index.html as default path
 app.get('/', (_, res) => {
     res.render('index.html', { project: { debug: true } });
 });

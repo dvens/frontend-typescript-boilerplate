@@ -7,7 +7,7 @@ config.root = resolveApp('');
 
 // Source folder
 config.source = resolveApp('src');
-config.pages = resolveApp('pages');
+config.pages = resolveApp('src/pages');
 config.components = resolveApp('components');
 config.dotenv = resolveApp('.env');
 
@@ -35,9 +35,8 @@ config.clientDist = config.dist;
 // Assets dist folders
 config.imagesOutputPath = '/assets/images/';
 config.fontsOutputPath = '/assets/fonts/';
-config.jsOutputPath = 'assets/js/'
+config.jsOutputPath = 'assets/js/';
 config.publicPath = '';
-
 
 // Config legacy prefix
 config.legacyPrefix = 'legacy_';
@@ -46,9 +45,11 @@ config.legacyPrefix = 'legacy_';
 config.cssInJS = true;
 
 // Copy config
-config.copy = [{
-    from: `${config.static}/data`,
-    to: `assets/data`
-}]
+config.copy = [
+    {
+        from: `${config.static}/data`,
+        to: `assets/data`,
+    },
+];
 
 module.exports = config;
