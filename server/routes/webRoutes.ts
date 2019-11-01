@@ -26,7 +26,7 @@ export function getTemplate(url: string, config: RoutesConfig) {
     // Check if the template is there otherwise return null
     if (!hasTemplate) {
         return {
-            templateUrl: null,
+            templateUrl: '',
             data: defaultData,
         };
     }
@@ -46,6 +46,7 @@ export function getTemplate(url: string, config: RoutesConfig) {
 export const webRoutes = (config: RoutesConfig) => {
     config.app.get('*', (req: express.Request, res: express.Response) => {
         const { templateUrl, data } = getTemplate(req.originalUrl, config);
+
         if (templateUrl) {
             res.render(templateUrl, data);
         } else {

@@ -71,11 +71,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(errorHandler);
 
 /**
- * Route Configuration
- */
-webRoutes({ routeExtension: '.html', rootFolder: config.pages, app, port: SERVER_PORT });
-
-/**
  * Development config
  */
 if (process.env.NODE_ENV === 'development') {
@@ -118,3 +113,8 @@ if (process.env.NODE_ENV === 'production') {
         );
     });
 }
+
+/**
+ * Route Configuration
+ */
+webRoutes({ routeExtension: '.html', rootFolder: config.pages, app, port: SERVER_PORT });
