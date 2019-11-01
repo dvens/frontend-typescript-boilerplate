@@ -1,12 +1,10 @@
 const fs = require('fs');
 const path = require('path');
-const {
-    config
-} = require('./get-config');
+const { config } = require('./get-config');
 
 if (!process.env.NODE_ENV) {
     throw new Error(
-        'The process.env.NODE_ENV environment variable is required but was not specified.'
+        'The process.env.NODE_ENV environment variable is required but was not specified.',
     );
 }
 
@@ -18,7 +16,7 @@ const dotenvFiles = [
     config.dotenv,
 ].filter(Boolean);
 
-dotenvFiles.forEach((dotenvFile) => {
+dotenvFiles.forEach(dotenvFile => {
     if (fs.existsSync(dotenvFile)) {
         require('dotenv').config({
             path: dotenvFile,
@@ -29,12 +27,11 @@ dotenvFiles.forEach((dotenvFile) => {
 const appDirectory = fs.realpathSync(process.cwd());
 process.env.NODE_PATH = (process.env.NODE_PATH || '')
     .split(path.delimiter)
-    .filter((folder) => folder && !path.isAbsolute(folder))
-    .map((folder) => path.resolve(appDirectory, folder))
+    .filter(folder => folder && !path.isAbsolute(folder))
+    .map(folder => path.resolve(appDirectory, folder))
     .join(path.delimiter);
 
 module.exports = () => {
-
     const raw = {
         PORT: process.env.PORT || 3000,
         NODE_ENV: process.env.NODE_ENV || 'development',
@@ -51,6 +48,6 @@ module.exports = () => {
 
     return {
         raw,
-        stringified
+        stringified,
     };
 };

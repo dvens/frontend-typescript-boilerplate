@@ -9,10 +9,10 @@
         "start": "webpack --progress",
         "dev": "cross-env NODE_ENV=development yarn run start",
         "prod": "cross-env NODE_ENV=production yarn run start",
-        "storybook": "start-storybook -p 9001",
+        "storybook": " start-storybook -p 9001",
         "storybook:build": "build-storybook -o _site -s storybook-static",
         "test": "karma start karma.conf.js",
-        "dev:server": "cross-env NODE_ENV=development nodemon"
+        "serve": "cross-env NODE_ENV=development PORT=3000 nodemon"
     },
     "engines": {
         "node": ">=8.11.3",
@@ -48,6 +48,7 @@
         "@storybook/html": "^5.1.11",
         "@storybook/theming": "^5.1.11",
         "@types/body-parser": "^1.17.1",
+        "@types/browser-sync": "^2.26.1",
         "@types/compression": "^1.0.1",
         "@types/cors": "^2.8.6",
         "@types/dotenv": "^6.1.1",
@@ -68,6 +69,7 @@
         "@typescript-eslint/parser": "^2.0.0",
         "@webcomponents/webcomponentsjs": "^2.3.0",
         "babel-loader": "8.0.5",
+        "browser-sync": "^2.26.7",
         "browserslist": "^4.3.4",
         "clean-css-loader": "^2.0.0",
         "clean-webpack-plugin": "^2.0.0",

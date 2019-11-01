@@ -1,4 +1,3 @@
-import chalk from 'chalk';
 import express from 'express';
 import * as fs from 'fs';
 import path from 'path';
@@ -8,6 +7,7 @@ export interface RoutesConfig {
     routeExtension: string;
     rootFolder: string;
     app: any;
+    port: number;
 }
 
 const defaultData = {
@@ -30,11 +30,6 @@ export function getTemplate(url: string, config: RoutesConfig) {
             data: defaultData,
         };
     }
-
-    console.log(
-        chalk.bgBlueBright(`Route found:`),
-        `http://localhost:${process.env.PORT || 8500}${url}`,
-    );
 
     // Check if the pages has a corresponding JSON file.
     if (hasJSONfile) {

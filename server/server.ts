@@ -4,6 +4,7 @@
  * @version 1.0.0
  */
 import bodyParser from 'body-parser';
+import browserSync from 'browser-sync';
 import chalk from 'chalk';
 import compression from 'compression';
 import cors from 'cors';
@@ -30,12 +31,13 @@ dotenv.config();
 /**
  * Initialize app
  */
+const SERVER_PORT = config.port;
 const app = express();
 
 /**
  * Logger
  */
-app.use(logger('dev'));
+app.use(logger(process.env.NODE_ENV === 'development' ? 'dev' : 'prod'));
 
 /**
  * Cors
@@ -68,44 +70,52 @@ app.use(bodyParser.urlencoded({ extended: false }));
  */
 app.use(errorHandler);
 
+/**
+ * Development config
+ */
 if (process.env.NODE_ENV === 'development') {
-    hotReloadMiddleware(app);
+    // Static files during development
+    app.use('/assets', express.static(config.assets));
+
+    // Enable hot reload when in production mode.
+    // And wait until webpack is compiled.
+    hotReloadMiddleware(app, () => {
+        // Enable browsersync during development
+        app.listen(SERVER_PORT - 50, () => {
+            browserSync({
+                files: config.browserSync,
+                notify: true,
+                open: false,
+                port: SERVER_PORT,
+                proxy: `localhost:${SERVER_PORT - 50}`,
+                ui: false,
+            });
+
+            console.log(
+                `[${new Date().toISOString()}]`,
+                chalk.bgCyanBright(`App is running: http://localhost:${SERVER_PORT}`),
+            );
+        });
+    });
 }
 
 /**
- * Static files for production
+ * Production config
  */
 if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, 'assets')));
+    // Static files for production
+    app.use('/assets', express.static(`${config.clientDist}/assets`));
+
+    // Listen
+    app.listen(SERVER_PORT, () => {
+        console.log(
+            `[${new Date().toISOString()}]`,
+            chalk.blue(`App is running: http://localhost:${SERVER_PORT}`),
+        );
+    });
 }
 
 /**
  * Routes
  */
-webRoutes({ routeExtension: '.html', rootFolder: config.pages, app });
-
-/**
- * Listen and browsersync
- */
-app.listen(process.env.PORT || 8500, () => {
-    console.log(
-        `[${new Date().toISOString()}]`,
-        chalk.blue(`App is running: http://localhost:${process.env.PORT || 8500}`),
-    );
-});
-
-// TODO implement
-// if (config.env === 'development') {
-//     app.listen(config.port - 50, () => {
-//       browserSync({
-//         files: ['app/views/**/*.*', 'public/**/*.*'],
-//         notify: true,
-//         open: false,
-//         port: config.port,
-//         proxy: `localhost:${config.port - 50}`,
-//         ui: false,
-//       });
-//     });
-//   } else {
-//     app.listen(config.port);
-//   }
+webRoutes({ routeExtension: '.html', rootFolder: config.pages, app, port: SERVER_PORT });

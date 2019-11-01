@@ -6,14 +6,17 @@ import { config } from '../../tools/utilities/get-config';
 import webpackConfig from '../../webpack.config';
 
 const compiler: any = webpack(webpackConfig);
+const instance = webpackDevMiddleware(compiler, {
+    publicPath: config.publicPath,
+});
 
-const hotReloadMiddleware = (app: any) => {
-    app.use(
-        webpackDevMiddleware(compiler, {
-            publicPath: config.publicPath,
-        }),
-    );
+const hotReloadMiddleware = (app: any, callback?: () => void) => {
+    app.use(instance);
     app.use(webpackHotMiddleware(compiler));
+
+    instance.waitUntilValid(() => {
+        if (callback) callback();
+    });
 };
 
 export default hotReloadMiddleware;

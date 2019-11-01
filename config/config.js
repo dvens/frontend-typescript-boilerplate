@@ -19,6 +19,9 @@ config.serverEntry = 'server.ts';
 // Server folder
 config.server = resolveApp('server');
 
+// Node.js App
+config.port = process.env.PORT || 3000;
+
 // Static folder
 config.static = resolveApp('static');
 
@@ -43,6 +46,9 @@ config.legacyPrefix = 'legacy_';
 
 // Config CSS in JS option
 config.cssInJS = true;
+
+// Browsersync watched files
+config.browserSync = ['src/**/*.html'];
 
 // Copy config
 config.copy = [
