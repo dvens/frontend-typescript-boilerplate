@@ -3,69 +3,58 @@ import express from 'express';
 import * as fs from 'fs';
 import path from 'path';
 
+import getDefaultMode from '../../tools/utilities/get-default-mode';
 export interface RoutesConfig {
     routeExtension: string;
     rootFolder: string;
     app: any;
 }
 
-export function getDirectories(pathName: string) {
-    // Filters out all the directories that are private.
-    // Private folders are prefixed with _ (underscore)
-    return fs.readdirSync(pathName).filter(name => !name.includes('_'));
-}
+const defaultData = {
+    project: { debug: getDefaultMode() === 'development' },
+};
 
-export function parseDirectories(folderName: string, config: RoutesConfig) {
-    const files = getDirectories(folderName);
+export function getTemplate(url: string, config: RoutesConfig) {
+    // Get template url and remove first /
+    const templateUrl = path.join(url, `index${config.routeExtension}`).substr(1);
+    const JSONUrl = path.join(config.rootFolder, url, 'index.json');
+    const hasTemplate = fs.existsSync(path.join(config.rootFolder, templateUrl));
+    const hasJSONfile = fs.existsSync(JSONUrl);
 
-    files.forEach((file: string) => {
-        const fullName = path.join(folderName, file);
-        const isDirectory = fs.lstatSync(fullName).isDirectory();
+    let data = {};
 
-        if (isDirectory) {
-            parseDirectories(fullName, config);
-        } else if (path.extname(file) === config.routeExtension) {
-            // Generate a route when its not a directory but a file.
-            generateRoute(fullName, config);
-        }
-    });
-
-    return;
-}
-
-export function generateRoute(pathName: string, config: RoutesConfig) {
-    const routePaths = path.dirname(pathName).split(config.routeExtension);
-
-    // Check if there are any routes
-    if (routePaths.length === 0) return null;
-
-    const routePath = routePaths[0];
-    // Return when the path is the base directory (ex: "src/pages")
-    if (isBaseDirectory(routePath, config.rootFolder)) return null;
-
-    console.log(routePath, config.rootFolder);
-
-    // Removes the pages directory of the total route path. And generates routes based upon folder structure.
-    // Ex: /src/pages/about/contact (route path) - /src/pages/ (pages directory) => /about/contact
-    const url = `${routePath.replace(config.rootFolder, '')}`;
+    // Check if the template is there otherwise return null
+    if (!hasTemplate) {
+        return {
+            templateUrl: null,
+            data: defaultData,
+        };
+    }
 
     console.log(
-        chalk.bgBlueBright(`Generated route:`),
+        chalk.bgBlueBright(`Route found:`),
         `http://localhost:${process.env.PORT || 8500}${url}`,
     );
 
-    return config.app.get(`${url}/`, (_: express.Request, res: express.Response) => {
-        res.render(pathName, { project: { debug: true } });
-    });
-}
+    // Check if the pages has a corresponding JSON file.
+    if (hasJSONfile) {
+        const JSONfile = fs.readFileSync(JSONUrl);
+        data = JSON.parse(`${JSONfile}`);
+    }
 
-export function isBaseDirectory(routePath: string, folderName: string) {
-    const pathNames = routePath.split('/');
-    return (
-        pathNames[pathNames.length - 1].toLowerCase() === path.basename(folderName).toLowerCase()
-    );
+    return {
+        templateUrl,
+        data: Object.assign({}, defaultData, data),
+    };
 }
 
 export const webRoutes = (config: RoutesConfig) => {
-    parseDirectories(config.rootFolder, config);
+    config.app.get('*', (req: express.Request, res: express.Response) => {
+        const { templateUrl, data } = getTemplate(req.originalUrl, config);
+        if (templateUrl) {
+            res.render(templateUrl, data);
+        } else {
+            res.status(404).render('404.html', data);
+        }
+    });
 };

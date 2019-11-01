@@ -84,11 +84,6 @@ if (process.env.NODE_ENV === 'production') {
  */
 webRoutes({ routeExtension: '.html', rootFolder: config.pages, app });
 
-// Render index.html as default path
-app.get('/', (_, res) => {
-    res.render('index.html', { project: { debug: true } });
-});
-
 /**
  * Listen and browsersync
  */
