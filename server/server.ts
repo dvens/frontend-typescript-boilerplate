@@ -71,6 +71,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(errorHandler);
 
 /**
+ * Route Configuration
+ */
+webRoutes({ routeExtension: '.html', rootFolder: config.pages, app, port: SERVER_PORT });
+
+/**
  * Development config
  */
 if (process.env.NODE_ENV === 'development') {
@@ -106,7 +111,6 @@ if (process.env.NODE_ENV === 'production') {
     // Static files for production
     app.use('/assets', express.static(`${config.clientDist}/assets`));
 
-    // Listen
     app.listen(SERVER_PORT, () => {
         console.log(
             `[${new Date().toISOString()}]`,
@@ -114,8 +118,3 @@ if (process.env.NODE_ENV === 'production') {
         );
     });
 }
-
-/**
- * Routes
- */
-webRoutes({ routeExtension: '.html', rootFolder: config.pages, app, port: SERVER_PORT });

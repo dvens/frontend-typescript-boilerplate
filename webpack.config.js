@@ -7,20 +7,17 @@ const isProduction = getDefaultMode() === 'production';
 
 const clientConfig = {
     entry: [resolveApp('src/index.ts')],
-    includedPackages: [/node_modules\/(?!@atomify)/]
+    includedPackages: [/node_modules\/(?!@atomify)/],
 };
 
 function getBuildOptions() {
-
     if (isProduction) {
         // Legacy and normal build
-        return [webpackProdConfig(clientConfig, true), webpackProdConfig(clientConfig)]
+        return [webpackProdConfig(clientConfig, true), webpackProdConfig(clientConfig)];
     } else {
         // Legacy build
         return webpackDevConfig(clientConfig, true);
     }
-
 }
 
-// TODO: add the option to build the server.
 module.exports = getBuildOptions();
