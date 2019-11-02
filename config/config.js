@@ -8,7 +8,7 @@ config.root = resolveApp('');
 // Source folder
 config.source = resolveApp('src');
 config.pages = resolveApp('src/pages');
-config.components = resolveApp('components');
+config.components = resolveApp('src/components');
 config.dotenv = resolveApp('.env');
 
 // Entries

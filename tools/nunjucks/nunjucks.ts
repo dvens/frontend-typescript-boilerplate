@@ -4,7 +4,6 @@ interface NunjucksOptions {
     extensions?: Array<{ name: string; func: Function }>;
     filters?: Array<{ name: string; func: () => void }>;
     express?: Express.Application;
-    alias?: {};
 }
 
 export const nunjucksEnvironment = (
