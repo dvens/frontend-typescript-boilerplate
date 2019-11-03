@@ -1,7 +1,10 @@
 {% extends '../../_layouts/default.html' %}
 
+{% from 'atoms/button/macro.html' import button %}
+
 {% block content %}
 
     <h1>{{ title }}</h1>
+    {{ button({ label: 'Hello world!' })}}
 
 {% endblock %}

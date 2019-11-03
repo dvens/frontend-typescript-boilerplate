@@ -11,7 +11,6 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import logger from 'morgan';
-import path from 'path';
 
 import { nunjucksEnvironment } from '../tools/nunjucks';
 // Config/Utilities
@@ -54,7 +53,7 @@ app.use(compression());
 /**
  * View templating engine
  */
-const appViews = [path.join(__dirname, '../src/pages')];
+const appViews = [config.pages, config.components];
 
 nunjucksEnvironment(appViews, {}, app);
 app.set('view engine', 'html');
