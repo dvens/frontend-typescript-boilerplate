@@ -2,6 +2,7 @@ const configureBabelLoader = require('../tools/loaders/javascript-typescript');
 const configureCSSLoader = require('../tools/loaders/style-sass');
 const eslintConfig = require('../tools/loaders/eslint');
 const SassLintPlugin = require('sass-lint-webpack');
+const path = require('path');
 
 const {
     alias
@@ -25,7 +26,7 @@ module.exports = ({
     config.plugins.push(new SassLintPlugin());
 
     // Valid extensions
-    config.resolve.extensions.push('.ts', '.tsx', '.js', '.jsx');
+    config.resolve.extensions.push('.ts', '.tsx', '.js', '.jsx', '.md');
 
     // Alias configuration
     config.resolve.alias = alias;
