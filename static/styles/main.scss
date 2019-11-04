@@ -1,7 +1,11 @@
+:root {
+    --background-color: #e3e3e3;
+}
+
 .container {
     display: flex;
 }
 
 body {
-    background-color: #e3e3e3;
+    background-color: var(--background-color, #ffffff);
 }
