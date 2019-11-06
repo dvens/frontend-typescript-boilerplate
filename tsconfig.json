@@ -28,6 +28,7 @@
             "@static/*": ["./static/*"],
             "@pages/*": ["./pages/*"],
             "@server/*": ["./server/*"],
+            "@source/*": ["./src/*"],
             "@/*": ["./src/*"]
         }
     },

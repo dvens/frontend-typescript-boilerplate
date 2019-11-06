@@ -29,7 +29,7 @@ config.static = resolveApp('static');
 config.assets = resolveApp('static/assets');
 
 // Styles Folder
-config.styles = resolveApp('static/styles');
+config.styles = resolveApp('src/styles');
 
 // Dist Folder
 config.dist = resolveApp('build');
@@ -51,11 +51,9 @@ config.cssInJS = true;
 config.browserSync = ['src/**/*.html'];
 
 // Copy config
-config.copy = [
-    {
-        from: `${config.static}/data`,
-        to: `assets/data`,
-    },
-];
+config.copy = [{
+    from: `${config.static}/data`,
+    to: `assets/data`,
+}];
 
 module.exports = config;

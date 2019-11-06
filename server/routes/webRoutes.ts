@@ -31,7 +31,7 @@ export function getTemplate(url: string, config: RoutesConfig) {
         };
     }
 
-    // Check if the pages has a corresponding JSON file.
+    // Check if the page has a corresponding JSON file.
     if (hasJSONfile) {
         const JSONfile = fs.readFileSync(JSONUrl);
         data = JSON.parse(`${JSONfile}`);

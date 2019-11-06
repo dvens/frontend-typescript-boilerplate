@@ -3,7 +3,7 @@ options:
 files:
   include:
     - "src/**/*.s+(a|c)ss"
-    - "static/styles/**/*.s+(a|c)ss"
+    - "src/styles/**/*.s+(a|c)ss"
 rules:
   space-after-colon: 0
   force-pseudo-nesting: 0
