@@ -6,24 +6,23 @@
     "author": "Dept",
     "scripts": {
         "lint-fix": "eslint src/ --ext .ts,.tsx --fix",
-        "start": "webpack --progress",
-        "dev": "cross-env NODE_ENV=development yarn run start",
-        "prod": "cross-env NODE_ENV=production yarn run start",
+        "webpack": "webpack --progress",
+        "dev": "cross-env NODE_ENV=development yarn run webpack",
+        "build": "cross-env NODE_ENV=production yarn run webpack",
         "storybook": " start-storybook -p 9001",
         "storybook:build": "build-storybook -o _site -s storybook-static",
         "test": "karma start karma.conf.js",
-        "serve": "cross-env NODE_ENV=development PORT=3000 nodemon"
+        "start": "cross-env NODE_ENV=development PORT=3000 nodemon",
+        "start:prod": " yarn run build && cross-env NODE_ENV=production nodemon"
     },
     "engines": {
         "node": ">=8.11.3",
         "yarn": "^1.12.3"
     },
-    "contributors": [
-        {
-            "name": "Dylan Vens",
-            "email": "dylan.vens@deptagency.com"
-        }
-    ],
+    "contributors": [{
+        "name": "Dylan Vens",
+        "email": "dylan.vens@deptagency.com"
+    }],
     "private": true,
     "repository": {
         "type": "git",
