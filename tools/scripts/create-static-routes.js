@@ -65,11 +65,9 @@ function generateStaticFile(pathName, config) {
     }
 
     const env = configureNunjucks([projectConfig.pages, projectConfig.components], {});
-    const templateData = Object.assign({}, data, projectConfig.project);
+    const templateDate = Object.assign({}, data, projectConfig.project);
 
-    const template = nunjucks.compile(templateUrl, env)
-
-    console.log(template, env);
+    console.log(env.render(templateUrl, templateDate));
 
 }
 
