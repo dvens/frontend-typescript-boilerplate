@@ -1,5 +1,7 @@
 const resolveApp = require('../tools/utilities/resolve-app');
 
+const getDefaultMode = require('../tools/utilities/get-default-mode');
+
 const config = {};
 
 // Root folder
@@ -49,6 +51,11 @@ config.cssInJS = true;
 
 // Browsersync watched files
 config.browserSync = ['src/**/*.html'];
+
+// Project
+config.project = {
+    debug: getDefaultMode() === 'development'
+};
 
 // Copy config
 config.copy = [{

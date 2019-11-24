@@ -2,7 +2,7 @@ import express from 'express';
 import * as fs from 'fs';
 import path from 'path';
 
-import getDefaultMode from '../../tools/utilities/get-default-mode';
+import { config as projectConfig } from '../../tools/utilities/get-config';
 export interface RoutesConfig {
     routeExtension: string;
     rootFolder: string;
@@ -10,9 +10,7 @@ export interface RoutesConfig {
     port: number;
 }
 
-const defaultData = {
-    project: { debug: getDefaultMode() === 'development' },
-};
+const defaultData = projectConfig;
 
 export function getTemplate(url: string, config: RoutesConfig) {
     // Get template url and remove first /

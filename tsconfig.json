@@ -26,7 +26,7 @@
         "typeRoots": ["./node_modules/@types", "./types"],
         "paths": {
             "@static/*": ["./static/*"],
-            "@pages/*": ["./pages/*"],
+            "@pages/*": ["./src/pages/*"],
             "@server/*": ["./server/*"],
             "@source/*": ["./src/*"],
             "@/*": ["./src/*"]
@@ -42,6 +42,7 @@
         "tools/**/*.*",
         "config/**/*.*",
         "**/*.test.ts",
-        "server/**/*.*",
+        ".storybook/**/*.*",
+        "server/**/*.*"
     ]
 }

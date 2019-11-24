@@ -1,0 +1,78 @@
+// import chalk from 'chalk';
+const fs = require('fs');
+const path = require('path');
+const nunjucks = require('nunjucks');
+const {
+    config
+} = require('../utilities/get-config');
+const projectConfig = config;
+
+function getDirectories(pathName) {
+    // Filters out all the directories that are private.
+    // Private folders are prefixed with _ (underscore)
+    return fs.readdirSync(pathName).filter(name => !name.includes('_'));
+}
+
+function parseDirectories(folderName, config) {
+
+    const files = getDirectories(folderName);
+
+    files.forEach((file) => {
+        const fullName = path.join(folderName, file);
+        const isDirectory = fs.lstatSync(fullName).isDirectory();
+
+        if (isDirectory) {
+            parseDirectories(fullName, config);
+        } else if (path.extname(file) === config.routeExtension) {
+            // Generate a static template when its not a directory but a file.
+            generateStaticFile(fullName, config);
+        }
+    });
+
+    return;
+}
+
+function configureNunjucks(views, defaultOptions) {
+    const env = nunjucks.configure(views, defaultOptions);
+
+    if (defaultOptions.extensions && defaultOptions.extensions.length > 0) {
+        defaultOptions.extensions.forEach(extension => {
+            env.addExtension(extension.name, extension.func(nunjucks));
+        });
+    }
+
+    if (defaultOptions.filters && defaultOptions.filters.length > 0) {
+        defaultOptions.filters.forEach(filter => {
+            env.addFilter(filter.name, filter.func);
+        });
+    }
+
+    return env;
+}
+
+function generateStaticFile(pathName, config) {
+
+    const templateUrl = pathName;
+    const JSONUrl = path.join(pathName.replace(config.routeExtension, '.json'));
+    const hasJSONfile = fs.existsSync(JSONUrl);
+
+    let data = {};
+
+    // Check if the page has a corresponding JSON file.
+    if (hasJSONfile) {
+        const JSONfile = fs.readFileSync(JSONUrl);
+        data = JSON.parse(`${JSONfile}`);
+    }
+
+    const env = configureNunjucks([projectConfig.pages, projectConfig.components], {});
+    const templateData = Object.assign({}, data, projectConfig.project);
+
+    const template = nunjucks.compile(templateUrl, env)
+
+    console.log(template, env);
+
+}
+
+parseDirectories(config.pages, {
+    routeExtension: '.html'
+});
