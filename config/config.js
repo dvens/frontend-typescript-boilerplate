@@ -56,6 +56,10 @@ config.copy = [
         from: `${config.static}/data`,
         to: `assets/data`,
     },
+    {
+        from: `${config.static}/assets/images`,
+        to: `assets/images`,
+    },
 ];
 
 module.exports = config;
