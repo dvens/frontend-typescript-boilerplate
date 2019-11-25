@@ -4,7 +4,10 @@ interface Window {
     };
 }
 
-declare module '*.scss';
+declare module '*.scss' {
+    const value: string;
+    export default value;
+}
 
 declare module '*.md' {
     const value: string;

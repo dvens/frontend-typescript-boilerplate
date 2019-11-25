@@ -18,9 +18,9 @@ import {
  * @param {any} Klass The class (not instance) you want the knobs for
  * @param {OptionsWithClassPropertiesKnobs} Options Define overrides and a template if needed
  */
-export function withClassPropertiesKnobs(Klass, {
+export function withClassPropertiesKnobs(Klass: any, {
     overrides: overrideFunction
-} = {}) {
+}: any = {}) {
     let el = new Klass();
 
     const elProperties = Klass.properties ? Object.keys(Klass.properties) : [];
@@ -29,7 +29,7 @@ export function withClassPropertiesKnobs(Klass, {
     const overrides = overrideFunction ? overrideFunction(el) : [];
 
     if (Klass.__classProperties) {
-        Array.from(Klass.__classProperties.keys()).forEach(propName => {
+        Array.from(Klass.__classProperties.keys()).forEach((propName: string) => {
             if (!elProperties.includes(propName)) {
                 properties.push(propName);
             }
@@ -38,7 +38,7 @@ export function withClassPropertiesKnobs(Klass, {
 
     properties.forEach(propName => {
 
-        const override = overrides.find(item => item.key === propName);
+        const override = overrides.find((item: any) => item.key === propName);
 
         if (override && override.fn) {
             el[propName] = override.fn();

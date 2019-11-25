@@ -19,6 +19,6 @@
         "node_modules",
         "**/*.test.ts",
         "**/*.stories.ts",
-        ".storybook/**/*"
+        ".storybook/**/*.*",
     ]
 }

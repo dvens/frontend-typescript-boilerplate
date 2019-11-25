@@ -1,5 +1,7 @@
 const resolveApp = require('../tools/utilities/resolve-app');
 
+const getDefaultMode = require('../tools/utilities/get-default-mode');
+
 const config = {};
 
 // Root folder
@@ -29,7 +31,7 @@ config.static = resolveApp('static');
 config.assets = resolveApp('static/assets');
 
 // Styles Folder
-config.styles = resolveApp('static/styles');
+config.styles = resolveApp('src/styles');
 
 // Dist Folder
 config.dist = resolveApp('build');
@@ -50,16 +52,21 @@ config.cssInJS = true;
 // Browsersync watched files
 config.browserSync = ['src/**/*.html'];
 
+// Project
+config.project = {
+    debug: getDefaultMode() === 'development'
+};
+
 // Copy config
-config.copy = [
-    {
-        from: `${config.static}/data`,
-        to: `assets/data`,
-    },
-    {
-        from: `${config.static}/assets/images`,
-        to: `assets/images`,
-    },
-];
+config.copy = [{
+    from: `${config.static}/data`,
+    to: `assets/data`,
+}, {
+    from: `${config.static}/assets/images`,
+    to: `assets/images`,
+}, {
+    from: `${config.static}/assets/svg`,
+    to: `assets/svg`,
+}];
 
 module.exports = config;
