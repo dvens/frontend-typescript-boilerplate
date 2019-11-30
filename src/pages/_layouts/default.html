@@ -23,7 +23,7 @@
     <!-- Style sheets -->
 
     {% if not project.debug %}
-        <link rel="stylesheet" href="/assets/css/main.css"/>
+        <link rel="stylesheet" href="{{ project.assetPrefix }}/assets/css/main.css"/>
     {% endif %}
 
     <base href="/" />
@@ -63,8 +63,8 @@
     {% if project.debug %}
         <script async src="/assets/js/legacy_main.js"></script>
     {% else %}
-        <script type="module" async src="/assets/js/main.js"></script>
-        <script nomodule async src="/assets/js/legacy_main.js"></script>
+        <script type="module" async src="{{ project.assetPrefix }}/assets/js/main.js"></script>
+        <script nomodule async src="{{ project.assetPrefix }}/assets/js/legacy_main.js"></script>
     {% endif %}
 
 </body>

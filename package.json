@@ -8,14 +8,14 @@
         "lint-fix": "eslint src/ --ext .ts,.tsx --fix",
         "webpack": "webpack --progress",
         "dev": "cross-env NODE_ENV=development yarn run webpack",
-        "build": "cross-env NODE_ENV=production yarn run webpack && yarn run storybook:build && yarn run static",
-        "storybook": " start-storybook -p 9001",
+        "build": "cross-env NODE_ENV=production yarn webpack && yarn storybook:build && yarn static",
+        "storybook": "start-storybook -p 9001",
         "storybook:build": "cross-env NODE_ENV=production build-storybook -o ./build/styleguide -s storybook-static",
         "test": "karma start karma.conf.js",
         "start": "cross-env NODE_ENV=development PORT=3000 nodemon",
         "build:server": "yarn run build && cross-env NODE_ENV=production tsc --project tsconfig.server.json",
         "serve:build": "cross-env NODE_ENV=production ts-node ./build/server/server.js",
-        "static": "cross-env NODE_ENV=production ts-node ./tools/scripts/create-static-routes.js"
+        "static": "cross-env NODE_ENV=production ts-node ./tools/scripts/create-static-routes.js",
     },
     "engines": {
         "node": ">=8.11.3",
