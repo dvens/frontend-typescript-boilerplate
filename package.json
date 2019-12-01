@@ -21,10 +21,12 @@
         "node": ">=8.11.3",
         "yarn": "^1.12.3"
     },
-    "contributors": [{
-        "name": "Dylan Vens",
-        "email": "dylan.vens@deptagency.com"
-    }],
+    "contributors": [
+        {
+            "name": "Dylan Vens",
+            "email": "dylan.vens@deptagency.com"
+        }
+    ],
     "private": true,
     "repository": {
         "type": "git",
@@ -118,7 +120,8 @@
         "webpack-dev-server": "^3.8.2",
         "webpack-hot-middleware": "^2.25.0",
         "webpack-merge": "^4.1.5",
-        "webpack-node-externals": "^1.7.2"
+        "webpack-node-externals": "^1.7.2",
+        "webpackbar": "^4.0.0"
     },
     "dependencies": {
         "@atomify/core": "^2.3.6",

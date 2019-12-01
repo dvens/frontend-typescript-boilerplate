@@ -1,12 +1,16 @@
-// import chalk from 'chalk';
+const chalk = require('chalk');
 const fs = require('fs');
 const path = require('path');
-const nunjucks = require('nunjucks');
+
+
 const {
     config
 } = require('../utilities/get-config');
-const projectConfig = config;
 const ensureDirectoryExistence = require('../utilities/ensure-directory-existence');
+const configureNunjucks = require('../utilities/configure-nunjucks');
+
+const projectConfig = config;
+const env = configureNunjucks([projectConfig.pages, projectConfig.components], {});
 
 /**
  * Gets directories based on pathname and excludes private folders by using _
@@ -18,7 +22,6 @@ function getDirectories(pathName) {
     // Private folders are prefixed with _ (underscore)
     return fs.readdirSync(pathName).filter(name => !name.includes('_'));
 }
-
 
 /**
  * Checks recursively if there are files that can be staticly rendered.
@@ -42,23 +45,7 @@ function parseDirectories(folderName, config) {
     });
 }
 
-function configureNunjucks(views, defaultOptions) {
-    const env = nunjucks.configure(views, defaultOptions);
 
-    if (defaultOptions.extensions && defaultOptions.extensions.length > 0) {
-        defaultOptions.extensions.forEach(extension => {
-            env.addExtension(extension.name, extension.func(nunjucks));
-        });
-    }
-
-    if (defaultOptions.filters && defaultOptions.filters.length > 0) {
-        defaultOptions.filters.forEach(filter => {
-            env.addFilter(filter.name, filter.func);
-        });
-    }
-
-    return env;
-}
 
 function generateStaticFile(pathName, config) {
     const templateUrl = pathName;
@@ -74,17 +61,21 @@ function generateStaticFile(pathName, config) {
     }
 
     // TODO: also add beautify and minify.
-    // TODO: add file creating logging
-    const env = configureNunjucks([projectConfig.pages, projectConfig.components], {});
-
-    const templateDate = Object.assign({}, data, projectConfig.nunjucks);
+    const templateData = Object.assign({}, data, projectConfig.nunjucks);
     const baseUrl = templateUrl.replace(`${projectConfig.pages}`, '');
     const templateDistUrl = `${projectConfig.clientDist}${baseUrl}`;
 
     ensureDirectoryExistence(templateDistUrl);
-    fs.writeFileSync(templateDistUrl, env.render(templateUrl, templateDate));
+    fs.writeFileSync(templateDistUrl, env.render(templateUrl, templateData));
+
+    console.log(`[${new Date().toISOString()}]`, chalk.blue(`Generated: ${baseUrl}`));
 }
 
-parseDirectories(config.pages, {
-    routeExtension: '.html',
-});
+function createStaticRoutes() {
+    console.log(`[${new Date().toISOString()}]`, chalk.blue(`Generating static routes...`));
+    parseDirectories(config.pages, {
+        routeExtension: '.html',
+    });
+}
+
+createStaticRoutes();

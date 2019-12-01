@@ -10,8 +10,6 @@ export interface RoutesConfig {
     port: number;
 }
 
-const defaultData = projectConfig;
-
 export function getTemplate(url: string, config: RoutesConfig) {
     // Get template url and remove first /
     const templateUrl = path.join(url, `index${config.routeExtension}`).substr(1);
@@ -25,7 +23,7 @@ export function getTemplate(url: string, config: RoutesConfig) {
     if (!hasTemplate) {
         return {
             templateUrl: '',
-            data: defaultData.nunjucks,
+            data: projectConfig.nunjucks,
         };
     }
 
@@ -37,7 +35,7 @@ export function getTemplate(url: string, config: RoutesConfig) {
 
     return {
         templateUrl,
-        data: Object.assign({}, defaultData.nunjucks, data),
+        data: Object.assign({}, projectConfig.nunjucks, data),
     };
 }
 
