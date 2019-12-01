@@ -55,20 +55,26 @@ config.cssInJS = true;
 // Browsersync watched files
 config.browserSync = ['src/**/*.html'];
 
-// Project
-config.project = {
-    debug: getDefaultMode() === 'development',
+// Nunjucks config
+config.nunjucks = {
+    project: {
+        debug: getDefaultMode() === 'development',
+        assetPrefix: config.assetPrefix,
+        version: '1.0.0',
+        name: 'Frontend Setup',
+        title: 'Default Title',
+        language: 'EN',
+    },
 };
 
 // Copy config
-config.copy = [
-    {
+config.copy = [{
         from: `${config.static}/data`,
         to: `assets/data`,
     },
     {
         from: `${config.static}/assets/images`,
-        to: `assets/images`,
+        to: `assets/images`
     },
     {
         from: `${config.static}/assets/svg`,

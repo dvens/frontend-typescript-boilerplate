@@ -25,7 +25,7 @@ export function getTemplate(url: string, config: RoutesConfig) {
     if (!hasTemplate) {
         return {
             templateUrl: '',
-            data: defaultData,
+            data: defaultData.nunjucks,
         };
     }
 
@@ -37,7 +37,7 @@ export function getTemplate(url: string, config: RoutesConfig) {
 
     return {
         templateUrl,
-        data: Object.assign({}, defaultData, data),
+        data: Object.assign({}, defaultData.nunjucks, data),
     };
 }
 

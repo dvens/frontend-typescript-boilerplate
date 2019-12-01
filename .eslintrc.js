@@ -28,6 +28,7 @@ module.exports = {
         '@typescript-eslint/no-object-literal-type-assertion': 'off',
         '@typescript-eslint/explicit-member-accessibility': 'off',
         '@typescript-eslint/camelcase': 'off',
+        "@typescript-eslint/no-inferrable-types": 'off',
         '@typescript-eslint/no-empty-interface': 'off',
         'prettier/prettier': 'off',
         'jsx-a11y/click-events-have-key-events': 'off',

@@ -15,7 +15,7 @@
         "start": "cross-env NODE_ENV=development PORT=3000 nodemon",
         "build:server": "yarn run build && cross-env NODE_ENV=production tsc --project tsconfig.server.json",
         "serve:build": "cross-env NODE_ENV=production ts-node ./build/server/server.js",
-        "static": "cross-env NODE_ENV=production ts-node ./tools/scripts/create-static-routes.js",
+        "static": "cross-env NODE_ENV=production ts-node ./tools/scripts/create-static-routes.js"
     },
     "engines": {
         "node": ">=8.11.3",

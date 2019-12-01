@@ -12,7 +12,7 @@ export default class CounterElement extends HTMLElement {
     @Prop() title: string = 'aaaa';
 
     sayHello() {
-        return 'Gello';
+        return 'Hello';
     }
 
     render() {

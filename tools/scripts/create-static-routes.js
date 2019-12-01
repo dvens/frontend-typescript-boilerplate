@@ -2,12 +2,14 @@
 const fs = require('fs');
 const path = require('path');
 const nunjucks = require('nunjucks');
-const { config } = require('../utilities/get-config');
+const {
+    config
+} = require('../utilities/get-config');
 const projectConfig = config;
 const ensureDirectoryExistence = require('../utilities/ensure-directory-existence');
 
-
 /**
+ * Gets directories based on pathname and excludes private folders by using _
  * @param {string} pathName
  * @returns {array} of directories.
  */
@@ -17,6 +19,13 @@ function getDirectories(pathName) {
     return fs.readdirSync(pathName).filter(name => !name.includes('_'));
 }
 
+
+/**
+ * Checks recursively if there are files that can be staticly rendered.
+ * @param {string} folderName
+ * @param {object} config
+ * @returns
+ */
 function parseDirectories(folderName, config) {
     const files = getDirectories(folderName);
 
@@ -31,8 +40,6 @@ function parseDirectories(folderName, config) {
             generateStaticFile(fullName, config);
         }
     });
-
-    return;
 }
 
 function configureNunjucks(views, defaultOptions) {
@@ -70,7 +77,7 @@ function generateStaticFile(pathName, config) {
     // TODO: add file creating logging
     const env = configureNunjucks([projectConfig.pages, projectConfig.components], {});
 
-    const templateDate = Object.assign({}, data, projectConfig.project);
+    const templateDate = Object.assign({}, data, projectConfig.nunjucks);
     const baseUrl = templateUrl.replace(`${projectConfig.pages}`, '');
     const templateDistUrl = `${projectConfig.clientDist}${baseUrl}`;
 
