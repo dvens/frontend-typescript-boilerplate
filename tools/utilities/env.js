@@ -36,6 +36,7 @@ module.exports = () => {
         PORT: process.env.PORT || 3000,
         NODE_ENV: process.env.NODE_ENV || 'development',
         HOST: process.env.HOST || 'http://localhost',
+        ASSET_PREFIX: process.env.ASSET_PREFIX || '',
     };
 
     // Stringify all values so we can feed into Webpack DefinePlugin

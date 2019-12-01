@@ -2,11 +2,15 @@
 const fs = require('fs');
 const path = require('path');
 const nunjucks = require('nunjucks');
-const {
-    config
-} = require('../utilities/get-config');
+const { config } = require('../utilities/get-config');
 const projectConfig = config;
+const ensureDirectoryExistence = require('../utilities/ensure-directory-existence');
 
+
+/**
+ * @param {string} pathName
+ * @returns {array} of directories.
+ */
 function getDirectories(pathName) {
     // Filters out all the directories that are private.
     // Private folders are prefixed with _ (underscore)
@@ -14,10 +18,9 @@ function getDirectories(pathName) {
 }
 
 function parseDirectories(folderName, config) {
-
     const files = getDirectories(folderName);
 
-    files.forEach((file) => {
+    files.forEach(file => {
         const fullName = path.join(folderName, file);
         const isDirectory = fs.lstatSync(fullName).isDirectory();
 
@@ -51,7 +54,6 @@ function configureNunjucks(views, defaultOptions) {
 }
 
 function generateStaticFile(pathName, config) {
-
     const templateUrl = pathName;
     const JSONUrl = path.join(pathName.replace(config.routeExtension, '.json'));
     const hasJSONfile = fs.existsSync(JSONUrl);
@@ -64,13 +66,18 @@ function generateStaticFile(pathName, config) {
         data = JSON.parse(`${JSONfile}`);
     }
 
+    // TODO: also add beautify and minify.
+    // TODO: add file creating logging
     const env = configureNunjucks([projectConfig.pages, projectConfig.components], {});
+
     const templateDate = Object.assign({}, data, projectConfig.project);
+    const baseUrl = templateUrl.replace(`${projectConfig.pages}`, '');
+    const templateDistUrl = `${projectConfig.clientDist}${baseUrl}`;
 
-    console.log(env.render(templateUrl, templateDate));
-
+    ensureDirectoryExistence(templateDistUrl);
+    fs.writeFileSync(templateDistUrl, env.render(templateUrl, templateDate));
 }
 
 parseDirectories(config.pages, {
-    routeExtension: '.html'
+    routeExtension: '.html',
 });

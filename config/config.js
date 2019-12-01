@@ -46,6 +46,9 @@ config.publicPath = '';
 // Config legacy prefix
 config.legacyPrefix = 'legacy_';
 
+// Config asset prefix
+config.assetPrefix = process.env.ASSET_PREFIX ? `/${process.env.ASSET_PREFIX}` : '';
+
 // Config CSS in JS option
 config.cssInJS = true;
 
@@ -54,19 +57,23 @@ config.browserSync = ['src/**/*.html'];
 
 // Project
 config.project = {
-    debug: getDefaultMode() === 'development'
+    debug: getDefaultMode() === 'development',
 };
 
 // Copy config
-config.copy = [{
-    from: `${config.static}/data`,
-    to: `assets/data`,
-}, {
-    from: `${config.static}/assets/images`,
-    to: `assets/images`,
-}, {
-    from: `${config.static}/assets/svg`,
-    to: `assets/svg`,
-}];
+config.copy = [
+    {
+        from: `${config.static}/data`,
+        to: `assets/data`,
+    },
+    {
+        from: `${config.static}/assets/images`,
+        to: `assets/images`,
+    },
+    {
+        from: `${config.static}/assets/svg`,
+        to: `assets/svg`,
+    },
+];
 
 module.exports = config;
