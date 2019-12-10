@@ -6,4 +6,4 @@ export class Test {
 
 Test.sayHi();
 
-import '@source/components/atoms/counter-element';
+import '@source/components/atoms/counter-element/counter-element';
