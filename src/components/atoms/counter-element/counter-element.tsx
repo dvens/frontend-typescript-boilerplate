@@ -1,4 +1,4 @@
-import { Component } from '@atomify/core';
+import { Component, Prop } from '@atomify/core';
 import { h } from '@atomify/jsx';
 
 import style from './counter-element.scss';
@@ -9,11 +9,13 @@ import style from './counter-element.scss';
     shadow: true,
 })
 export default class CounterElement extends HTMLElement {
+    @Prop() title: string = 'aaaa';
+
     sayHello() {
         return 'Hello';
     }
 
     render() {
-        return <div>Gello</div>;
+        return <div>{this.title}</div>;
     }
 }

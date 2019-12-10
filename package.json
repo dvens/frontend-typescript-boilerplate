@@ -15,16 +15,18 @@
         "start": "cross-env NODE_ENV=development PORT=3000 nodemon",
         "build:server": "yarn run build && cross-env NODE_ENV=production tsc --project tsconfig.server.json",
         "serve:build": "cross-env NODE_ENV=production ts-node ./build/server/server.js",
-        "static": "cross-env NODE_ENV=production ts-node ./tools/scripts/create-static-routes.js",
+        "static": "cross-env NODE_ENV=production ts-node ./tools/scripts/create-static-routes.js"
     },
     "engines": {
         "node": ">=8.11.3",
         "yarn": "^1.12.3"
     },
-    "contributors": [{
-        "name": "Dylan Vens",
-        "email": "dylan.vens@deptagency.com"
-    }],
+    "contributors": [
+        {
+            "name": "Dylan Vens",
+            "email": "dylan.vens@deptagency.com"
+        }
+    ],
     "private": true,
     "repository": {
         "type": "git",
@@ -118,11 +120,12 @@
         "webpack-dev-server": "^3.8.2",
         "webpack-hot-middleware": "^2.25.0",
         "webpack-merge": "^4.1.5",
-        "webpack-node-externals": "^1.7.2"
+        "webpack-node-externals": "^1.7.2",
+        "webpackbar": "^4.0.0"
     },
     "dependencies": {
-        "@atomify/core": "^2.3.0",
-        "@atomify/jsx": "^1.4.0",
+        "@atomify/core": "^2.3.6",
+        "@atomify/jsx": "^1.5.6",
         "body-parser": "^1.19.0",
         "chalk": "^2.4.2",
         "compression": "^1.7.4",
