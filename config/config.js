@@ -37,17 +37,17 @@ config.styles = resolveApp('src/styles');
 config.dist = resolveApp('build');
 config.clientDist = config.dist;
 
-// Assets dist folders
-config.imagesOutputPath = '/assets/images/';
-config.fontsOutputPath = '/assets/fonts/';
-config.jsOutputPath = 'assets/js/';
-config.publicPath = '';
-
 // Config legacy prefix
 config.legacyPrefix = 'legacy_';
 
 // Config asset prefix
 config.assetPrefix = process.env.ASSET_PREFIX ? `/${process.env.ASSET_PREFIX}` : '';
+
+// Assets dist folders
+config.imagesOutputPath = '/assets/images/';
+config.fontsOutputPath = '/assets/fonts/';
+config.jsOutputPath = 'assets/js/';
+config.publicPath = config.assetPrefix;
 
 // Config CSS in JS option
 config.cssInJS = true;
@@ -68,13 +68,14 @@ config.nunjucks = {
 };
 
 // Copy config
-config.copy = [{
+config.copy = [
+    {
         from: `${config.static}/data`,
         to: `assets/data`,
     },
     {
         from: `${config.static}/assets/images`,
-        to: `assets/images`
+        to: `assets/images`,
     },
     {
         from: `${config.static}/assets/svg`,
