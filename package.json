@@ -17,11 +17,6 @@
         "serve:build": "cross-env NODE_ENV=production ts-node ./build/server/server.js",
         "static": "cross-env NODE_ENV=production ts-node ./tools/scripts/run create-static-routes"
     },
-    "husky": {
-        "hooks": {
-            "pre-push": "yarn test"
-        }
-    },
     "engines": {
         "node": ">=8.11.3",
         "yarn": "^1.12.3"
