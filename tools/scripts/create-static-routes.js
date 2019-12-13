@@ -2,10 +2,7 @@ const chalk = require('chalk');
 const fs = require('fs');
 const path = require('path');
 
-
-const {
-    config
-} = require('../utilities/get-config');
+const { config } = require('../utilities/get-config');
 const ensureDirectoryExistence = require('../utilities/ensure-directory-existence');
 const configureNunjucks = require('../utilities/configure-nunjucks');
 
@@ -17,10 +14,10 @@ const env = configureNunjucks([projectConfig.pages, projectConfig.components], {
  * @param {string} pathName
  * @returns {array} of directories.
  */
-function getDirectories(pathName) {
+async function getDirectories(pathName) {
     // Filters out all the directories that are private.
     // Private folders are prefixed with _ (underscore)
-    return fs.readdirSync(pathName).filter(name => !name.includes('_'));
+    return await fs.readdirSync(pathName).filter(name => !name.includes('_'));
 }
 
 /**
@@ -29,25 +26,23 @@ function getDirectories(pathName) {
  * @param {object} config
  * @returns
  */
-function parseDirectories(folderName, config) {
-    const files = getDirectories(folderName);
+async function parseDirectories(folderName, config) {
+    const files = await getDirectories(folderName);
 
-    files.forEach(file => {
+    await files.forEach(async file => {
         const fullName = path.join(folderName, file);
         const isDirectory = fs.lstatSync(fullName).isDirectory();
 
         if (isDirectory) {
-            parseDirectories(fullName, config);
+            await parseDirectories(fullName, config);
         } else if (path.extname(file) === config.routeExtension) {
             // Generate a static template when its not a directory but a file.
-            generateStaticFile(fullName, config);
+            await generateStaticFile(fullName, config);
         }
     });
 }
 
-
-
-function generateStaticFile(pathName, config) {
+async function generateStaticFile(pathName, config) {
     const templateUrl = pathName;
     const JSONUrl = path.join(pathName.replace(config.routeExtension, '.json'));
     const hasJSONfile = fs.existsSync(JSONUrl);
@@ -60,22 +55,21 @@ function generateStaticFile(pathName, config) {
         data = JSON.parse(`${JSONfile}`);
     }
 
-    // TODO: also add beautify and minify.
     const templateData = Object.assign({}, data, projectConfig.nunjucks);
     const baseUrl = templateUrl.replace(`${projectConfig.pages}`, '');
     const templateDistUrl = `${projectConfig.clientDist}${baseUrl}`;
 
     ensureDirectoryExistence(templateDistUrl);
-    fs.writeFileSync(templateDistUrl, env.render(templateUrl, templateData));
+    await fs.writeFileSync(templateDistUrl, env.render(templateUrl, templateData));
 
     console.log(`[${new Date().toISOString()}]`, chalk.blue(`Generated: ${baseUrl}`));
 }
 
-function createStaticRoutes() {
+async function createStaticRoutes() {
     console.log(`[${new Date().toISOString()}]`, chalk.blue(`Generating static routes...`));
-    parseDirectories(config.pages, {
+    await parseDirectories(config.pages, {
         routeExtension: '.html',
     });
 }
 
-createStaticRoutes();
+module.exports = createStaticRoutes;

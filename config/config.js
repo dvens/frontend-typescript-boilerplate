@@ -1,6 +1,6 @@
 const resolveApp = require('../tools/utilities/resolve-app');
-
 const getDefaultMode = require('../tools/utilities/get-default-mode');
+const fileCopyConfig = require('./copy');
 
 const config = {};
 
@@ -29,6 +29,11 @@ config.static = resolveApp('static');
 
 // Assets Folder
 config.assets = resolveApp('static/assets');
+config.images = resolveApp('static/assets/images');
+config.svg = resolveApp('static/assets/svg');
+
+// Data folder
+config.data = resolveApp('static/data');
 
 // Styles Folder
 config.styles = resolveApp('src/styles');
@@ -41,7 +46,7 @@ config.clientDist = config.dist;
 config.legacyPrefix = 'legacy_';
 
 // Config asset prefix
-config.assetPrefix = process.env.ASSET_PREFIX ? `/${process.env.ASSET_PREFIX}` : '';
+config.assetPrefix = process.env.ASSET_PREFIX ? process.env.ASSET_PREFIX : '';
 
 // Assets dist folders
 config.imagesOutputPath = '/assets/images/';
@@ -60,27 +65,11 @@ config.nunjucks = {
     project: {
         debug: getDefaultMode() === 'development',
         assetPrefix: config.assetPrefix,
-        version: '1.0.0',
-        name: 'Frontend Setup',
-        title: 'Default Title',
-        language: 'EN',
+        ...require(`${config.data}/project.json`),
     },
 };
 
-// Copy config
-config.copy = [
-    {
-        from: `${config.static}/data`,
-        to: `assets/data`,
-    },
-    {
-        from: `${config.static}/assets/images`,
-        to: `assets/images`,
-    },
-    {
-        from: `${config.static}/assets/svg`,
-        to: `assets/svg`,
-    },
-];
+// Webpack copy config
+config.copy = fileCopyConfig(config);
 
 module.exports = config;
