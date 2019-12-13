@@ -1,8 +1,8 @@
 import nunjucks from 'nunjucks';
 
-interface NunjucksOptions {
-    extensions?: Array<{ name: string; func: Function }>;
-    filters?: Array<{ name: string; func: () => void }>;
+export interface NunjucksOptions {
+    extensions?: Array<{ name: string; func: (nunjucks: any) => any }>;
+    filters?: Array<{ name: string; func: (nunjucks: any) => any }>;
     express?: Express.Application;
 }
 

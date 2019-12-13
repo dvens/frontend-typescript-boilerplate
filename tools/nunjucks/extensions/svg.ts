@@ -1,27 +1,31 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 // Utilities
-const { config } = require('../../utilities/get-config');
-const getDefaultMode = require('../../tools/utilities/get-default-mode');
+import { config } from '../../utilities/get-config';
+import getDefaultMode from '../../utilities/get-default-mode';
 
-const svgCache = {};
+const svgRootPath =
+    getDefaultMode() === 'development'
+        ? `${config.svg}/`
+        : `${config.clientDist}${config.svgOutputPath}`;
+
+const svgCache: { [key: string]: Function } = {};
+
+interface ISVGExtension {}
 
 /**
  * Gets SVG based upon development or production mode.
  * @param {string} name
  * @returns {string}
  */
-function getSvg(name) {
+function getSvg(name: string) {
     if (!name) return '';
 
     name = name.replace(/\.svg$/, '');
 
-    let svg = '';
-    const svgPath = path.resolve(
-        config.projectDirectory,
-        config.dest.getPath('svg', `/${name}.svg`),
-    );
+    let svg: any = '';
+    const svgPath = path.resolve(svgRootPath, `${name}.svg`);
 
     try {
         svg = fs.readFileSync(svgPath);
@@ -38,10 +42,10 @@ function getSvg(name) {
     return svg;
 }
 
-function SVGExtension(nunjucks) {
+function SVGExtension(nunjucks: any) {
     this.tags = ['svg'];
 
-    this.parse = function(parser, nodes) {
+    this.parse = function(parser: any, nodes: any) {
         // get the tag token
         var tok = parser.nextToken();
 
@@ -54,7 +58,7 @@ function SVGExtension(nunjucks) {
         return new nodes.CallExtension(this, 'run', args);
     };
 
-    this.run = function(_, name) {
+    this.run = function(_: any, name: string) {
         let svgString = svgCache[name];
         if (!svgString) {
             svgString = svgCache[name] = new nunjucks.runtime.SafeString(getSvg(name));
@@ -64,4 +68,4 @@ function SVGExtension(nunjucks) {
     };
 }
 
-module.exports = SVGExtension;
+export default (SVGExtension as any) as { new (nunjucks: any): ISVGExtension };

@@ -15,6 +15,7 @@ import logger from 'morgan';
 import { nunjucksEnvironment } from '../tools/nunjucks';
 // Config/Utilities
 import { config } from '../tools/utilities/get-config';
+import { nunjucksConfig } from '../tools/nunjucks/nunjucks-config';
 // Middleware
 import errorHandler from './middleware/errorHandler';
 import hotReloadMiddleware from './middleware/hotReload';
@@ -55,7 +56,7 @@ app.use(compression());
  */
 const appViews = [config.pages, config.components];
 
-nunjucksEnvironment(appViews, {}, app);
+nunjucksEnvironment(appViews, nunjucksConfig, app);
 app.set('view engine', 'html');
 
 /**

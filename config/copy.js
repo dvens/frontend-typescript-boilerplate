@@ -5,15 +5,15 @@ function fileCopyConfig(config) {
         {
             from: config.images,
             to: 'assets/images',
-            transform: imageBuffer => {
-                return images(imageBuffer);
+            transform: image => {
+                return images(image);
             },
         },
         {
             from: config.svg,
             to: 'assets/svg',
-            transform: svgBuffer => {
-                return images(svgBuffer);
+            transform: svg => {
+                return images(svg);
             },
         },
     ];

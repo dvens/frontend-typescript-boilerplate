@@ -5,9 +5,10 @@ const path = require('path');
 const { config } = require('../utilities/get-config');
 const ensureDirectoryExistence = require('../utilities/ensure-directory-existence');
 const configureNunjucks = require('../utilities/configure-nunjucks');
+const { nunjucksConfig } = require('../nunjucks/nunjucks-config');
 
 const projectConfig = config;
-const env = configureNunjucks([projectConfig.pages, projectConfig.components], {});
+const env = configureNunjucks([projectConfig.pages, projectConfig.components], nunjucksConfig);
 
 /**
  * Gets directories based on pathname and excludes private folders by using _

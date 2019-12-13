@@ -50,6 +50,7 @@ config.assetPrefix = process.env.ASSET_PREFIX ? process.env.ASSET_PREFIX : '';
 
 // Assets dist folders
 config.imagesOutputPath = '/assets/images/';
+config.svgOutputPath = '/assets/svg/';
 config.fontsOutputPath = '/assets/fonts/';
 config.jsOutputPath = 'assets/js/';
 config.publicPath = config.assetPrefix;
