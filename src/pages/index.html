@@ -2,11 +2,16 @@
 
 {% block content %}
 
-    <h1>Hello world</h1>
-    <p>This is a starter application</p>
-    <a href="/about">dfsafdsafas</a>
-    <img src="{{ project.assetPrefix }}/assets/images/placeholder.jpg">
-    {% svg 'example' %}
-    <counter-element></counter-element>
+    <div class="container">
+        <h1 class="title">Front-end setup</h1>
+        <div class="flex-center">
+            <p>This is a starter application</p>
+            {% svg 'example' %}
+        </div>
+
+        <div class="flex-center">
+            <counter-element></counter-element>
+        </div>
+    </div>
 
 {% endblock %}

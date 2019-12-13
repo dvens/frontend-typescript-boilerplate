@@ -59,7 +59,7 @@ config.publicPath = config.assetPrefix;
 config.cssInJS = true;
 
 // Browsersync watched files
-config.browserSync = ['src/**/*.html'];
+config.browserSync = ['src/**/*.html', 'src/**/*.tsx'];
 
 // Nunjucks config
 config.nunjucks = {

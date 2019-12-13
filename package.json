@@ -17,6 +17,11 @@
         "serve:build": "cross-env NODE_ENV=production ts-node ./build/server/server.js",
         "static": "cross-env NODE_ENV=production ts-node ./tools/scripts/run create-static-routes"
     },
+    "husky": {
+        "hooks": {
+            "pre-push": "yarn test"
+        }
+    },
     "engines": {
         "node": ">=8.11.3",
         "yarn": "^1.12.3"
@@ -89,6 +94,7 @@
         "eslint-plugin-prettier": "^3.1.0",
         "eslint-plugin-simple-import-sort": "^4.0.0",
         "file-loader": "^4.2.0",
+        "husky": "^3.1.0",
         "image-webpack-loader": "^6.0.0",
         "imagemin": "^7.0.1",
         "imagemin-jpegtran": "^6.0.0",

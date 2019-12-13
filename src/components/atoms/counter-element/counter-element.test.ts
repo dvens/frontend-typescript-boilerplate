@@ -1,37 +1,21 @@
 import CounterElement from './counter-element';
 
-const waitForComponentToRender = (tag: string) => {
-    return new Promise(resolve => {
-        function requestComponent() {
-            const element = document.querySelector(tag);
-            if (element) {
-                resolve(element);
-            } else {
-                window.requestAnimationFrame(requestComponent);
-            }
-        }
-
-        requestComponent();
-    });
-};
-
 describe('Changing button type', function() {
-    let elem: any | null;
+    let elem: CounterElement;
 
     beforeEach(async function() {
         elem = new CounterElement();
         document.body.appendChild(elem);
     });
 
-    it('it should say hello', async function() {
-        expect(elem.sayHello()).toBe('Hello');
+    it('should choose the right template', async function() {
+        await (elem as any).componentOnReady();
+        expect(elem!.shadowRoot!.querySelectorAll('button').length).toBe(1);
     });
 
-    it('should choose the right template for default type', async function() {
-        const elementTest: any = await waitForComponentToRender('counter-element');
-        await elementTest.componentOnReady();
-
-        expect(elementTest!.shadowRoot!.querySelectorAll('div').length).toBe(1);
+    it('it should update the count of the element', async function() {
+        elem.increaseCount();
+        expect(elem.count).toEqual(1);
     });
 
     afterAll(function() {
