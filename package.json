@@ -13,7 +13,7 @@
         "storybook:build": "cross-env NODE_ENV=production build-storybook -o ./build/styleguide -s storybook-static",
         "test": "karma start karma.conf.js",
         "start": "cross-env NODE_ENV=development PORT=3000 nodemon",
-        "build:server": "yarn run build && cross-env NODE_ENV=production tsc --project tsconfig.server.json",
+        "build:server": "cross-env NODE_ENV=production yarn webpack && cross-env NODE_ENV=production tsc --project tsconfig.server.json",
         "serve:build": "cross-env NODE_ENV=production ts-node ./build/server/server.js",
         "static": "cross-env NODE_ENV=production ts-node ./tools/scripts/run create-static-routes"
     },

@@ -1,21 +1,17 @@
 const configureBabelLoader = require('../tools/loaders/javascript-typescript');
 const configureCSSLoader = require('../tools/loaders/style-sass');
-const eslintConfig = require('../tools/loaders/eslint');
 const SassLintPlugin = require('sass-lint-webpack');
 
-const {
-    alias
-} = require('../tools/utilities/get-config');
+const { alias } = require('../tools/utilities/get-config');
 
-module.exports = ({
-    config
-}) => {
-
+module.exports = ({ config }) => {
     // Javascript/Typescript loader
-    config.module.rules.push(...configureBabelLoader({
-        includedPackages: [/node_modules\/(?!@atomify)/],
-        legacy: true
-    }));
+    config.module.rules.push(
+        ...configureBabelLoader({
+            includedPackages: [/node_modules\/(?!@atomify)/],
+            legacy: true,
+        }),
+    );
 
     // CSS/SASS loader
     config.module.rules.push(...configureCSSLoader());

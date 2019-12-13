@@ -12,7 +12,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import logger from 'morgan';
 
-import { nunjucksEnvironment } from '../tools/nunjucks';
+import { nunjucksEnvironment } from './nunjucks';
 // Config/Utilities
 import { config } from '../tools/utilities/get-config';
 import { nunjucksConfig } from '../tools/nunjucks/nunjucks-config';

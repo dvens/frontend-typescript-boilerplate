@@ -59,9 +59,10 @@ async function generateStaticFile(pathName, config) {
     const templateData = Object.assign({}, data, projectConfig.nunjucks);
     const baseUrl = templateUrl.replace(`${projectConfig.pages}`, '');
     const templateDistUrl = `${projectConfig.clientDist}${baseUrl}`;
+    const template = await env.render(templateUrl, templateData);
 
     ensureDirectoryExistence(templateDistUrl);
-    await fs.writeFileSync(templateDistUrl, env.render(templateUrl, templateData));
+    await fs.writeFileSync(templateDistUrl, template);
 
     console.log(`[${new Date().toISOString()}]`, chalk.blue(`Generated: ${baseUrl}`));
 }

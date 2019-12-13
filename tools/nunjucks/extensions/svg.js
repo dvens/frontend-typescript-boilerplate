@@ -1,30 +1,28 @@
-import fs from 'fs';
-import path from 'path';
+const fs = require('fs');
+const path = require('path');
 
 // Utilities
-import { config } from '../../utilities/get-config';
-import getDefaultMode from '../../utilities/get-default-mode';
+const getDefaultMode = require('../../utilities/get-default-mode');
+const { config } = require('../../utilities/get-config');
 
 const svgRootPath =
     getDefaultMode() === 'development'
         ? `${config.svg}/`
         : `${config.clientDist}${config.svgOutputPath}`;
 
-const svgCache: { [key: string]: Function } = {};
-
-interface ISVGExtension {}
+const svgCache = {};
 
 /**
  * Gets SVG based upon development or production mode.
  * @param {string} name
  * @returns {string}
  */
-function getSvg(name: string) {
+function getSvg(name) {
     if (!name) return '';
 
     name = name.replace(/\.svg$/, '');
 
-    let svg: any = '';
+    let svg = '';
     const svgPath = path.resolve(svgRootPath, `${name}.svg`);
 
     try {
@@ -42,10 +40,14 @@ function getSvg(name: string) {
     return svg;
 }
 
-function SVGExtension(nunjucks: any) {
+/**
+ * Inline SVG extension for Nunjucks
+ * @param {*} nunjucks
+ */
+function SVGExtension(nunjucks) {
     this.tags = ['svg'];
 
-    this.parse = function(parser: any, nodes: any) {
+    this.parse = function(parser, nodes) {
         // get the tag token
         var tok = parser.nextToken();
 
@@ -58,7 +60,7 @@ function SVGExtension(nunjucks: any) {
         return new nodes.CallExtension(this, 'run', args);
     };
 
-    this.run = function(_: any, name: string) {
+    this.run = function(_, name) {
         let svgString = svgCache[name];
         if (!svgString) {
             svgString = svgCache[name] = new nunjucks.runtime.SafeString(getSvg(name));
@@ -68,4 +70,4 @@ function SVGExtension(nunjucks: any) {
     };
 }
 
-export default (SVGExtension as any) as { new (nunjucks: any): ISVGExtension };
+module.exports = SVGExtension;
