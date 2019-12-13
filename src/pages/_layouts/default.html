@@ -21,12 +21,15 @@
     <title>{{ project.title }}</title>
 
     <!-- Style sheets -->
-
     {% if not project.debug %}
         <link rel="stylesheet" href="{{ project.assetPrefix }}/assets/css/main.css"/>
     {% endif %}
 
     <base href="/" />
+
+    {% if not project.debug %}
+        {% include "./preloads.html" %}
+    {% endif %}
 
     <!-- Favicons -->
     <link rel="apple-touch-icon" sizes="120x120" href="/assets/images/favicons/apple-touch-icon.png">

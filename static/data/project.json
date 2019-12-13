@@ -1,6 +1,23 @@
 {
     "version": "1.0.0",
     "name": "Frontend Setup",
-    "title": "Default Title",
-    "language": "EN"
+    "language": "en",
+    "direction": "ltr",
+    "url": "http://www.example.com",
+    "title": "TITLE HERE",
+    "description": "DESCRIPTION HERE",
+    "image": "",
+    "preconnect": [],
+    "preload": [
+        {
+            "url": "/assets/css/main.css",
+            "as": "style"
+        }
+    ],
+    "modulepreload": [
+        {
+            "url": "/assets/js/main-es.js",
+            "as": "script"
+        }
+    ]
 }

@@ -1,0 +1,23 @@
+{%- if project.preconnect -%}
+    {%- for item in project.preconnect -%}
+        <link rel="preconnect" href="{{ item.url }}">
+    {% endfor -%}
+    {%- for item in project.preconnect -%}
+        <link rel="dns-prefetch" href="{{ item.url }}">
+    {% endfor -%}
+{% endif -%}
+
+{%- if project.preload -%}
+    {%- for item in project.preload -%}
+        <link rel="preload" href="{{ item.url }}" as="{{ item.as }}"
+            {%- if item.type %} type="{{ item.type }}"{% endif -%}
+            {%- if item.onload %} {{ item.onload|safe }}{% endif -%}
+            {%- if item.crossorigin %} crossorigin{% endif -%}/>
+    {% endfor -%}
+{%- endif -%}
+
+{%- if project.modulepreload -%}
+    {%- for item in project.modulepreload -%}
+        <link rel="modulepreload" href="{{ item.url }}"/>
+    {% endfor -%}
+{%- endif -%}
