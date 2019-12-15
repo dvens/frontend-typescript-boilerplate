@@ -38,6 +38,7 @@ const configureCSSLoader = () => {
 
     const cssInJSConfig = {
         test: /\.(s*)css$/,
+        exclude: /\main.(s*)css$/,
         use: [{
             loader: 'postcss-loader',
             options: {
