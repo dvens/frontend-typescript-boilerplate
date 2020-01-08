@@ -9,8 +9,11 @@ export interface LoadableOptions {
     inViewOptions?: IntersectionObserverInit;
 }
 
-const INITIALIZERS = new Map<string, Element[]>();
-const READY_INITIALIZERS: string[] = [];
+export interface LoadableElement extends Element {
+    __initializedHookReference: string[];
+}
+
+const INITIALIZERS = new Map<string, LoadableElement[]>();
 
 export const Loadable = (options: LoadableOptions) => {
     const elements = document.querySelectorAll(options.hook);
@@ -18,13 +21,16 @@ export const Loadable = (options: LoadableOptions) => {
     // Check if there are any elements
     if (elements.length !== 0) {
         // Creates a map from the hook and related elements.
-        Array.from(elements).forEach(element => {
-            if (INITIALIZERS.has(options.hook)) {
-                const currentElements = INITIALIZERS.get(options.hook);
-                if (currentElements) INITIALIZERS.set(options.hook, [...currentElements, element]);
+        Array.from(elements).forEach((element: LoadableElement) => {
+            const currentElements = INITIALIZERS.get(options.hook);
+            if (currentElements) {
+                INITIALIZERS.set(options.hook, [...currentElements, element]);
             } else {
                 INITIALIZERS.set(options.hook, [element]);
             }
+
+            // Keep a reference of already intialized elements
+            element.__initializedHookReference = element.__initializedHookReference || [];
 
             // Observe element when added to the map.
             observeComponent(element, options);
@@ -41,7 +47,7 @@ export const Loadable = (options: LoadableOptions) => {
  * @param {Element} element
  * @param {LoadableOptions} options
  */
-function observeComponent(element: Element, options: LoadableOptions) {
+function observeComponent(element: LoadableElement, options: LoadableOptions) {
     inviewObserver.observe(
         element,
         inView => {
@@ -50,9 +56,7 @@ function observeComponent(element: Element, options: LoadableOptions) {
                 options
                     .loader()
                     .then(() => {
-                        // Keep a reference of already intialized elements
-                        READY_INITIALIZERS.push(options.hook);
-
+                        // TODO: Move this into a seperate function and call this for all related elements.
                         // Unobserve when component is inview
                         inviewObserver.unobserve(element);
 
