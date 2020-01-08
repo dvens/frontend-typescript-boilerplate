@@ -1,9 +1,7 @@
-export class Test {
-    static sayHi() {
-        console.log('Hello!!');
-    }
-}
+import { Loadable } from './utilities/loadable/loadable';
 
-Test.sayHi();
-
-import '@source/components/atoms/counter-element/counter-element';
+Loadable({
+    hook: 'counter-element',
+    loader: () => import('@source/components/atoms/counter-element'),
+    onLoaded: () => console.log('Counter Element loaded'),
+});

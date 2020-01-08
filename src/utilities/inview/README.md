@@ -3,7 +3,7 @@ Javascript implementation of the Intersection Observer API to tell you when an e
 
 ## How to use it
 ```javascript
-    import { observe, unobserve, destroy } from 'path-to-inview-util';
+    import { inviewObserver } from '@utilities/inview';
 
     // query the element you want to observe
     const element = document.querySelector('[js-hook-observed-element]');
@@ -15,14 +15,14 @@ Javascript implementation of the Intersection Observer API to tell you when an e
 
     // Observe takes in a element, callback and options (for the intersection observer)
     // The callback gives back an inview boolean and the intersection
-    observe( element, ( inView, intersection ) => {
+    inviewObserver.observe( element, ( inView, intersection ) => {
         console.log( inView, intersection );
     }, options );
 
     // Unobserve an element
-    unobserve( element );
+    inviewObserver.unobserve( element );
 
     // Destroy all the observers at once.
-    destroy();
+    inviewObserver.destroy();
 
 ```

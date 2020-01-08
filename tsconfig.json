@@ -29,6 +29,9 @@
             "@pages/*": ["./src/pages/*"],
             "@server/*": ["./server/*"],
             "@source/*": ["./src/*"],
+            "@utilities/*": ["./src/utilities/*"],
+            "@services/*": ["./src/services/*"],
+            "@store/*": ["./src/store/*"],
             "@/*": ["./src/*"]
         }
     },

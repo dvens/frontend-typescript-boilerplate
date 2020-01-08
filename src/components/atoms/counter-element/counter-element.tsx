@@ -8,7 +8,7 @@ import style from './counter-element.scss';
     style,
     shadow: true,
 })
-export default class CounterElement extends HTMLElement {
+export class CounterElement extends HTMLElement {
     @Prop({ reflectToAttribute: true, type: 'Number' }) count: number = 0;
     @Prop() title: string = 'Click to update';
 
