@@ -1,4 +1,4 @@
-import CounterElement from './counter-element';
+import { CounterElement } from './counter-element';
 
 describe('Changing button type', function() {
     let elem: CounterElement;
