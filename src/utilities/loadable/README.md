@@ -17,7 +17,7 @@ The hook is using document.querySelectorAll underwater. The hook can be used as 
     });
 ```
 
-### Intersection observer
+### Intersection Observer
 The Loadable utility is using the Intersection Observer to load the dynamic import when the element given to the hook is in view. The options of the Intersection Observer can be extended as following:
 
 ```javascript
@@ -33,5 +33,5 @@ The Loadable utility is using the Intersection Observer to load the dynamic impo
 ```
 (Other options for the Intersection Observer can be found here https://developer.mozilla.org/en-US/docs/Web/)
 
-### Custom loading state
+### Custom empty/loading state
 You can add your own loading state with the `loading` option. It accepts a string that will be appended to the hook element. The loading state will be removed when the dynamic import is loaded. If you are using [@atomify/core](https://www.npmjs.com/package/@atomify/core) it will remove the loading state when `componentOnReady` is being called.
