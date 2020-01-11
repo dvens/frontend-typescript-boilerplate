@@ -66,7 +66,7 @@ function observeComponent(element: LoadableElement, options: LoadableOptions) {
                         if (INITIALIZED_HOOKS.indexOf(options.hook) !== -1) return;
 
                         // Unobserve when component is inview
-                        onObserveRelatedElements(options.hook, inviewObserver);
+                        unObserveRelatedElements(options.hook, inviewObserver);
 
                         // Trigger onload callback when the module is successfully loaded
                         if (options.onLoaded) {
@@ -89,7 +89,12 @@ function observeComponent(element: LoadableElement, options: LoadableOptions) {
     );
 }
 
-function onObserveRelatedElements(hook: string, observer: typeof inviewObserver) {
+/**
+ * Un observe other elements that are related to initialized hook.
+ * @param {string} hook
+ * @param {typeof inviewObserver} observer
+ */
+function unObserveRelatedElements(hook: string, observer: typeof inviewObserver) {
     const relatedElements = INITIALIZERS.get(hook);
 
     if (relatedElements) {
