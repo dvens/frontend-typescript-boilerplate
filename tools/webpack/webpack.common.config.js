@@ -6,10 +6,7 @@ const WebpackBar = require('webpackbar');
 const env = require('../utilities/env')();
 
 // Utilities
-const {
-    config,
-    alias
-} = require('../utilities/get-config');
+const { config, alias } = require('../utilities/get-config');
 
 const getDefaultMode = require('../utilities/get-default-mode');
 const isVerbose = process.argv.includes('--verbose');
@@ -27,21 +24,23 @@ const defaultOptions = {
 };
 
 const createBaseConfig = (userOptions = {}, legacy = false) => {
-
     const options = {
         ...defaultOptions,
-        ...userOptions
+        ...userOptions,
     };
 
     const firstConfig = legacy;
 
-    const outputFilename = `${config.jsOutputPath}${legacy ? `${ config.legacyPrefix }` : ''}[name].js`;
-    const outputChunkFilename = `${config.jsOutputPath}${ legacy ? `chunks/${ config.legacyPrefix }` : 'chunks/'}[name].js`;
+    const outputFilename = `${config.jsOutputPath}${
+        legacy ? `${config.legacyPrefix}` : ''
+    }[name].js`;
+    const outputChunkFilename = `${config.jsOutputPath}${
+        legacy ? `chunks/${config.legacyPrefix}` : 'chunks/'
+    }[name].js`;
 
     const isProduction = options.mode === 'production';
 
     const defaultConfig = {
-
         target: 'web',
 
         context: config.root,
@@ -65,13 +64,12 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
 
         module: {
             rules: [
-
                 // Javascript/Typescript
                 ...configureBabelLoader({
                     includedPackages: options.includedPackages,
                     plugins: options.babelLoaderPlugins,
                     presets: options.babelLoaderPresets,
-                    legacy
+                    legacy,
                 }),
                 eslintConfig,
 
@@ -80,28 +78,27 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
 
                 //Assets
                 imageLoader(),
-                fontsLoader()
-
-            ]
+                fontsLoader(),
+            ],
         },
 
         output: {
             filename: outputFilename,
             chunkFilename: outputChunkFilename,
             path: config.clientDist,
-            publicPath: config.publicPath
+            publicPath: config.publicPath,
         },
 
         resolve: {
             alias,
-            extensions: ['.ts', '.tsx', '.js', '.jsx']
+            extensions: ['.ts', '.tsx', '.js', '.jsx'],
         },
 
         optimization: {
             splitChunks: {
                 chunks: 'async',
-                automaticNameDelimiter: '.'
-            }
+                automaticNameDelimiter: '.',
+            },
         },
 
         // Don't attempt to continue if there are any errors.
