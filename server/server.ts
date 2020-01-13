@@ -57,7 +57,7 @@ app.use(compression());
 const appViews = [config.pages, config.components];
 
 nunjucksEnvironment(appViews, nunjucksConfig, app);
-app.set('view engine', 'html');
+app.set('view engine', 'njk');
 
 /**
  * Body parser
@@ -117,4 +117,4 @@ if (process.env.NODE_ENV === 'production') {
 /**
  * Route Configuration
  */
-webRoutes({ routeExtension: '.html', rootFolder: config.pages, app, port: SERVER_PORT });
+webRoutes({ routeExtension: '.njk', rootFolder: config.pages, app, port: SERVER_PORT });

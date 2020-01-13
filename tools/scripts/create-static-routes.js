@@ -58,7 +58,10 @@ async function generateStaticFile(pathName, config) {
 
     const templateData = Object.assign({}, data, projectConfig.nunjucks);
     const baseUrl = templateUrl.replace(`${projectConfig.pages}`, '');
-    const templateDistUrl = `${projectConfig.clientDist}${baseUrl}`;
+    const templateDistUrl = `${projectConfig.clientDist}${baseUrl.replace(
+        config.routeExtension,
+        '.html',
+    )}`;
     const template = await env.render(templateUrl, templateData);
 
     ensureDirectoryExistence(templateDistUrl);
@@ -70,7 +73,7 @@ async function generateStaticFile(pathName, config) {
 async function createStaticRoutes() {
     console.log(`[${new Date().toISOString()}]`, chalk.blue(`Generating static routes...`));
     await parseDirectories(config.pages, {
-        routeExtension: '.html',
+        routeExtension: '.njk',
     });
 }
 

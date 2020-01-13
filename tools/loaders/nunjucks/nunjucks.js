@@ -1,8 +1,8 @@
 const configureNunjucksLoader = () => {
     return [
         {
-            test: /\.html$/,
-            use: ['raw-loader'],
+            test: /\.njk$/,
+            use: 'nunjucks-loader',
         },
     ];
 };
