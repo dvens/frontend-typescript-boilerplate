@@ -2,7 +2,7 @@ const configureNunjucksLoader = () => {
     return [
         {
             test: /\.njk$/,
-            use: 'nunjucks-loader',
+            loader: 'nunjucks-loader',
         },
     ];
 };
