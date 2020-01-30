@@ -1,4 +1,4 @@
-import { Loadable } from './utilities/loadable/loadable';
+import { Loadable } from '@utilities/loadable';
 
 Loadable({
     hook: 'counter-element',

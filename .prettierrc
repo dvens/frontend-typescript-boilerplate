@@ -6,5 +6,16 @@
     "singleQuote": true,
     "trailingComma": "all",
     "bracketSpacing": true,
-    "jsxBracketSameLine": true
+    "jsxBracketSameLine": true,
+    "overrides": [
+        {
+            "files": [
+                "*.ts",
+                ".tsx"
+            ],
+            "options": {
+                "parser": "typescript"
+            }
+        }
+    ]
 }

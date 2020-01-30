@@ -11,6 +11,7 @@ config.root = resolveApp('');
 config.source = resolveApp('src');
 config.pages = resolveApp('src/pages');
 config.components = resolveApp('src/components');
+config.nodeModules = resolveApp('node_modules');
 config.dotenv = resolveApp('.env');
 
 // Entries
@@ -59,7 +60,7 @@ config.publicPath = config.assetPrefix;
 config.cssInJS = true;
 
 // Browsersync watched files
-config.browserSync = ['src/**/*.html', 'src/**/*.tsx'];
+config.browserSync = ['src/**/*.njk', 'src/**/*.tsx'];
 
 // Nunjucks config
 config.nunjucks = {

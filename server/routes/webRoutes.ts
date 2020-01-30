@@ -46,7 +46,7 @@ export const webRoutes = (config: RoutesConfig) => {
         if (templateUrl) {
             res.render(templateUrl, data);
         } else {
-            res.status(404).render('404.html', data);
+            res.status(404).render(`404${config.routeExtension}`, data);
         }
     });
 };

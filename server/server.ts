@@ -12,13 +12,13 @@ import dotenv from 'dotenv';
 import express from 'express';
 import logger from 'morgan';
 
-import { nunjucksEnvironment } from './nunjucks';
+import { nunjucksConfig } from '../tools/nunjucks/nunjucks-config';
 // Config/Utilities
 import { config } from '../tools/utilities/get-config';
-import { nunjucksConfig } from '../tools/nunjucks/nunjucks-config';
 // Middleware
 import errorHandler from './middleware/errorHandler';
 import hotReloadMiddleware from './middleware/hotReload';
+import { nunjucksEnvironment } from './nunjucks';
 import { webRoutes } from './routes/webRoutes';
 
 /**
@@ -57,7 +57,7 @@ app.use(compression());
 const appViews = [config.pages, config.components];
 
 nunjucksEnvironment(appViews, nunjucksConfig, app);
-app.set('view engine', 'html');
+app.set('view engine', 'njk');
 
 /**
  * Body parser
@@ -85,7 +85,7 @@ if (process.env.NODE_ENV === 'development') {
             browserSync({
                 files: config.browserSync,
                 notify: true,
-                open: false,
+                open: true,
                 port: SERVER_PORT,
                 proxy: `localhost:${SERVER_PORT - 50}`,
                 ui: false,
@@ -117,4 +117,4 @@ if (process.env.NODE_ENV === 'production') {
 /**
  * Route Configuration
  */
-webRoutes({ routeExtension: '.html', rootFolder: config.pages, app, port: SERVER_PORT });
+webRoutes({ routeExtension: '.njk', rootFolder: config.pages, app, port: SERVER_PORT });

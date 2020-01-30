@@ -1,4 +1,5 @@
 const configureBabelLoader = require('../tools/loaders/javascript-typescript');
+const configureNunjucksLoader = require('../tools/loaders/nunjucks');
 const configureCSSLoader = require('../tools/loaders/style-sass');
 const SassLintPlugin = require('sass-lint-webpack');
 
@@ -13,8 +14,11 @@ module.exports = ({ config }) => {
         }),
     );
 
+    // Nunjucks loader
+    config.module.rules.push(...configureNunjucksLoader());
+
     // CSS/SASS loader
-    config.module.rules.push(...configureCSSLoader());
+    config.module.rules.push(...configureCSSLoader({ extract: false }));
     config.plugins.push(new SassLintPlugin());
 
     // Valid extensions
