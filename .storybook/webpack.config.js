@@ -18,7 +18,7 @@ module.exports = ({ config }) => {
     config.module.rules.push(...configureNunjucksLoader());
 
     // CSS/SASS loader
-    config.module.rules.push(...configureCSSLoader());
+    config.module.rules.push(...configureCSSLoader({ extract: false }));
     config.plugins.push(new SassLintPlugin());
 
     // Valid extensions

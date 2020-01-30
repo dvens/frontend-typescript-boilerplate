@@ -11,6 +11,7 @@ config.root = resolveApp('');
 config.source = resolveApp('src');
 config.pages = resolveApp('src/pages');
 config.components = resolveApp('src/components');
+config.nodeModules = resolveApp('node_modules');
 config.dotenv = resolveApp('.env');
 
 // Entries
