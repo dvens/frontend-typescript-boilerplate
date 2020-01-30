@@ -5,9 +5,8 @@ const configureBabelLoader = ({
     includedPackages = [],
     plugins = [],
     presets = [],
-    legacy = false
+    legacy = false,
 }) => {
-
     const options = {
         plugins: [
             '@babel/syntax-dynamic-import',
@@ -16,36 +15,45 @@ const configureBabelLoader = ({
             ...plugins,
         ],
         presets: [
-            ['@babel/preset-env', {
-                targets: legacy ? ['ie 11'] : findSupportedBrowsers(),
-                useBuiltIns: 'usage',
-                modules: false,
-                corejs: 3,
-                debug: false,
-            }],
+            [
+                '@babel/preset-env',
+                {
+                    targets: legacy ? ['ie 11'] : findSupportedBrowsers(),
+                    useBuiltIns: false,
+                    modules: false,
+                    debug: false,
+                },
+            ],
             ...presets,
         ],
         cacheDirectory: getDefaultMode() === 'development',
     };
 
-    return [{
-        test: /\.(ts|tsx)?$/,
-        exclude: includedPackages,
-        use: [{
-            loader: require.resolve('babel-loader'),
-            options
-        }, {
-            loader: require.resolve('ts-loader'),
-        }],
-    }, {
-        test: /\.(js|jsx)?$/,
-        exclude: includedPackages,
-        use: [{
-            loader: require.resolve('babel-loader'),
-            options
-        }],
-    }];
-
+    return [
+        {
+            test: /\.(ts|tsx)?$/,
+            exclude: includedPackages,
+            use: [
+                {
+                    loader: require.resolve('babel-loader'),
+                    options,
+                },
+                {
+                    loader: require.resolve('ts-loader'),
+                },
+            ],
+        },
+        {
+            test: /\.(js|jsx)?$/,
+            exclude: includedPackages,
+            use: [
+                {
+                    loader: require.resolve('babel-loader'),
+                    options,
+                },
+            ],
+        },
+    ];
 };
 
 module.exports = configureBabelLoader;

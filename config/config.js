@@ -16,7 +16,6 @@ config.dotenv = resolveApp('.env');
 
 // Entries
 config.appEntry = 'index.ts';
-config.polyfillEntry = 'polyfill.ts';
 config.serverEntry = 'server.ts';
 
 // Server folder
