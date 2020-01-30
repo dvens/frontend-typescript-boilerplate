@@ -1,4 +1,6 @@
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const {
+    CleanWebpackPlugin
+} = require('clean-webpack-plugin');
 const SassLintPlugin = require('sass-lint-webpack');
 const CopyPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
@@ -6,7 +8,10 @@ const WebpackBar = require('webpackbar');
 const env = require('../utilities/env')();
 
 // Utilities
-const { config, alias } = require('../utilities/get-config');
+const {
+    config,
+    alias
+} = require('../utilities/get-config');
 
 const getDefaultMode = require('../utilities/get-default-mode');
 const isVerbose = process.argv.includes('--verbose');
