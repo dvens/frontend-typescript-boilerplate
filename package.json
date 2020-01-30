@@ -131,8 +131,8 @@
         "webpackbar": "^4.0.0"
     },
     "dependencies": {
-        "@atomify/core": "^2.3.6",
-        "@atomify/jsx": "^1.5.6",
+        "@atomify/core": "^2.3.7",
+        "@atomify/jsx": "^1.5.7",
         "body-parser": "^1.19.0",
         "chalk": "^2.4.2",
         "compression": "^1.7.4",
