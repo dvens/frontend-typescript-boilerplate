@@ -1,6 +1,7 @@
 const resolveApp = require('../tools/utilities/resolve-app');
 const getDefaultMode = require('../tools/utilities/get-default-mode');
 const fileCopyConfig = require('./copy');
+const polyfills = require('./polyfills');
 
 const config = {};
 
@@ -52,7 +53,8 @@ config.assetPrefix = process.env.ASSET_PREFIX ? process.env.ASSET_PREFIX : '';
 config.imagesOutputPath = '/assets/images/';
 config.svgOutputPath = '/assets/svg/';
 config.fontsOutputPath = '/assets/fonts/';
-config.jsOutputPath = 'assets/js/';
+config.jsOutputPath = '/assets/js/';
+config.polyfillOutputPath = '/assets/js/polyfills/';
 config.publicPath = config.assetPrefix;
 
 // Config CSS in JS option
@@ -69,6 +71,9 @@ config.nunjucks = {
         ...require(`${config.data}/project.json`),
     },
 };
+
+// Polyfills
+config.polyfills = polyfills;
 
 // Webpack copy config
 config.copy = fileCopyConfig(config);

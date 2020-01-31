@@ -1,6 +1,4 @@
-const {
-    CleanWebpackPlugin
-} = require('clean-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const SassLintPlugin = require('sass-lint-webpack');
 const CopyPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
@@ -8,10 +6,7 @@ const WebpackBar = require('webpackbar');
 const env = require('../utilities/env')();
 
 // Utilities
-const {
-    config,
-    alias
-} = require('../utilities/get-config');
+const { config, alias } = require('../utilities/get-config');
 
 const getDefaultMode = require('../utilities/get-default-mode');
 const isVerbose = process.argv.includes('--verbose');
@@ -27,6 +22,14 @@ const defaultOptions = {
     mode: getDefaultMode(),
     entry: config.appEntry,
 };
+
+function normalizePath(path) {
+    if (path.startsWith('/')) {
+        return path.substring(1, path.length);
+    }
+
+    return path;
+}
 
 const createBaseConfig = (userOptions = {}, legacy = false) => {
     const options = {
@@ -88,8 +91,8 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
         },
 
         output: {
-            filename: outputFilename,
-            chunkFilename: outputChunkFilename,
+            filename: normalizePath(outputFilename),
+            chunkFilename: normalizePath(outputChunkFilename),
             path: config.clientDist,
             publicPath: config.publicPath,
         },
@@ -127,7 +130,9 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
         },
     };
 
-    if (firstConfig) defaultConfig.plugins.push(new CleanWebpackPlugin());
+    if (firstConfig) {
+        defaultConfig.plugins.push(new CleanWebpackPlugin());
+    }
 
     return defaultConfig;
 };
