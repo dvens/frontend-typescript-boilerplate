@@ -27,15 +27,16 @@ config.server = resolveApp('server');
 config.port = process.env.PORT || 3000;
 
 // Static folder
-config.static = resolveApp('static');
+config.public = resolveApp('public');
 
 // Assets Folder
-config.assets = resolveApp('static/assets');
-config.images = resolveApp('static/assets/images');
-config.svg = resolveApp('static/assets/svg');
+config.assets = resolveApp('public/assets');
+config.images = resolveApp('public/assets/images');
+config.svg = resolveApp('public/assets/svg');
+config.favicons = resolveApp('public/favicons');
 
 // Data folder
-config.data = resolveApp('static/data');
+config.data = resolveApp('public/data');
 
 // Styles Folder
 config.styles = resolveApp('src/styles');
