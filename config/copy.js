@@ -1,4 +1,4 @@
-const images = require('../tools/scripts/images');
+const images = require('../tools/utilities/images');
 
 function fileCopyConfig(config) {
     return [

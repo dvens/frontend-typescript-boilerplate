@@ -2,8 +2,6 @@ const path = require('path');
 const fs = require('fs');
 const Terser = require('terser');
 
-const ensureDirectoryExistence = require('../../utilities/ensure-directory-existence');
-
 function getPolyfills(config) {
     const polyfills = [];
     const instructions = [...(config.polyfills.customPolyfills || [])];
@@ -75,15 +73,14 @@ function getPolyfills(config) {
 
         const url = `${config.clientDist}${config.polyfillOutputPath}${instruction.name}.js`;
 
-        ensureDirectoryExistence(url);
-        fs.writeFileSync(url, code);
-
         // Push polyfill when path and name exists.
         polyfills.push({
             name: instruction.name,
             test: instruction.test,
             nomodule: !!instruction.nomodule,
             module: !!instruction.module,
+            url,
+            code,
         });
     });
 

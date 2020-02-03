@@ -1,4 +1,3 @@
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const SassLintPlugin = require('sass-lint-webpack');
 const CopyPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
@@ -36,8 +35,6 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
         ...defaultOptions,
         ...userOptions,
     };
-
-    const firstConfig = legacy;
 
     const outputFilename = `${config.jsOutputPath}${
         legacy ? `${config.legacyPrefix}` : ''
@@ -129,10 +126,6 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
             version: isVerbose,
         },
     };
-
-    if (firstConfig) {
-        defaultConfig.plugins.push(new CleanWebpackPlugin());
-    }
 
     return defaultConfig;
 };
