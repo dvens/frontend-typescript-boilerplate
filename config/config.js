@@ -18,6 +18,7 @@ config.dotenv = resolveApp('.env');
 // Entries
 config.appEntry = 'index.ts';
 config.serverEntry = 'server.ts';
+config.distEntries = ['main.js'];
 
 // Server folder
 config.server = resolveApp('server');
@@ -66,7 +67,7 @@ config.browserSync = ['src/**/*.njk', 'src/**/*.tsx'];
 // Nunjucks config
 config.nunjucks = {
     project: {
-        debug: getDefaultMode() === 'development',
+        debug: getDefaultMode() === 'development' || getDefaultMode() === 'debug',
         assetPrefix: config.assetPrefix,
         ...require(`${config.data}/project.json`),
     },
