@@ -7,9 +7,14 @@ const getPolyfills = require('./polyfill-loader/get-polyfills');
 const createLoaderScript = require('./polyfill-loader/loader-script');
 
 async function copyPolyfills(polyfills) {
-    await polyfills.map(async polyfill => {
-        await mkdirp(path.dirname(polyfill.url));
-        await fs.writeFileSync(polyfill.url, polyfill.code);
+    return new Promise(resolve => {
+        mkdirp(`${config.dist}${config.polyfillOutputPath}`, async () => {
+            await polyfills.forEach(async polyfill => {
+                await fs.writeFileSync(polyfill.url, polyfill.code);
+            });
+
+            resolve();
+        });
     });
 }
 

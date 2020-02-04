@@ -16,6 +16,10 @@ function fileCopyConfig(config) {
                 return images(svg);
             },
         },
+        {
+            from: config.favicons,
+            to: 'assets/favicons',
+        },
     ];
 }
 

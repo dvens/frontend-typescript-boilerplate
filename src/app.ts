@@ -1,3 +1,4 @@
+import '@utilities/sw';
 import { Loadable } from '@utilities/loadable';
 
 Loadable({
