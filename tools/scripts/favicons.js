@@ -6,8 +6,8 @@ const { config } = require('../utilities/get-config');
 const folder = config.favicons;
 const source = `${config.public}/logo.png`;
 
-const config = {
-    path: '/', // Path for overriding default icons path. `string`
+const options = {
+    path: config.faviconsOutputPath, // Path for overriding default icons path. `string`
     appName: 'App', // Your application's name. `string`
     appShortName: 'App', // Your application's short_name. `string`. Optional. If not set, appName will be used
     appDescription: 'App starter', // Your application's description. `string`
@@ -49,8 +49,10 @@ const config = {
 };
 
 async function generateFavicons() {
-    favicons(source, config, (error, response) => {
+    await favicons(source, options, async (error, response) => {
         if (error) throw new Error(error.message);
+
+        const metaTags = response.html.join('\n');
 
         response.images.forEach(image => {
             fs.writeFileSync(`${folder}/${image.name}`, image.contents);
@@ -60,7 +62,7 @@ async function generateFavicons() {
             fs.writeFileSync(`${folder}/${file.name}`, file.contents);
         });
 
-        console.log(response.html);
+        await fs.writeFileSync(`${config.pages}/_layouts/favicons.njk`, metaTags);
     });
 }
 

@@ -33,7 +33,7 @@ config.public = resolveApp('public');
 config.assets = resolveApp('public/assets');
 config.images = resolveApp('public/assets/images');
 config.svg = resolveApp('public/assets/svg');
-config.favicons = resolveApp('public/favicons');
+config.favicons = resolveApp('public/assets/favicons');
 
 // Data folder
 config.data = resolveApp('public/data');
@@ -56,6 +56,7 @@ config.imagesOutputPath = '/assets/images/';
 config.svgOutputPath = '/assets/svg/';
 config.fontsOutputPath = '/assets/fonts/';
 config.jsOutputPath = '/assets/js/';
+config.faviconsOutputPath = '/assets/favicons/';
 config.polyfillOutputPath = '/assets/js/polyfills/';
 config.publicPath = config.assetPrefix;
 
