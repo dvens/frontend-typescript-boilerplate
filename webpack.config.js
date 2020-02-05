@@ -16,7 +16,7 @@ function getBuildOptions() {
         return [webpackProdConfig(clientConfig, true), webpackProdConfig(clientConfig)];
     } else {
         // Legacy build
-        return webpackProdConfig(clientConfig);
+        return webpackDevConfig(clientConfig);
     }
 }
 

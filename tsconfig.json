@@ -25,7 +25,7 @@
         "baseUrl": ".",
         "typeRoots": ["./node_modules/@types", "./types"],
         "paths": {
-            "@static/*": ["./static/*"],
+            "@public/*": ["./public/*"],
             "@pages/*": ["./src/pages/*"],
             "@server/*": ["./server/*"],
             "@source/*": ["./src/*"],

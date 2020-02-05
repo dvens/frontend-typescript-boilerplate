@@ -26,7 +26,7 @@ config.server = resolveApp('server');
 // Node.js App
 config.port = process.env.PORT || 3000;
 
-// Static folder
+// Public folder
 config.public = resolveApp('public');
 
 // Assets Folder

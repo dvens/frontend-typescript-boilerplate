@@ -1,5 +1,5 @@
 import { Loadable } from '@utilities/loadable';
-import { registerServiceWorker, isLocalhost, unRegisterServiceWorker } from '@utilities/sw';
+import { isLocalhost, registerServiceWorker, unRegisterServiceWorker } from '@utilities/sw';
 
 if (!isLocalhost) {
     unRegisterServiceWorker();

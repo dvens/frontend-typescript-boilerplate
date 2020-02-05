@@ -6,9 +6,8 @@
     "author": "Dept",
     "scripts": {
         "lint-fix": "eslint src/ --ext .ts,.tsx --fix",
-        "dev": "cross-env NODE_ENV=development ts-node ./tools/scripts/run static",
-        "prod": "cross-env NODE_ENV=production ts-node ./tools/scripts/run static",
         "start": "cross-env NODE_ENV=development PORT=3000 nodemon",
+        "prod": "cross-env NODE_ENV=production ts-node ./tools/scripts/run static",
         "build": "cross-env NODE_ENV=production ts-node ./tools/scripts/run build",
         "build:server": "yarn build && cross-env NODE_ENV=production tsc --project tsconfig.server.json",
         "start:build": "cross-env NODE_ENV=production ts-node ./build/server/server.js",

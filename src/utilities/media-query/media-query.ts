@@ -1,6 +1,6 @@
 import { breakpoints } from './breakpoints';
 import { BreakpointFunction, Breakpoints, UseMediaFunction } from './media-query.types';
-import { getMediaQueries,getSizeFromBreakpoint } from './utils';
+import { getMediaQueries, getSizeFromBreakpoint } from './utils';
 
 const max: BreakpointFunction = breakpoint => `(max-width: ${getSizeFromBreakpoint(breakpoint)}px)`;
 
@@ -64,6 +64,8 @@ const useMedia = (callback: UseMediaFunction) => {
 
         callback(breakpoints);
     }
+
+    callback(breakpoints);
 };
 
 export { breakpoints, min, max, useMedia, mediaWatcher, getCurrentBreakpoint, Breakpoints };

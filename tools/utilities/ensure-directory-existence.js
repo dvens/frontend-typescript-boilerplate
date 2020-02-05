@@ -1,13 +1,13 @@
 const path = require('path');
 const fs = require('fs');
 
-async function ensureDirectoryExistence(filePath) {
-    const dirname = await path.dirname(filePath);
-    if (await fs.existsSync(dirname)) {
+function ensureDirectoryExistence(filePath) {
+    const dirname = path.dirname(filePath);
+    if (fs.existsSync(dirname)) {
         return true;
     }
-    await ensureDirectoryExistence(dirname);
-    await fs.mkdirSync(dirname);
+    ensureDirectoryExistence(dirname);
+    fs.mkdirSync(dirname);
 }
 
 module.exports = ensureDirectoryExistence;
