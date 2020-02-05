@@ -1,14 +1,7 @@
 {
     "editor.formatOnSave": true,
-    "eslint.validate": [
-        "javascript",
-        "javascriptreact",
-        "vue",
-        "typescript",
-        "typescriptreact"
-    ],
     "json.format.enable": true,
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true
-    }
+    },
 }
