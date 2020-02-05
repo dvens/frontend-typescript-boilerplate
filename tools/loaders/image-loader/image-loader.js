@@ -13,7 +13,7 @@ const imageLoader = (userOptions = {}) => {
         disable: isDevelopment,
         mozjpeg: {
             progressive: true,
-            quality: [65],
+            quality: 65,
         },
         optipng: {
             enabled: false,
