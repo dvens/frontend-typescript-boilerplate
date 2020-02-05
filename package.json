@@ -5,13 +5,14 @@
     "description": "A basic project setup for creating (static) html templates. Filled with automated tasks and configuration options.",
     "author": "Dept",
     "scripts": {
+        "webpack": "cross-env NODE_ENV=development webpack --progress",
         "lint-fix": "eslint src/ --ext .ts,.tsx --fix",
-        "dev": "cross-env NODE_ENV=development ts-node ./tools/scripts/run build",
-        "prod": "cross-env NODE_ENV=production ts-node ./tools/scripts/run build",
+        "dev": "cross-env NODE_ENV=development ts-node ./tools/scripts/run static",
+        "prod": "cross-env NODE_ENV=production ts-node ./tools/scripts/run static",
         "start": "cross-env NODE_ENV=development PORT=3000 nodemon",
-        "build": "yarn prod && cross-env NODE_ENV=production tsc --project tsconfig.server.json",
+        "build": "cross-env NODE_ENV=production ts-node ./tools/scripts/run build",
+        "build:server": "yarn build && cross-env NODE_ENV=production tsc --project tsconfig.server.json",
         "start:build": "cross-env NODE_ENV=production ts-node ./build/server/server.js",
-        "static": "cross-env NODE_ENV=production ts-node ./tools/scripts/run static",
         "storybook": "start-storybook -p 9001",
         "storybook:build": "cross-env NODE_ENV=production build-storybook -o ./build/styleguide -s storybook-static",
         "test": "karma start karma.conf.js"

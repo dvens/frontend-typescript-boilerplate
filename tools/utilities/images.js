@@ -25,7 +25,7 @@ const options = {
     interlaces: false,
     plugins: [
         imageminJpegtran(),
-        imageminPngquant({ quality: '65-80' }),
+        imageminPngquant({ quality: ['65-80'] }),
         imageminnMozjpeg(mozjpegOptions),
         imageminSvgo(svgoOptions),
     ],

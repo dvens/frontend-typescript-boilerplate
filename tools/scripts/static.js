@@ -1,18 +1,27 @@
+// Utilities
 const run = require('./run');
+const getDefaultMode = require('../utilities/get-default-mode');
+const isProduction = getDefaultMode() === 'production';
+
+// Scripts
 const bundle = require('./bundle');
 const clean = require('./clean');
-const createStaticRoutes = require('./create-static-routes');
+const generateStaticRoutes = require('./generate-static-routes');
 const generatePolyfills = require('./generate-polyfills');
 const generateServiceWorker = require('./generate-sw');
 const generateFavicons = require('./generate-favicons');
 
 async function staticBuild() {
     await run(clean);
-    await run(generateFavicons);
     await run(bundle);
-    await run(generatePolyfills);
-    await run(createStaticRoutes);
-    await run(generateServiceWorker);
+    if (isProduction) {
+        await run(generateFavicons);
+        await run(generatePolyfills);
+    }
+    await run(generateStaticRoutes);
+    if (isProduction) {
+        await run(generateServiceWorker);
+    }
 }
 
 module.exports = staticBuild;

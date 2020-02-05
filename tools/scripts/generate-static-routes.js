@@ -70,11 +70,11 @@ async function generateStaticFile(pathName, config) {
     console.log(`[${new Date().toISOString()}]`, chalk.blue(`Generated: ${baseUrl}`));
 }
 
-async function createStaticRoutes() {
+async function generateStaticRoutes() {
     console.log(`[${new Date().toISOString()}]`, chalk.blue(`Generating static routes...`));
     await parseDirectories(config.pages, {
         routeExtension: '.njk',
     });
 }
 
-module.exports = createStaticRoutes;
+module.exports = generateStaticRoutes;
