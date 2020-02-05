@@ -2,7 +2,7 @@ import { Loadable } from '@utilities/loadable';
 import { registerServiceWorker, isLocalhost, unRegisterServiceWorker } from '@utilities/sw';
 
 if (!isLocalhost) {
-    unRegisterServiceWorker;
+    unRegisterServiceWorker();
 } else {
     registerServiceWorker();
 }
