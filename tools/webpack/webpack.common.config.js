@@ -1,4 +1,3 @@
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const SassLintPlugin = require('sass-lint-webpack');
 const CopyPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
@@ -23,13 +22,19 @@ const defaultOptions = {
     entry: config.appEntry,
 };
 
+function normalizePath(path) {
+    if (path.startsWith('/')) {
+        return path.substring(1, path.length);
+    }
+
+    return path;
+}
+
 const createBaseConfig = (userOptions = {}, legacy = false) => {
     const options = {
         ...defaultOptions,
         ...userOptions,
     };
-
-    const firstConfig = legacy;
 
     const outputFilename = `${config.jsOutputPath}${
         legacy ? `${config.legacyPrefix}` : ''
@@ -83,8 +88,8 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
         },
 
         output: {
-            filename: outputFilename,
-            chunkFilename: outputChunkFilename,
+            filename: normalizePath(outputFilename),
+            chunkFilename: normalizePath(outputChunkFilename),
             path: config.clientDist,
             publicPath: config.publicPath,
         },
@@ -121,8 +126,6 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
             version: isVerbose,
         },
     };
-
-    if (firstConfig) defaultConfig.plugins.push(new CleanWebpackPlugin());
 
     return defaultConfig;
 };

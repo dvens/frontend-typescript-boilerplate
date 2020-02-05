@@ -1,12 +1,6 @@
-const SVGExtension = require('./extensions/svg');
-
 const nunjucksConfig = {
-    extensions: [
-        {
-            name: 'SVGExtension',
-            func: nunjucks => new SVGExtension(nunjucks),
-        },
-    ],
+    // Uncomment to add custom nunjucks filters
+    // extensions: [],
 };
 
 module.exports = { nunjucksConfig };

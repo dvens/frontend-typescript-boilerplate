@@ -16,7 +16,7 @@
     ],
     "modulepreload": [
         {
-            "url": "/assets/js/main-es.js",
+            "url": "/assets/js/main.js",
             "as": "script"
         }
     ]

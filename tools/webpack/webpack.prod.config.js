@@ -4,7 +4,6 @@ const TerserPlugin = require('terser-webpack-plugin');
 const merge = require('webpack-merge');
 
 const createConfig = (options, legacy = false) => {
-
     const baseConfig = createBaseConfig(options, legacy);
 
     const prodConfig = {
@@ -29,12 +28,11 @@ const createConfig = (options, legacy = false) => {
                     parallel: true,
                     sourceMap: true,
                 }),
-            ]
-        }
+            ],
+        },
     };
 
     return merge(baseConfig, prodConfig);
-
 };
 
 module.exports = createConfig;

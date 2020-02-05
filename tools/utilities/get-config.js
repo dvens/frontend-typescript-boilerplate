@@ -6,6 +6,7 @@ const projectDirectory = process.env.OLDPWD || path.normalize(process.env.INIT_C
 const getConfig = () => {
     const configString = `${projectDirectory}/config/config.js`;
     const aliasString = `${projectDirectory}/config/alias.js`;
+    const faviconString = `${projectDirectory}/config/favicons.js`;
 
     if (!fs.existsSync(configString))
         throw new Error(
@@ -15,6 +16,7 @@ const getConfig = () => {
     return {
         config: require(configString),
         alias: require(aliasString),
+        favicon: require(faviconString),
     };
 };
 
