@@ -1,5 +1,5 @@
 const { generateSW } = require('workbox-build');
-const getWorkboxConfig = require('../utilities/get-workbox-config');
+const getWorkboxConfig = require('./get-workbox-config');
 
 async function generateServiceWorker() {
     const { swDest, count, size } = await generateSW(getWorkboxConfig());

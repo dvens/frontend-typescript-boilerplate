@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const mkdirp = require('mkdirp');
 
-const { config } = require('../utilities/get-config');
+const { config } = require('./get-config');
 const getPolyfills = require('./polyfill-loader/get-polyfills');
 const createLoaderScript = require('./polyfill-loader/loader-script');
 
