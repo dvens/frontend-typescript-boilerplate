@@ -1,5 +1,6 @@
 import express from 'express';
 import * as fs from 'fs';
+import glob from 'glob';
 import path from 'path';
 
 import { config as projectConfig } from '../../tools/utilities/get-config';
@@ -10,14 +11,40 @@ export interface RoutesConfig {
     port: number;
 }
 
-export function getTemplate(url: string, config: RoutesConfig) {
-    // Get template url and remove first /
-    const templateUrl = path.join(url, `index${config.routeExtension}`).substr(1);
-    const JSONUrl = path.join(config.rootFolder, url, 'index.json');
-    const hasTemplate = fs.existsSync(path.join(config.rootFolder, templateUrl));
-    const hasJSONfile = fs.existsSync(JSONUrl);
+function fileExists(filePath: string, config: RoutesConfig) {
+    return fs.existsSync(path.join(config.rootFolder, filePath));
+}
 
-    let data = {};
+async function getRouteObject(config: RoutesConfig) {
+    console.log(`/**/*.${config.routeExtension}`);
+
+    const routes = glob
+        .sync(config.rootFolder + `/**/*${config.routeExtension}`)
+        .map(file => file.replace(config.rootFolder, '').replace(config.routeExtension, ''))
+        .filter(route => !route.startsWith('/_'))
+        .map(route => route.replace('[', ':').replace(']', ''));
+
+    console.log(routes);
+
+    return routes;
+}
+
+export async function getTemplate(
+    req: express.Request,
+    res: express.Response,
+    config: RoutesConfig,
+) {
+    const url = req.originalUrl;
+
+    // Get template url and remove first /
+
+    let templatePath = (url + config.routeExtension).substr(1);
+    let hasTemplate = fileExists(templatePath, config);
+
+    if (!hasTemplate) {
+        templatePath = path.join(url, `index${config.routeExtension}`).substr(1);
+        hasTemplate = fileExists(templatePath, config);
+    }
 
     // Check if the template is there otherwise return null
     if (!hasTemplate) {
@@ -27,23 +54,28 @@ export function getTemplate(url: string, config: RoutesConfig) {
         };
     }
 
-    // Check if the page has a corresponding JSON file.
-    if (hasJSONfile) {
-        const JSONfile = fs.readFileSync(JSONUrl);
-        data = JSON.parse(`${JSONfile}`);
-    }
+    const initiatorPath = (url + '.ts').substr(1);
+    const hasInitiatorPath = fileExists(initiatorPath, config);
+    const data = hasInitiatorPath
+        ? require(path.join(config.rootFolder, initiatorPath)).default(req, res)
+        : {};
 
     return {
-        templateUrl,
+        templateUrl: templatePath,
         data: Object.assign({}, projectConfig.nunjucks, data),
     };
 }
 
 export const webRoutes = (config: RoutesConfig) => {
-    config.app.get('*', (req: express.Request, res: express.Response) => {
-        const { templateUrl, data } = getTemplate(req.originalUrl, config);
+    // const routes = getRouteObject(config);
+
+    // console.log(routes);
+
+    config.app.get('*', async (req: express.Request, res: express.Response) => {
+        const { templateUrl, data } = await getTemplate(req, res, config);
 
         if (templateUrl) {
+            console.log(data);
             res.render(templateUrl, data);
         } else {
             res.status(404).render(`404${config.routeExtension}`, data);

@@ -85,7 +85,7 @@ if (process.env.NODE_ENV === 'development') {
             browserSync({
                 files: config.browserSync,
                 notify: true,
-                open: true,
+                open: false,
                 port: SERVER_PORT,
                 proxy: `localhost:${SERVER_PORT - 50}`,
                 ui: false,
