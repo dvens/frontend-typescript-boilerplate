@@ -3,10 +3,16 @@
 {% block content %}
 
     <div class="container">
-        <h1 class="title">Overview page</h1>
+        <h1 class="title">Products</h1>
         <div class="flex-center">
             <p>This is an overview page</p>
         </div>
+
+        <ul>
+            {% for product in products %}
+            <li><a href="/products/{{ product.slug }}">{{ product.title }}</a></li>
+            {% endfor %}
+        </li>
     </div>
 
 {% endblock %}

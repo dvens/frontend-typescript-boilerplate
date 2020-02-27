@@ -1,0 +1,12 @@
+[
+    {
+        "title": "iPhone X",
+        "slug": "iphone-x",
+        "content": "This is the page content"
+    },
+    {
+        "title": "Samsung S4",
+        "slug": "samsung-s-4",
+        "content": "This is the other page content"
+    }
+]

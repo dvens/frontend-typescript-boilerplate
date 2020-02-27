@@ -12,7 +12,8 @@
             "dom",
             "es7",
             "scripthost",
-            "es2015"
+            "es2015",
+            "ES2019.String"
         ],
         "module": "esnext",
         "moduleResolution": "node",
@@ -25,6 +26,7 @@
         "emitDecoratorMetadata": true,
         "sourceMap": true,
         "noFallthroughCasesInSwitch": true,
+        "resolveJsonModule": true,
         "strictNullChecks": true,
         "noEmitOnError": true,
         "baseUrl": ".",

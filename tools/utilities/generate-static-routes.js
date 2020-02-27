@@ -15,10 +15,10 @@ const env = configureNunjucks([projectConfig.pages, projectConfig.components], n
  * @param {string} pathName
  * @returns {array} of directories.
  */
-async function getDirectories(pathName) {
+function getDirectories(pathName) {
     // Filters out all the directories that are private.
     // Private folders are prefixed with _ (underscore)
-    return await fs.readdirSync(pathName).filter(name => !name.includes('_'));
+    return fs.readdirSync(pathName).filter(name => !name.includes('_'));
 }
 
 /**
@@ -28,7 +28,7 @@ async function getDirectories(pathName) {
  * @returns
  */
 async function parseDirectories(folderName, config) {
-    const files = await getDirectories(folderName);
+    const files = getDirectories(folderName);
 
     await files.forEach(async file => {
         const fullName = path.join(folderName, file);

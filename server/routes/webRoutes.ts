@@ -1,84 +1,104 @@
 import express from 'express';
-import * as fs from 'fs';
 import glob from 'glob';
 import path from 'path';
+import { match, pathToRegexp } from 'path-to-regexp';
 
 import { config as projectConfig } from '../../tools/utilities/get-config';
 export interface RoutesConfig {
-    routeExtension: string;
     rootFolder: string;
     app: any;
     port: number;
+    routeExtension: string;
 }
 
-function fileExists(filePath: string, config: RoutesConfig) {
-    return fs.existsSync(path.join(config.rootFolder, filePath));
-}
+type RouteObjects = ReturnType<typeof getRouteObject>;
 
-async function getRouteObject(config: RoutesConfig) {
-    console.log(`/**/*.${config.routeExtension}`);
-
-    const routes = glob
-        .sync(config.rootFolder + `/**/*${config.routeExtension}`)
-        .map(file => file.replace(config.rootFolder, '').replace(config.routeExtension, ''))
+function getRouteObject(config: RoutesConfig) {
+    const files = glob
+        .sync(config.rootFolder + `/**/*.{njk,tsx,html,ts}`)
+        .map(file => file.replace(config.rootFolder, ''))
         .filter(route => !route.startsWith('/_'))
-        .map(route => route.replace('[', ':').replace(']', ''));
+        .reverse(); // because dynamic routes should be last
 
-    console.log(routes);
+    const fileTypes = files.reduce(
+        (acc, file) => {
+            const extension = file.split('.').pop();
+            if (extension === 'ts') {
+                acc.initiators.push(file);
+            } else {
+                acc.templates.push(file);
+            }
 
-    return routes;
+            return acc;
+        },
+        {
+            initiators: [] as string[],
+            templates: [] as string[],
+        },
+    );
+
+    return fileTypes.templates.map(templatePath => {
+        const extension = templatePath.split('.').pop();
+        const route = templatePath.replace(`.${extension}`, '');
+        const initiatorPath = fileTypes.initiators.find(init => init === `${route}.ts`);
+
+        return {
+            type: extension,
+            templatePath: path.join(config.rootFolder, templatePath),
+            url: route
+                .replace(/\[/g, ':')
+                .replace(/\]/g, '')
+                .replace('index', ''),
+            initiator:
+                initiatorPath && require(path.join(config.rootFolder, initiatorPath)).default,
+        };
+    });
 }
 
 export async function getTemplate(
     req: express.Request,
     res: express.Response,
-    config: RoutesConfig,
+    routes: RouteObjects,
 ) {
     const url = req.originalUrl;
 
-    // Get template url and remove first /
+    const route = routes.find(route => {
+        const regexp = pathToRegexp(route.url);
+        const match = regexp.exec(url);
+        return match;
+    });
 
-    let templatePath = (url + config.routeExtension).substr(1);
-    let hasTemplate = fileExists(templatePath, config);
-
-    if (!hasTemplate) {
-        templatePath = path.join(url, `index${config.routeExtension}`).substr(1);
-        hasTemplate = fileExists(templatePath, config);
+    if (!route) {
+        return { templateUrl: '', data: projectConfig.nunjucks };
     }
 
-    // Check if the template is there otherwise return null
-    if (!hasTemplate) {
-        return {
-            templateUrl: '',
-            data: projectConfig.nunjucks,
+    const matcher = match(route.url, { decode: decodeURIComponent });
+    const paramObject = matcher(url);
+
+    if (paramObject) {
+        req.params = {
+            ...paramObject.params,
         };
     }
 
-    const initiatorPath = (url + '.ts').substr(1);
-    const hasInitiatorPath = fileExists(initiatorPath, config);
-    const data = hasInitiatorPath
-        ? require(path.join(config.rootFolder, initiatorPath)).default(req, res)
-        : {};
+    const data = route.initiator ? await route.initiator(req, res) : {};
 
     return {
-        templateUrl: templatePath,
+        templateUrl: route.templatePath,
         data: Object.assign({}, projectConfig.nunjucks, data),
     };
 }
 
 export const webRoutes = (config: RoutesConfig) => {
-    // const routes = getRouteObject(config);
-
-    // console.log(routes);
+    const routes = getRouteObject(config);
 
     config.app.get('*', async (req: express.Request, res: express.Response) => {
-        const { templateUrl, data } = await getTemplate(req, res, config);
+        const { templateUrl, data } = await getTemplate(req, res, routes);
 
         if (templateUrl) {
-            console.log(data);
             res.render(templateUrl, data);
         } else {
-            res.status(404).render(`404${config.routeExtension}`, data);
+            res.status(404).render(`404.njk`, data);
         }
     });
 };
