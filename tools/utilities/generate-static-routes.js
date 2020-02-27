@@ -6,6 +6,7 @@ const { config } = require('./get-config');
 const ensureDirectoryExistence = require('./ensure-directory-existence');
 const configureNunjucks = require('./configure-nunjucks');
 const { nunjucksConfig } = require('../nunjucks/nunjucks-config');
+const getRouteObject = require('./get-route-object');
 
 const projectConfig = config;
 const env = configureNunjucks([projectConfig.pages, projectConfig.components], nunjucksConfig);
@@ -43,6 +44,30 @@ async function parseDirectories(folderName, config) {
     });
 }
 
+async function generatePages(routes) {
+    const pages = routes.filter(route => !route.isDynamic);
+
+    for (const page of pages) {
+        const { templatePath, initiator, type: extension } = page;
+
+        const baseUrl = templatePath.replace(`${projectConfig.pages}`, '');
+
+        const templateDistUrl = `${projectConfig.clientDist}${
+            projectConfig.htmlOutputPath
+        }${baseUrl.replace(`.${extension}`, '.html')}`;
+
+        ensureDirectoryExistence(templateDistUrl);
+
+        const data = initiator ? await initiator() : {};
+        const templateData = Object.assign({}, data, projectConfig.nunjucks);
+
+        const template = env.render(templatePath, templateData);
+
+        fs.writeFileSync(templateDistUrl, template);
+        console.log(`[${new Date().toISOString()}]`, chalk.blue(`Generated: ${baseUrl}`));
+    }
+}
+
 async function generateStaticFile(pathName, config) {
     const templateUrl = pathName;
     const JSONUrl = path.join(pathName.replace(config.routeExtension, '.json'));
@@ -72,9 +97,8 @@ async function generateStaticFile(pathName, config) {
 
 async function generateStaticRoutes() {
     console.log(`[${new Date().toISOString()}]`, chalk.blue(`Generating static routes...`));
-    await parseDirectories(config.pages, {
-        routeExtension: '.njk',
-    });
+    const routes = getRouteObject(config.pages);
+    await generatePages(routes);
 }
 
 module.exports = generateStaticRoutes;
