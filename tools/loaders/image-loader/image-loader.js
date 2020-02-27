@@ -1,3 +1,4 @@
+const path = require('path');
 const { config } = require('../../utilities/get-config');
 
 const getDefaultMode = require('../../utilities/get-default-mode');
@@ -5,8 +6,17 @@ const isDevelopment = getDefaultMode() === 'development';
 
 const imageLoader = (userOptions = {}) => {
     const defaultOptions = {
-        name: '[name].[ext]',
-        outputPath: config.imagesOutputPath,
+        name() {
+            if (isDevelopment) {
+                return '[path][name].[ext]';
+            }
+
+            return '[name].[ext]';
+        },
+        outputPath(url, resourcePath) {
+            const relativePath = path.relative(config.public, resourcePath);
+            return `/${relativePath}`;
+        },
     };
 
     const imageWebpackLoaderOptions = {

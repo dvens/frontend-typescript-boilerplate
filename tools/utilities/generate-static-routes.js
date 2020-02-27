@@ -58,10 +58,10 @@ async function generateStaticFile(pathName, config) {
 
     const templateData = Object.assign({}, data, projectConfig.nunjucks);
     const baseUrl = templateUrl.replace(`${projectConfig.pages}`, '');
-    const templateDistUrl = `${projectConfig.clientDist}${baseUrl.replace(
-        config.routeExtension,
-        '.html',
-    )}`;
+    const templateDistUrl = `${projectConfig.clientDist}${
+        projectConfig.htmlOutputPath
+    }${baseUrl.replace(config.routeExtension, '.html')}`;
+
     const template = await env.render(templateUrl, templateData);
 
     ensureDirectoryExistence(templateDistUrl);

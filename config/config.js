@@ -58,6 +58,7 @@ config.fontsOutputPath = '/assets/fonts/';
 config.jsOutputPath = '/assets/js/';
 config.faviconsOutputPath = '/assets/favicons/';
 config.polyfillOutputPath = '/assets/js/polyfills/';
+config.htmlOutputPath = '';
 config.publicPath = config.assetPrefix;
 
 // Config CSS in JS option
@@ -77,6 +78,12 @@ config.nunjucks = {
 
 // Polyfills
 config.polyfills = polyfills;
+
+// Service worker options
+config.offlineSupport = false;
+config.swSrc = `${config.source}/sw-precache.ts`;
+
+console.log(config.swSrc);
 
 // Webpack copy config
 config.copy = fileCopyConfig(config);

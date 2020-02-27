@@ -4,7 +4,7 @@ Utility that tracks the state of a CSS media query.
 ## How to use it
 
 ### Setting up the config
-Ddd different kind of breakpoints to the breakpoints config:
+Add different kind of breakpoints to the breakpoints config:
 ```javascript
 export const breakpoints = {
     mobile: {

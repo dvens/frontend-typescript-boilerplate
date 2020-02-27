@@ -130,7 +130,10 @@
         "webpack-merge": "^4.2.2",
         "webpack-node-externals": "^1.7.2",
         "webpackbar": "^4.0.0",
-        "workbox-build": "^5.0.0"
+        "workbox-build": "^5.0.0",
+        "workbox-navigation-preload": "^5.0.0",
+        "workbox-routing": "^5.0.0",
+        "workbox-strategies": "^5.0.0"
     },
     "dependencies": {
         "@atomify/core": "^2.3.7",

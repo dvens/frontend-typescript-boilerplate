@@ -26,9 +26,9 @@ const createPolyfillLoader = (polyfills, config) => {
 
     filteredPolyfills.forEach(polyfill => {
         code += `if(${polyfill.test}) {
-            polyfills.push(loadScript('${config.polyfillOutputPath}${polyfill.name}.js', ${Boolean(
-            polyfill.module,
-        )} ) )
+            polyfills.push(loadScript('${config.assetPrefix}${config.polyfillOutputPath}${
+            polyfill.name
+        }.js', ${Boolean(polyfill.module)} ) )
         }\n`;
     });
 
@@ -43,7 +43,7 @@ const asArrayLiteral = arr => `[${arr.map(e => `'${e}'`).join(',')}]`;
  */
 const entryLoaderCreator = (files, prefix, config) => {
     const generatedFiles = files.map(
-        file => `${config.jsOutputPath}${prefix ? prefix : ''}${file}`,
+        file => `${config.assetPrefix}${config.jsOutputPath}${prefix ? prefix : ''}${file}`,
     );
 
     return generatedFiles.length === 1
@@ -87,9 +87,11 @@ const createScripts = (polyfills, config) => {
     return filteredPolyfills
         .map(
             polyfill =>
-                `<script src='${config.polyfillOutputPath}${polyfill.name}.js' ${
-                    polyfill.nomodule ? 'nomodule' : ''
-                }${polyfill.module ? 'type="module"' : ''}></script>`,
+                `<script src='${config.assetPrefix}${config.polyfillOutputPath}${
+                    polyfill.name
+                }.js' ${polyfill.nomodule ? 'nomodule' : ''}${
+                    polyfill.module ? 'type="module"' : ''
+                }></script>`,
         )
         .join(',');
 };

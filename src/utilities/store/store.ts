@@ -1,9 +1,9 @@
 import proxyContainer from './polyfill';
-import { Store, StoreSettings } from './store.types';
+import { Observers, Store, StoreSettings } from './store.types';
 
 export default function createStore<State>(settings: StoreSettings<State>): Store<State> {
     const actionsHolder = settings.actions || {};
-    const observers: Array<Function> = [];
+    const observers: Observers = [];
 
     let prevState: State = settings.initialState;
 
@@ -16,19 +16,22 @@ export default function createStore<State>(settings: StoreSettings<State>): Stor
         set(state: State, key: any, value: any) {
             if (valueHasChanged(state[key as keyof typeof state], value)) {
                 state[key as keyof typeof state] = value;
-                callObservers(state, prevState);
+                callObservers(state, key);
             }
 
             return true;
         },
     };
 
-    let state = proxyContainer(settings.initialState || {}, validator);
+    let state: any = proxyContainer(settings.initialState || {}, validator);
 
-    function subscribe(observer: Function) {
+    function subscribe(observer: Function, keys: undefined) {
         if (typeof observer !== 'function')
             new Error('You can only subscribe to Store changes with a valid function!');
-        observers.push(observer);
+        observers.push({
+            callback: observer,
+            keys,
+        });
         return true;
     }
 
@@ -44,8 +47,16 @@ export default function createStore<State>(settings: StoreSettings<State>): Stor
         return true;
     }
 
-    function callObservers(data: State, previousState: State) {
-        observers.forEach(observer => observer(data, previousState));
+    function callObservers(data: State, key: any) {
+        Object.keys(observers).map((_, observer) => {
+            const { keys, callback } = observers[observer];
+
+            if (!keys) {
+                callback(data);
+            } else if (Array.isArray(keys) && keys.indexOf(key) > -1) {
+                callback(data);
+            }
+        });
     }
 
     return {

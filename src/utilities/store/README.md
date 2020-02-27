@@ -58,3 +58,13 @@ store.subscribe(({ counter }) => {
     console.log(counter.amount);
 });
 ```
+
+### 5. Watching store changes based upon keys
+This only triggers the fallback based upon the keys given in the array.
+```javacript
+import store from '../path-to-your-store';
+
+store.subscribe(({ counter }) => {
+    console.log(counter.amount);
+}, ['counter']);
+```
