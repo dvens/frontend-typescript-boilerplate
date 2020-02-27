@@ -43,6 +43,8 @@ export const webRoutes = (config: RoutesConfig) => {
     config.app.get('*', (req: express.Request, res: express.Response) => {
         const { templateUrl, data } = getTemplate(req.originalUrl, config);
 
+        // /details-page/[id] => /details-page/:id
+
         if (templateUrl) {
             res.render(templateUrl, data);
         } else {
