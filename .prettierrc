@@ -9,13 +9,13 @@
     "jsxBracketSameLine": true,
     "overrides": [
         {
-        "files": [
-            "*.ts",
-            ".tsx"
-        ],
-        "options": {
-            "parser": "typescript"
-        }
+            "files": [
+                "*.ts",
+                ".tsx"
+            ],
+            "options": {
+                "parser": "typescript"
+            }
         }
     ]
 }
