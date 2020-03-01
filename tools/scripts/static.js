@@ -12,12 +12,12 @@ const generateServiceWorker = require('../utilities/generate-sw');
 const generateFavicons = require('../utilities/generate-favicons');
 
 async function staticBuild() {
-    // await run(clean);
-    // if (isProduction) {
-    //     await run(generateFavicons);
-    //     await run(generatePolyfills);
-    // }
-    // await run(bundle);
+    await run(clean);
+    if (isProduction) {
+        await run(generateFavicons);
+        await run(generatePolyfills);
+    }
+    await run(bundle);
     await run(generateStaticRoutes);
     if (isProduction) {
         await run(generateServiceWorker);

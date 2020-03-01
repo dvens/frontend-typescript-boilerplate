@@ -30,14 +30,14 @@ function getRouteObject(pathName) {
         const route = templatePath.replace(`.${extension}`, '');
         const initiatorPath = fileTypes.initiators.find(init => init === `${route}.js`);
 
+        const url = route.replace(/\[/g, ':').replace(/\]/g, '');
+
         return {
             type: extension,
+            isIndex: url.endsWith('index'),
             isDynamic: route.includes('['),
             templatePath: path.join(pathName, templatePath),
-            url: route
-                .replace(/\[/g, ':')
-                .replace(/\]/g, '')
-                .replace('index', ''),
+            url: url.replace('index', ''),
             initiator: initiatorPath && require(path.join(pathName, initiatorPath)),
         };
     });
