@@ -43,16 +43,23 @@ const getCurrentBreakpoint = () =>
 const useMedia = (callback: UseMediaFunction) => {
     const breakpointObject = getMediaQueries();
 
-    breakpointObject
-        .map(breakpoint => {
-            return {
-                listener: window.matchMedia(breakpoint.query()),
-                breakpoint: breakpoint.breakpoint,
-            };
-        })
-        .forEach(breakpoint =>
-            breakpoint.listener.addListener(e => handleMediaListeners(e, breakpoint.breakpoint)),
-        );
+    const generatedBreakpoints = breakpointObject.map(breakpoint => {
+        return {
+            listener: window.matchMedia(breakpoint.query()),
+            breakpoint: breakpoint.breakpoint,
+        };
+    });
+
+    generatedBreakpoints.forEach(breakpoint =>
+        breakpoint.listener.addListener(e => handleMediaListeners(e, breakpoint.breakpoint)),
+    );
+
+    function generateInitialBreakpoints() {
+        generatedBreakpoints.forEach(breakpoint => {
+            const { matches } = breakpoint.listener;
+            breakpoints[breakpoint.breakpoint].active = matches;
+        });
+    }
 
     function handleMediaListeners(event: { matches: boolean; media: string }, key: Breakpoints) {
         if (!event.matches) return;
@@ -65,6 +72,7 @@ const useMedia = (callback: UseMediaFunction) => {
         callback(breakpoints);
     }
 
+    generateInitialBreakpoints();
     callback(breakpoints);
 };
 
