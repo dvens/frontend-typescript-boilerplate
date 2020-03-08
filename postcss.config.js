@@ -16,7 +16,10 @@ const plugins = [
 
 // Add minifier when production
 if (getDefaultMode() === 'production') {
-    plugins.push(require('css-mqpacker'))
+    plugins.push(require('css-mqpacker')({
+        sort: true
+    }));
+
     plugins.push(require('cssnano')({
         preset: [
             'default', {
