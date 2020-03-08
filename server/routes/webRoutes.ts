@@ -52,6 +52,8 @@ export const webRoutes = (config: RoutesConfig) => {
     config.app.get('*', async (req: express.Request, res: express.Response) => {
         const { templateUrl, data } = await getTemplate(req, res, routes);
 
+        // /details-page/[id] => /details-page/:id
+
         if (templateUrl) {
             res.render(templateUrl, data);
         } else {

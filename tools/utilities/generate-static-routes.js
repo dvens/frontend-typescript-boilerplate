@@ -6,7 +6,9 @@ const chalk = require('chalk');
 const fs = require('fs');
 const path = require('path');
 
-const { config } = require('./get-config');
+const {
+    config
+} = require('./get-config');
 const ensureDirectoryExistence = require('./ensure-directory-existence');
 const configureNunjucks = require('./configure-nunjucks');
 const { nunjucksConfig } = require('../nunjucks/nunjucks-config');
