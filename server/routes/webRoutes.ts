@@ -1,54 +1,63 @@
 import express from 'express';
-import * as fs from 'fs';
-import path from 'path';
+import { match, pathToRegexp } from 'path-to-regexp';
 
 import { config as projectConfig } from '../../tools/utilities/get-config';
+import getRouteObject from '../../tools/utilities/get-route-object';
 export interface RoutesConfig {
-    routeExtension: string;
     rootFolder: string;
     app: any;
     port: number;
+    routeExtension: string;
 }
 
-export function getTemplate(url: string, config: RoutesConfig) {
-    // Get template url and remove first /
-    const templateUrl = path.join(url, `index${config.routeExtension}`).substr(1);
-    const JSONUrl = path.join(config.rootFolder, url, 'index.json');
-    const hasTemplate = fs.existsSync(path.join(config.rootFolder, templateUrl));
-    const hasJSONfile = fs.existsSync(JSONUrl);
+type RouteObjects = ReturnType<typeof getRouteObject>;
 
-    let data = {};
+export async function getTemplate(
+    req: express.Request,
+    res: express.Response,
+    routes: RouteObjects,
+) {
+    const url = req.originalUrl;
 
-    // Check if the template is there otherwise return null
-    if (!hasTemplate) {
-        return {
-            templateUrl: '',
-            data: projectConfig.nunjucks,
+    const route = routes.find(route => {
+        const regexp = pathToRegexp(route.url);
+        const match = regexp.exec(url);
+        return match;
+    });
+
+    if (!route) {
+        return { templateUrl: '', data: projectConfig.nunjucks };
+    }
+
+    const matcher = match(route.url, { decode: decodeURIComponent });
+    const paramObject = matcher(url);
+
+    if (paramObject) {
+        req.params = {
+            ...paramObject.params,
         };
     }
 
-    // Check if the page has a corresponding JSON file.
-    if (hasJSONfile) {
-        const JSONfile = fs.readFileSync(JSONUrl);
-        data = JSON.parse(`${JSONfile}`);
-    }
+    const data = route.initiator ? await route.initiator(req, res) : {};
 
     return {
-        templateUrl,
+        templateUrl: route.templatePath,
         data: Object.assign({}, projectConfig.nunjucks, data),
     };
 }
 
 export const webRoutes = (config: RoutesConfig) => {
-    config.app.get('*', (req: express.Request, res: express.Response) => {
-        const { templateUrl, data } = getTemplate(req.originalUrl, config);
+    const routes = getRouteObject(config.rootFolder);
+
+    config.app.get('*', async (req: express.Request, res: express.Response) => {
+        const { templateUrl, data } = await getTemplate(req, res, routes);
 
         // /details-page/[id] => /details-page/:id
 
         if (templateUrl) {
             res.render(templateUrl, data);
         } else {
-            res.status(404).render(`404${config.routeExtension}`, data);
+            res.status(404).render(`404.njk`, data);
         }
     });
 };

@@ -8,31 +8,56 @@
         "forceConsistentCasingInFileNames": true,
         "jsx": "react",
         "jsxFactory": "h",
-        "lib": ["dom", "es7", "scripthost", "es2015"],
+        "lib": [
+            "dom",
+            "es7",
+            "scripthost",
+            "es2015"
+        ],
         "module": "esnext",
         "moduleResolution": "node",
         "esModuleInterop": true,
         "noImplicitAny": true,
         "noImplicitReturns": true,
-        "noUnusedLocals": true,
+        "noUnusedLocals": false,
         "noUnusedParameters": true,
         "target": "esnext",
         "emitDecoratorMetadata": true,
         "sourceMap": true,
         "noFallthroughCasesInSwitch": true,
+        "resolveJsonModule": true,
         "strictNullChecks": true,
         "noEmitOnError": true,
         "baseUrl": ".",
-        "typeRoots": ["./node_modules/@types", "./types"],
+        "typeRoots": [
+            "./node_modules/@types",
+            "./types"
+        ],
         "paths": {
-            "@public/*": ["./public/*"],
-            "@pages/*": ["./src/pages/*"],
-            "@server/*": ["./server/*"],
-            "@source/*": ["./src/*"],
-            "@utilities/*": ["./src/utilities/*"],
-            "@services/*": ["./src/services/*"],
-            "@store/*": ["./src/store/*"],
-            "@/*": ["./src/*"]
+            "@public/*": [
+                "./public/*"
+            ],
+            "@pages/*": [
+                "./src/pages/*"
+            ],
+            "@server/*": [
+                "./server/*"
+            ],
+            "@source/*": [
+                "./src/*"
+            ],
+            "@utilities/*": [
+                "./src/utilities/*"
+            ],
+            "@services/*": [
+                "./src/services/*"
+            ],
+            "@store/*": [
+                "./src/store/*"
+            ],
+            "@/*": [
+                "./src/*"
+            ]
         }
     },
     "include": [
