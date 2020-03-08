@@ -80,10 +80,8 @@ config.nunjucks = {
 config.polyfills = polyfills;
 
 // Service worker options
-config.offlineSupport = false;
-config.swSrc = `${config.source}/sw-precache.ts`;
-
-console.log(config.swSrc);
+config.injectManifest = false;
+config.swSrc = `${config.root}/sw-precache.js`;
 
 // Webpack copy config
 config.copy = fileCopyConfig(config);
