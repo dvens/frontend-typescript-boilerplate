@@ -25,7 +25,7 @@ export default function createStore<State>(settings: StoreSettings<State>): Stor
 
     let state: any = proxyContainer(settings.initialState || {}, validator);
 
-    function subscribe(observer: Function, keys: undefined) {
+    function subscribe(observer: Function, keys?: undefined | string[]) {
         if (typeof observer !== 'function')
             new Error('You can only subscribe to Store changes with a valid function!');
         observers.push({
@@ -35,13 +35,13 @@ export default function createStore<State>(settings: StoreSettings<State>): Stor
         return true;
     }
 
-    function dispatch(actionKey: string, payload: any) {
+    async function dispatch(actionKey: string, payload: any) {
         const action = actionsHolder[actionKey];
         if (typeof action !== 'function') new Error(`Action "${actionKey}" doesn't exist.`);
 
         prevState = Object.assign({}, state);
 
-        const newState = action(state, payload);
+        const newState = await action(state, payload);
         state = newState;
 
         return true;
@@ -50,7 +50,6 @@ export default function createStore<State>(settings: StoreSettings<State>): Stor
     function callObservers(data: State, key: any) {
         Object.keys(observers).map((_, observer) => {
             const { keys, callback } = observers[observer];
-
             if (!keys) {
                 callback(data);
             } else if (Array.isArray(keys) && keys.indexOf(key) > -1) {
