@@ -13,6 +13,7 @@
 - [Testing](docs/Testing.md)
 - [Storybook](docs/Storybook.md)
 - [Serviceworker](docs/Serviceworker.md)
+- [Linting](docs/Linting.md)
 
 # Table of Contents
 1.  [Intro](#markdown-header-setup)
@@ -26,8 +27,8 @@ This is a basic setup for creating (static) html templates and dynamic pages thr
 
 Filled with automated tasks and configuration options through [Webpack](https://webpack.js.org/) and Node Scripts. This gives us the options to make use of [Webpacks: Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/) and the same aliases through Typescript and SASS.
 
-This setup comes with following features:
-__1. Express Server for development (can be build if you want SSR in production).__
+# Features #
+__1. Express Server for development (can be build if you want SSR).__
 
 __2. Generating Static Routes (Nunjucks to HTML) and dynamic routes based upon slugs.__
 
@@ -46,6 +47,12 @@ __8. Styleguide through Storybook.__
 
 __9. Testing with Karma and Jasmine.__
 
+__10. Typescript is being used within this setup. [Typescript Cheatsheet](https://github.com/typescript-cheatsheets/react-typescript-cheatsheet).__
+
+__11. Linting: prettier, eslint and editorconfig.__
+
+__12. Auto generated favicons by using [Favicons](https://github.com/itgalaxy/favicons).__
+
 ------
 
 # Getting Started #
@@ -62,3 +69,6 @@ __3. Start the project in dev mode__
 `yarn start`
 
 (See [commands](docs/Commands.md) for the full list)
+
+# Inspired by: #
+- [Open Wc](https://open-wc.org/) - Open Web Component Recommendations
