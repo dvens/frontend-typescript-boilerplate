@@ -7,13 +7,14 @@
     "scripts": {
         "lint-fix": "eslint src/ --ext .ts,.tsx --fix",
         "start": "cross-env NODE_ENV=development PORT=3000 nodemon",
-        "prod": "cross-env NODE_ENV=production ts-node ./tools/scripts/run static",
+        "static": "cross-env NODE_ENV=production ts-node ./tools/scripts/run static",
         "build": "cross-env NODE_ENV=production ts-node ./tools/scripts/run build",
         "build:server": "yarn build && cross-env NODE_ENV=production tsc --project tsconfig.server.json",
-        "start:build": "cross-env NODE_ENV=production ts-node ./build/server/server.js",
+        "start:build-server": "cross-env NODE_ENV=production ts-node ./build/server/server.js",
         "storybook": "start-storybook -p 9001",
         "storybook:build": "cross-env NODE_ENV=production build-storybook -o ./build/styleguide -s storybook-static",
-        "test": "karma start karma.conf.js"
+        "test": "karma start karma.conf.js",
+        "generate": "hygen generator"
     },
     "contributors": [
         {
@@ -90,6 +91,7 @@
         "favicons": "^5.5.0",
         "file-loader": "^5.0.2",
         "husky": "^4.2.1",
+        "hygen": "^5.0.3",
         "image-webpack-loader": "^6.0.0",
         "imagemin": "^7.0.1",
         "imagemin-jpegtran": "^6.0.0",
