@@ -31,14 +31,13 @@ This is a basic setup for creating (static) html templates and dynamic pages thr
 Filled with automated tasks and configuration options through [Webpack](https://webpack.js.org/) and Node Scripts. This gives us the options to make use of [Webpacks: Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/) and the same aliases through Typescript and SASS.
 
 # Features #
-__1. Express Server for development (can be build if you want SSR).__
+__1. Express Server for development (and for production if you want SSR).__
 
 __2. Generating Static Routes (Nunjucks to HTML) and dynamic routes based upon slugs.__
 
 __3. Hot Module Replacement for Typescript and SASS.__
 
-__4. Dynamic polyfill loader based upon the settings (`config/polyfills.js`) and tests, this
-keepsthe bundle size for the last 2 versions of every modern browser extremely low.__
+__4. Dynamic polyfill loader based upon the settings (`config/polyfills.js`).__
 
 __5. Auto generating and injection of favicons and manifest.json (manageable through `config/favicons.js`).__
 
