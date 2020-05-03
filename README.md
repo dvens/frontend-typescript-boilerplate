@@ -1,3 +1,5 @@
+# Status: WIP
+
 # Docs
 - [Commands](docs/commands.md)
 - [Folder structure](docs/FolderStructure.md)
@@ -14,6 +16,7 @@
 - [Storybook](docs/Storybook.md)
 - [Serviceworker](docs/Serviceworker.md)
 - [Linting](docs/Linting.md)
+- [Generators](docs/generators.md)
 
 # Table of Contents
 1.  [Intro](#markdown-header-setup)
