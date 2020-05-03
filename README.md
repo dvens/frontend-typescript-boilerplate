@@ -77,3 +77,7 @@ __3. Start the project in dev mode__
 
 # Inspired by: #
 - [Open Wc](https://open-wc.org/) - Open Web Component Recommendations
+
+# Next Steps #
+- Create CLI to generate the setup
+- Create NPM Packages out of the tools folder
