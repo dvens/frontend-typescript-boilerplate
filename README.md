@@ -53,6 +53,8 @@ __11. Linting: prettier, eslint and editorconfig.__
 
 __12. Auto generated favicons by using [Favicons](https://github.com/itgalaxy/favicons).__
 
+__13. Code generator by using [Hygen](http://www.hygen.io/).__
+
 ------
 
 # Getting Started #
