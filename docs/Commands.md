@@ -1,10 +1,9 @@
-[⟵ Back to overview](README.md)
+[⟵ Back to overview](../README.md)
 
 # Table of Contents
-- [Commands](#markdown-header-overrides)
-- [Tasks](#markdown-header-tasks)
-- [Static site building](#markdown-header-static-site-building)
-- [Overrides](#markdown-header-overrides)
+- [Commands](#commands)
+- [Tasks](#tasks)
+- [Options](#options)
 
 ## Commands ##
 The setup makes use of Webpack and Node scripts. The Node scripts are being run by [run.js](../tools/scripts/run.js), it launches the other script with `ts-node` (e.g. `ts-node ./tools/scripts/run static`).
@@ -48,6 +47,9 @@ The setup makes use of Webpack and Node scripts. The Node scripts are being run 
 
 ### `yarn test` ###
 - Runs the test with [Karma](https://karma-runner.github.io/latest/index.html) based upon the `/karma.conf.js`.
+
+### `yarn generate` ###
+- Runs the function to generate components by using [Hygen](https://www.hygen.io/).
 
 
 #### Options

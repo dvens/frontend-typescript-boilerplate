@@ -1,26 +1,25 @@
 # Status: WIP
 
 # Docs
-- [Commands](docs/commands.md)
+- [Commands](docs/Commands.md)
 - [Folder structure](docs/FolderStructure.md)
 - [HTML Templating - Nunjucks](docs/Templating.md)
 - [Webpack](docs/Webpack.md)
-- [Express](docs/Express.md)
 - [Routes and static rendering](docs/Routes.md)
-- [Assets](docs/Assets.md)
 - [Polyfills](docs/Polyfills.md)
 - [Favicons and manifest.json](docs/Favicons.md)
-- [Typescript](docs/Typescript.md)
 - [Web Components](docs/WebComponents.md)
 - [Testing](docs/Testing.md)
 - [Storybook](docs/Storybook.md)
 - [Serviceworker](docs/Serviceworker.md)
 - [Linting](docs/Linting.md)
-- [Generators](docs/generators.md)
+- [Generators](docs/Generators.md)
 
 # Table of Contents
-1.  [Intro](#markdown-header-setup)
-2.  [Getting Started](#markdown-header-getting-started)
+1.  [Setup](#setup)
+2.  [Features](#features)
+3.  [Getting Started](#getting-started)
+3.  [Next Steps](#next-steps)
 ------
 
 # Setup #
