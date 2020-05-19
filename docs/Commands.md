@@ -58,4 +58,4 @@ The setup makes use of Webpack and Node scripts. The Node scripts are being run 
 | Flag        | Description                                                                         |
 | ----------- | ----------------------------------------------------------------------------------- |
 | `cross-env NODE_ENV=production` | runs the related scripts in production mode (default is development). This variable is being retrieved in `tools/utilities/get-default-mode.js`.
-| `cross-env NODE_ENV ASSET_PREFIX=new_assets` | adds a prefix throughout to the assets: in CSS when you use ~@public: ex without asset prefix: `~@public/assets/images/logo.png -> /assets/images/logo.png,  ex with asset prefix: `~@public/assets/images/logo.png -> /new_assets/assets/images/logo.png
+| `cross-env NODE_ENV ASSET_PREFIX=new_assets` | Adds a prefix to the assets paths, in CSS its used as following: without asset prefix: `~@public/assets/images/logo.png -> /assets/images/logo.png, ex with asset prefix: `~@public/assets/images/logo.png -> /new_assets/assets/images/logo.png
