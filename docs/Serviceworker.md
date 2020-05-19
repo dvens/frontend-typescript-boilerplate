@@ -30,3 +30,15 @@ __Extending the configuration__
 
 You can easily change this configuration by creating a `workbox-config.js` within the root of this project.
 
+__Importing the Serviceworker__
+
+Import the Serviceworker within the `app.ts` as following:
+```javascript
+import { isLocalhost, registerServiceWorker, unRegisterServiceWorker } from '@utilities/sw';
+
+if (!isLocalhost) {
+    unRegisterServiceWorker();
+} else {
+    registerServiceWorker();
+}
+```

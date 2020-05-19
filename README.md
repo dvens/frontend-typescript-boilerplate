@@ -13,6 +13,7 @@
 - [Storybook](docs/Storybook.md)
 - [Serviceworker](docs/Serviceworker.md)
 - [Generators](docs/Generators.md)
+- [Utilities](docs/Utilities.md)
 
 # Table of Contents
 1.  [Setup](#setup)

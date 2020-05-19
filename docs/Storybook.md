@@ -42,4 +42,4 @@ stories.add(
 );
 ```
 The data object is the same data that you normally would use to provide the macro with data. This setup uses [@storybook/addon-knobs](https://github.com/storybookjs/storybook/tree/master/addons/knobs). This makes it possible to change data on the fly within a Nunjucks macro.
-5. You can also run `yarn generate [macroName]` this will generate the component with the option to also auto generate the Storybook files.
+5. You can also run `yarn generate component` this will generate the component with the option to also auto generate the Storybook files.
