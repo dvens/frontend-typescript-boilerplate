@@ -12,7 +12,6 @@
 - [Testing](docs/Testing.md)
 - [Storybook](docs/Storybook.md)
 - [Serviceworker](docs/Serviceworker.md)
-- [Linting](docs/Linting.md)
 - [Generators](docs/Generators.md)
 
 # Table of Contents
@@ -52,9 +51,9 @@ __10.__ Typescript is being used within this setup. [Typescript Cheatsheet](http
 
 __11.__ Linting: prettier, eslint and editorconfig.
 
-__12.__ Auto generated favicons by using [Favicons](https://github.com/itgalaxy/favicons).__
+__12.__ Auto generated favicons by using [Favicons](https://github.com/itgalaxy/favicons).å
 
-__13. Code generator by using [Hygen](http://www.hygen.io/).
+__13. Code generator by using [Hygen](http://www.hygen.io/).__
 
 ------
 

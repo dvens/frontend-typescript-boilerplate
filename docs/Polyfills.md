@@ -2,6 +2,7 @@
 
 # Table of Contents
 - [Polyfills loader](#polyfills-loader)
+- [Configuration](#configuration)
 
 ## Polyfills loader ##
 This setup has a build in polyfills loaders to manage loading polyfills. It generates a script that loads the necessary
@@ -55,6 +56,7 @@ Small example of the loader:
 The configuration can be found here `config/polyfills.js`:
 
 __Polyfills__
+
 The polyfills that are shipped with this setup are the following:
 
 - [coreJs](https://github.com/zloirock/core-js)
@@ -64,6 +66,7 @@ The polyfills that are shipped with this setup are the following:
 - [intersectionObserver](https://github.com/mo/abortcontroller-polyfill)
 
 __Adding your own polyfill__
+
 It is also possible to add your own polyfill to the configuration you can do this by:
 
 - `yarn add [polyfillName]`

@@ -12,7 +12,6 @@
 [Go to the Documentation](https://mozilla.github.io/nunjucks/templating.html)
 
 ## Using Macros ##
-
 __Macro definition__
 This is an example of creating a macro that supports different kind of data.
 ```htmlmixed
@@ -32,7 +31,8 @@ This is an example of creating a macro that supports different kind of data.
 ```
 
 __Usage__
-Import the macro before using it within a `.njk` file. This is a
+Import the macro before using it within a `.njk` file. Use `atoms, molecules, organism` prefix to import components from different folder:
+
 ```htmlmixed
 {% from 'atoms/square-button/square-button.macro.njk' import squareButton %}
 
