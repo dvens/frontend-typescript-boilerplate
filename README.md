@@ -1,5 +1,3 @@
-# Status: WIP
-
 # Docs
 - [Commands](docs/Commands.md)
 - [Folder structure](docs/FolderStructure.md)
