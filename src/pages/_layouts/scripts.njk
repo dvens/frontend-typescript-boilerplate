@@ -1,3 +1,36 @@
 <script src='/assets/js/polyfills/core-js.js' nomodule></script>
 <script src='/assets/js/polyfills/regenerator-runtime.js' nomodule></script>
-<script>!function(){function e(e,t){return new Promise((function(n,o){document.head.appendChild(Object.assign(document.createElement("script"),{src:e,onload:n,onerror:o},t?{type:"module"}:void 0))}))}var t=[];function n(){"noModule"in HTMLScriptElement.prototype?e("/assets/js/main.js"):e("/assets/js/legacy_main.js")}"fetch"in window||t.push(e("/assets/js/polyfills/fetch.js",!1)),"IntersectionObserver"in window&&"IntersectionObserverEntry"in window&&"intersectionRatio"in window.IntersectionObserverEntry.prototype||t.push(e("/assets/js/polyfills/intersection-observer.js",!1)),"attachShadow"in Element.prototype&&"getRootNode"in Element.prototype&&(!window.ShadyDOM||!window.ShadyDOM.force)||t.push(e("/assets/js/polyfills/webcomponents.js",!1)),!("noModule"in HTMLScriptElement.prototype)&&"getRootNode"in Element.prototype&&t.push(e("/assets/js/polyfills/custom-elements-es5-adapter.js",!1)),t.length?Promise.all(t).then(n):n()}();</script>
+<script>
+    (function () {
+        
+  function loadScript(src, module) {
+    return new Promise(function (resolve, reject) {
+      document.head.appendChild(Object.assign(
+        document.createElement('script'),
+        { src: src, onload: resolve, onerror: reject },
+        module ? { type: 'module' } : undefined
+      ));
+    });
+  }
+        var polyfills = []
+if(!('fetch' in window)) {
+            polyfills.push(loadScript('/assets/js/polyfills/fetch.js', false ) )
+        }
+if(!('IntersectionObserver' in window && 'IntersectionObserverEntry' in window && 'intersectionRatio' in window.IntersectionObserverEntry.prototype)) {
+            polyfills.push(loadScript('/assets/js/polyfills/intersection-observer.js', false ) )
+        }
+if(!('attachShadow' in Element.prototype) || !('getRootNode' in Element.prototype) || (window.ShadyDOM && window.ShadyDOM.force)) {
+            polyfills.push(loadScript('/assets/js/polyfills/webcomponents.js', false ) )
+        }
+if(!('noModule' in HTMLScriptElement.prototype) && 'getRootNode' in Element.prototype) {
+            polyfills.push(loadScript('/assets/js/polyfills/custom-elements-es5-adapter.js', false ) )
+        }
+
+        
+        function loadEntries() {
+            'noModule' in HTMLScriptElement.prototype ? loadScript('/assets/js/main.js') : loadScript('/assets/js/legacy_main.js');
+        }
+
+        polyfills.length ? Promise.all(polyfills).then(loadEntries) : loadEntries();
+    
+    })();</script>

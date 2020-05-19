@@ -3,11 +3,9 @@ const bundle = require('./bundle');
 const clean = require('./clean');
 const generatePolyfills = require('../utilities/generate-polyfills');
 const generateServiceWorker = require('../utilities/generate-sw');
-const generateFavicons = require('../utilities/generate-favicons');
 
 async function build() {
     await run(clean);
-    await run(generateFavicons);
     await run(bundle);
     await run(generatePolyfills);
     await run(generateServiceWorker);

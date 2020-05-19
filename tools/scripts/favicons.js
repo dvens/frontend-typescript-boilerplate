@@ -1,7 +1,7 @@
 const favicons = require('favicons');
 const fs = require('fs');
 
-const { favicon } = require('./get-config');
+const { favicon } = require('../utilities/get-config');
 
 async function generateFavicons() {
     await favicons(favicon.source, favicon.faviconsPlugin, async (error, response) => {

@@ -19,7 +19,6 @@ The setup makes use of Webpack and Node scripts. The Node scripts are being run 
 
 ### `yarn static` (`tools/scripts/static.js`) ###
 - Cleans up the output `/build` directory.
-- Generates favicons based upon the `public/logo.png` and the `config/favicons.js` settings.
 - Generates polyfills based upon the `config/polyfills.js` settings.
 - Bundles SASS and Javascript through [Webpack](https://webpack.github.io/) and moves the assets that are used in Javascript and SASS into the `/build` folder.
 - Generates static routes based upon the pages in `/src/pages`.
@@ -27,7 +26,6 @@ The setup makes use of Webpack and Node scripts. The Node scripts are being run 
 
 ### `yarn build` (`tools/scripts/build.js`) ###
 - Cleans up the output `/build` directory.
-- Generates favicons based upon the `public/logo.png` and the `config/favicons.js` settings.
 - Generates polyfills based upon the `config/polyfills.js` settings.
 - Bundles SASS and Javascript through [Webpack](https://webpack.github.io/) and moves the assets that are used in Javascript and SASS into the `/build` folder.
 - Generates sw.js.
@@ -50,6 +48,9 @@ The setup makes use of Webpack and Node scripts. The Node scripts are being run 
 
 ### `yarn generate` ###
 - Runs the function to generate components by using [Hygen](https://www.hygen.io/).
+
+### `yarn favicons` ###
+- Generates favicons based upon the `public/logo.png` and the `config/favicons.js` settings.
 
 
 #### Options

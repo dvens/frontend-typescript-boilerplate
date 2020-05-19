@@ -6,8 +6,8 @@
 - [HTML Templating - Nunjucks](docs/Templating.md)
 - [Webpack](docs/Webpack.md)
 - [Routes and static rendering](docs/Routes.md)
-- [Polyfills](docs/Polyfills.md)
 - [Favicons and manifest.json](docs/Favicons.md)
+- [Polyfills](docs/Polyfills.md)
 - [Web Components](docs/WebComponents.md)
 - [Testing](docs/Testing.md)
 - [Storybook](docs/Storybook.md)
@@ -30,31 +30,31 @@ This is a basic setup for creating (static) html templates and dynamic pages thr
 Filled with automated tasks and configuration options through [Webpack](https://webpack.js.org/) and Node Scripts. This gives us the options to make use of [Webpacks: Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/) and the same aliases through Typescript and SASS.
 
 # Features #
-__1. Express Server for development (and for production if you want SSR).__
+__1.__ Express Server for development (and for production if you want SSR).
 
-__2. Generating Static Routes (Nunjucks to HTML) and dynamic routes based upon slugs.__
+__2.__ Generating Static Routes (Nunjucks to HTML) and dynamic routes based upon slugs
 
-__3. Hot Module Replacement for Typescript and SASS.__
+__3.__ Hot Module Replacement for Typescript and SASS.
 
-__4. Dynamic polyfill loader based upon the settings (`config/polyfills.js`).__
+__4.__ Dynamic polyfill loader based upon the settings (`config/polyfills.js`).
 
-__5. Auto generating and injection of favicons and manifest.json (manageable through `config/favicons.js`).__
+__5.__ Auto generating and injection of favicons and manifest.json (manageable through `config/favicons.js`).
 
-__6. Modern and modern/legacy webpack bundle.__
+__6.__ Modern and modern/legacy webpack bundle.
 
-__7. Auto generated Serviceworker through Workbox.__
+__7.__ Auto generated Serviceworker through Workbox.
 
-__8. Styleguide through Storybook.__
+__8.__ Styleguide through Storybook.
 
-__9. Testing with Karma and Jasmine.__
+__9.__ Testing with Karma and Jasmine.
 
-__10. Typescript is being used within this setup. [Typescript Cheatsheet](https://github.com/typescript-cheatsheets/react-typescript-cheatsheet).__
+__10.__ Typescript is being used within this setup. [Typescript Cheatsheet](https://github.com/typescript-cheatsheets/react-typescript-cheatsheet).
 
-__11. Linting: prettier, eslint and editorconfig.__
+__11.__ Linting: prettier, eslint and editorconfig.
 
-__12. Auto generated favicons by using [Favicons](https://github.com/itgalaxy/favicons).__
+__12.__ Auto generated favicons by using [Favicons](https://github.com/itgalaxy/favicons).__
 
-__13. Code generator by using [Hygen](http://www.hygen.io/).__
+__13. Code generator by using [Hygen](http://www.hygen.io/).
 
 ------
 
