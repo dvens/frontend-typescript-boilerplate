@@ -10,7 +10,7 @@
 - [Testing](docs/Testing.md)
 - [Storybook](docs/Storybook.md)
 - [Serviceworker](docs/Serviceworker.md)
-- [Generators](docs/Generators.md)
+- [Generating](docs/Generating.md)
 - [Utilities](docs/Utilities.md)
 
 # Table of Contents
