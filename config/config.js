@@ -69,6 +69,7 @@ config.browserSync = ['src/**/*.njk', 'src/**/*.tsx'];
 
 // Nunjucks config
 config.nunjucks = {
+    envAppViews: [config.pages, config.components, config.public],
     project: {
         debug: getDefaultMode() === 'development' || getDefaultMode() === 'debug',
         assetPrefix: config.assetPrefix,

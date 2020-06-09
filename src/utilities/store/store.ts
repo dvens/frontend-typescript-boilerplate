@@ -48,8 +48,7 @@ export default function createStore<State>(settings: StoreSettings<State>): Stor
     }
 
     function callObservers(data: State, key: any) {
-        Object.keys(observers).map((_, observer) => {
-            const { keys, callback } = observers[observer];
+        observers.forEach(({ keys, callback }) => {
             if (!keys) {
                 callback(data);
             } else if (Array.isArray(keys) && keys.indexOf(key) > -1) {

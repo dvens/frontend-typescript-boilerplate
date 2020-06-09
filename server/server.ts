@@ -54,9 +54,7 @@ app.use(compression());
 /**
  * View templating engine
  */
-const appViews = [config.pages, config.components];
-
-nunjucksEnvironment(appViews, nunjucksConfig, app);
+nunjucksEnvironment(config.nunjucks.envAppViews, nunjucksConfig, app);
 app.set('view engine', 'njk');
 
 /**
