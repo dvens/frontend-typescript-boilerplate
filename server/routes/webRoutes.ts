@@ -2,6 +2,7 @@ import express from 'express';
 import { match, pathToRegexp } from 'path-to-regexp';
 
 import { config as projectConfig } from '../../tools/utilities/get-config';
+import getDefaultMode from '../../tools/utilities/get-default-mode';
 import getRouteObject from '../../tools/utilities/get-route-object';
 export interface RoutesConfig {
     rootFolder: string;
@@ -11,6 +12,8 @@ export interface RoutesConfig {
 }
 
 type RouteObjects = ReturnType<typeof getRouteObject>;
+
+const IS_PRODUCTION_MODE = getDefaultMode() === 'production';
 
 export async function getTemplate(
     req: express.Request,
@@ -50,9 +53,12 @@ export const webRoutes = (config: RoutesConfig) => {
     const routes = getRouteObject(config.rootFolder);
 
     config.app.get('*', async (req: express.Request, res: express.Response) => {
-        const { templateUrl, data } = await getTemplate(req, res, routes);
-
-        // /details-page/[id] => /details-page/:id
+        const { templateUrl, data } = await getTemplate(
+            req,
+            res,
+            // Update the route object only when development mode is on.
+            IS_PRODUCTION_MODE ? routes : getRouteObject(config.rootFolder),
+        );
 
         if (templateUrl) {
             res.render(templateUrl, data);
