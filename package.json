@@ -48,7 +48,6 @@
         "@storybook/addon-actions": "^5.3.9",
         "@storybook/addon-knobs": "^5.3.9",
         "@storybook/addon-notes": "^5.3.9",
-        "@storybook/html": "^5.3.9",
         "@storybook/theming": "^5.3.9",
         "@types/body-parser": "^1.17.1",
         "@types/browser-sync": "^2.26.1",
@@ -59,7 +58,6 @@
         "@types/jasmine": "^3.5.2",
         "@types/morgan": "^1.7.37",
         "@types/node": "^13.5.2",
-        "@types/nunjucks": "^3.1.3",
         "@types/storybook__addon-actions": "^5.2.1",
         "@types/storybook__addon-backgrounds": "^5.2.1",
         "@types/storybook__addon-links": "^5.2.1",
@@ -70,7 +68,6 @@
         "@types/webpack-hot-middleware": "^2.25.0",
         "@typescript-eslint/eslint-plugin": "^2.18.0",
         "@typescript-eslint/parser": "^2.18.0",
-        "@webcomponents/webcomponentsjs": "^2.4.1",
         "babel-loader": "8.0.6",
         "browser-sync": "^2.26.7",
         "browserslist": "^4.8.6",
@@ -112,7 +109,6 @@
         "mini-css-extract-plugin": "^0.9.0",
         "node-sass": "^4.13.1",
         "nodemon": "^2.0.2",
-        "nunjucks-loader": "^3.0.0",
         "postcss-loader": "^3.0.0",
         "prettier": "^1.19.1",
         "sass-lint": "^1.13.1",
@@ -136,8 +132,8 @@
         "workbox-build": "^5.0.0"
     },
     "dependencies": {
-        "@atomify/core": "^2.3.7",
-        "@atomify/jsx": "^1.5.7",
+        "@atomify/hooks": "^1.2.0",
+        "@atomify/jsx": "^2.0.0",
         "body-parser": "^1.19.0",
         "chalk": "^3.0.0",
         "compression": "^1.7.4",
@@ -148,9 +144,9 @@
         "glob": "^7.1.6",
         "intersection-observer": "^0.7.0",
         "morgan": "^1.9.1",
-        "nunjucks": "^3.2.0",
         "path-to-regexp": "^6.1.0",
         "regenerator-runtime": "^0.13.3",
-        "whatwg-fetch": "^3.0.0"
+        "whatwg-fetch": "^3.0.0",
+        "@webcomponents/webcomponentsjs": "^2.4.1"
     }
 }
