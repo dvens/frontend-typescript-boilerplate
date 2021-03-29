@@ -12,11 +12,7 @@ const hotReloadMiddleware = (app: any, callback?: () => void) => {
     });
 
     app.use(instance);
-    app.use(
-        webpackHotMiddleware(compiler, {
-            reload: true,
-        }),
-    );
+    app.use(webpackHotMiddleware(compiler, {}));
 
     instance.waitUntilValid(() => {
         if (callback) callback();

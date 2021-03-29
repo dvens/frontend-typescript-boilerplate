@@ -1,5 +1,4 @@
 const configureBabelLoader = require('../tools/loaders/javascript-typescript');
-const configureNunjucksLoader = require('../tools/loaders/nunjucks');
 const configureCSSLoader = require('../tools/loaders/style-sass');
 const SassLintPlugin = require('sass-lint-webpack');
 

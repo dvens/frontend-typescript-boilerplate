@@ -3,7 +3,6 @@
  * @description The entry point, responsible to bootstrap all pages.
  * @version 1.0.0
  */
-import bodyParser from 'body-parser';
 import browserSync from 'browser-sync';
 import chalk from 'chalk';
 import compression from 'compression';
@@ -12,13 +11,11 @@ import dotenv from 'dotenv';
 import express from 'express';
 import logger from 'morgan';
 
-import { nunjucksConfig } from '../tools/nunjucks/nunjucks-config';
 // Config/Utilities
 import { config } from '../tools/utilities/get-config';
 // Middleware
 import errorHandler from './middleware/errorHandler';
 import hotReloadMiddleware from './middleware/hotReload';
-import { nunjucksEnvironment } from './nunjucks';
 import { webRoutes } from './routes/webRoutes';
 
 /**
@@ -50,18 +47,6 @@ app.use(cors());
  * the response body and increase the speed of web app
  */
 app.use(compression());
-
-/**
- * View templating engine
- */
-nunjucksEnvironment(config.nunjucks.envAppViews, nunjucksConfig, app);
-app.set('view engine', 'njk');
-
-/**
- * Body parser
- */
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
 
 /**
  * Error handler
@@ -115,4 +100,4 @@ if (process.env.NODE_ENV === 'production') {
 /**
  * Route Configuration
  */
-webRoutes({ routeExtension: '.njk', rootFolder: config.pages, app, port: SERVER_PORT });
+webRoutes({ routeExtension: '.tsx', rootFolder: config.pages, app, port: SERVER_PORT });

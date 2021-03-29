@@ -4,7 +4,6 @@ const dynamicRouteExports = require('../../config/dynamic-route-exports');
 
 const chalk = require('chalk');
 const fs = require('fs');
-const path = require('path');
 
 const { config } = require('./get-config');
 const ensureDirectoryExistence = require('./ensure-directory-existence');
