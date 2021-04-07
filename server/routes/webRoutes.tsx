@@ -25,7 +25,7 @@ export async function getTemplate(
 ) {
     const url = req.originalUrl;
 
-    const route = routes.find(route => {
+    const route = routes.find((route) => {
         const regexp = pathToRegexp(route.url);
         const match = regexp.exec(url);
         return match;

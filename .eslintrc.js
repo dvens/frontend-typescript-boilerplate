@@ -38,5 +38,6 @@ module.exports = {
         'import/named': 'off',
         'import/namespace': 'off',
         'jsx-a11y/anchor-is-valid': 'off',
+        '@typescript-eslint/explicit-module-boundary-types': 'off',
     },
 };

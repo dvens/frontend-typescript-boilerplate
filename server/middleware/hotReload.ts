@@ -6,7 +6,7 @@ import { config } from '../../tools/utilities/get-config';
 import webpackConfig from '../../webpack.config';
 
 const hotReloadMiddleware = (app: any, callback?: () => void) => {
-    const compiler: any = webpack(webpackConfig);
+    const compiler: any = webpack(webpackConfig as any);
     const instance = webpackDevMiddleware(compiler, {
         publicPath: config.publicPath,
     });
