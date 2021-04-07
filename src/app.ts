@@ -5,3 +5,5 @@ if (!isLocalhost) {
 } else {
     registerServiceWorker();
 }
+
+import '@/components/shared/Button';

@@ -1,4 +1,4 @@
-import { HasObserverItems,InstanceMap } from '../inview.types';
+import { HasObserverItems, InstanceMap } from '../inview.types';
 
 /**
  * Checks if the observer has still elements left and when it still needs to be observed.
@@ -11,7 +11,7 @@ import { HasObserverItems,InstanceMap } from '../inview.types';
  */
 export function hasObserverItems(
     instances: InstanceMap,
-    root: Element | null,
+    root: Document | Element | null,
     element: Element,
     instanceId: string,
 ): HasObserverItems {

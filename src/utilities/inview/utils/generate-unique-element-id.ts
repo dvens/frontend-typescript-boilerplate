@@ -4,7 +4,7 @@ import { ElementMap } from '../inview.types';
  * @param elementIds
  * @param root
  */
-export function generateUniqueElementId(elementIds: ElementMap, root?: Element | null) {
+export function generateUniqueElementId(elementIds: ElementMap, root?: Element | Document | null) {
     if (!root) return '';
 
     if (elementIds.has(root)) return elementIds.get(root);

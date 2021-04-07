@@ -29,7 +29,7 @@ const configureCSSLoader = options => {
                 loader: 'postcss-loader',
                 options: {
                     sourceMap: isDevelopment,
-                    config: {
+                    postcssOptions: {
                         path: `${config}/postcss.config.js`,
                     },
                 },
@@ -51,7 +51,7 @@ const configureCSSLoader = options => {
                 loader: 'postcss-loader',
                 options: {
                     sourceMap: isDevelopment,
-                    config: {
+                    postcssOptions: {
                         path: `${config}/postcss.config.js`,
                     },
                 },

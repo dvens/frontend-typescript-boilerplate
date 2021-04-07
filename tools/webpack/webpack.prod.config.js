@@ -1,7 +1,7 @@
 const createBaseConfig = require('./webpack.common.config');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 
 const createConfig = (options, legacy = false) => {
     const baseConfig = createBaseConfig(options, legacy);
@@ -15,7 +15,6 @@ const createConfig = (options, legacy = false) => {
         optimization: {
             minimizer: [
                 new TerserPlugin({
-                    cache: true,
                     terserOptions: {
                         keep_classnames: true,
                         keep_fnames: true,
@@ -26,7 +25,6 @@ const createConfig = (options, legacy = false) => {
                         },
                     },
                     parallel: true,
-                    sourceMap: true,
                 }),
             ],
         },

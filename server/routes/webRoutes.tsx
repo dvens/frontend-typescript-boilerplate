@@ -1,3 +1,4 @@
+import { h, renderToString } from '@atomify/jsx';
 import express from 'express';
 import { match, pathToRegexp } from 'path-to-regexp';
 
@@ -12,6 +13,8 @@ export interface RoutesConfig {
 }
 
 type RouteObjects = ReturnType<typeof getRouteObject>;
+
+import App from '../../src/pages/index';
 
 const IS_PRODUCTION_MODE = getDefaultMode() === 'production';
 
@@ -50,20 +53,20 @@ export async function getTemplate(
 }
 
 export const webRoutes = (config: RoutesConfig) => {
-    const routes = getRouteObject(config.rootFolder);
+    // const routes = getRouteObject(config.rootFolder);
 
-    config.app.get('*', async (req: express.Request, res: express.Response) => {
-        const { templateUrl, data } = await getTemplate(
-            req,
-            res,
-            // Update the route object only when development mode is on.
-            IS_PRODUCTION_MODE ? routes : getRouteObject(config.rootFolder),
-        );
-
-        if (templateUrl) {
-            res.render(templateUrl, data);
-        } else {
-            res.status(404).render(`404.tsx`, data);
-        }
+    config.app.get('*', async (_: express.Request, res: express.Response) => {
+        res.send(renderToString(<App />));
+        // const { templateUrl, data } = await getTemplate(
+        //     req,
+        //     res,
+        //     // Update the route object only when development mode is on.
+        //     IS_PRODUCTION_MODE ? routes : getRouteObject(config.rootFolder),
+        // );
+        // if (templateUrl) {
+        //     res.render(templateUrl, data);
+        // } else {
+        //     res.status(404).render(`404.tsx`, data);
+        // }
     });
 };

@@ -1,7 +1,13 @@
-import { h } from '@atomify/jsx';
+import { Fragment, h } from '@atomify/jsx';
 
 const App = () => {
-    return <div>Hello world!</div>;
+    return (
+        <Fragment>
+            <div>Hello world!</div>
+            <test-button />
+            <script src="/assets/js/main.js" />
+        </Fragment>
+    );
 };
 
 export default App;
