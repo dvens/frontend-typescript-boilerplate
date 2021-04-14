@@ -5,7 +5,6 @@ const App = () => {
         <Fragment>
             <div>Hello world!!</div>
             <test-button />
-            <script src="/assets/js/main.js" />
         </Fragment>
     );
 };

@@ -9,10 +9,10 @@
   dependencies:
     "@atomify/shared" "^1.2.0"
 
-"@atomify/jsx@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@atomify/jsx/-/jsx-2.1.0.tgz#6e3b2b6f6200ef3aa47369dac47b72d83e9e4394"
-  integrity sha512-w/7kN/jHSH5/+8VvdNy7ceo0kLrjg2z9ZfT4FXU9njg8FyfvB33d8u2yLDUp01qvLwyRkLsx0dvfn+tcRpMrrg==
+"@atomify/jsx@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@atomify/jsx/-/jsx-2.1.1.tgz#f2c88515d9cb45daa7c7be6e76d1dfd067aed981"
+  integrity sha512-yBZXTtZ3OGkxXZu9w7svCyMlnbl1GH5MLuzu2Jx8QN3F4VnTcdbMYz5a6e7AfPwu07yDLWw40COnqxLuMyMGCg==
   dependencies:
     "@atomify/shared" "^1.2.0"
 

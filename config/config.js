@@ -16,7 +16,7 @@ config.nodeModules = resolveApp('node_modules');
 config.dotenv = resolveApp('.env');
 
 // Entries
-config.appEntry = resolveApp('src/client/index.ts');
+config.appEntry = [resolveApp('src/client/index.ts')];
 config.serverEntry = 'server.ts';
 config.distEntries = ['main.js'];
 

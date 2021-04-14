@@ -18,7 +18,7 @@ const fontsLoader = require('../loaders/fonts-loader');
 
 const defaultOptions = {
     mode: getDefaultMode(),
-    entry: [config.appEntry],
+    entry: config.appEntry,
 };
 
 function normalizePath(path) {
