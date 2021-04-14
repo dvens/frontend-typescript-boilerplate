@@ -16,7 +16,7 @@ config.nodeModules = resolveApp('node_modules');
 config.dotenv = resolveApp('.env');
 
 // Entries
-config.appEntry = 'index.ts';
+config.appEntry = resolveApp('src/client/index.ts');
 config.serverEntry = 'server.ts';
 config.distEntries = ['main.js'];
 
@@ -65,7 +65,7 @@ config.publicPath = config.assetPrefix;
 config.cssInJS = true;
 
 // Browsersync watched files
-config.browserSync = ['src/**/*.njk', 'src/**/*.tsx'];
+config.browserSync = ['src/**/*.tsx'];
 
 // Nunjucks config
 config.nunjucks = {

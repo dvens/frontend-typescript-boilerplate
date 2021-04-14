@@ -75,5 +75,7 @@ __3. Start the project in dev mode__
 - [Open Wc](https://open-wc.org/) - Open Web Component Recommendations
 
 # Next Steps #
+- Create HMR for app within the client.
+- Create static router
 - Create CLI to generate the setup
 - Create NPM Packages out of the tools folder

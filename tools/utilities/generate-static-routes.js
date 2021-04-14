@@ -15,13 +15,13 @@ const projectConfig = config;
 const env = configureNunjucks([projectConfig.pages, projectConfig.components], nunjucksConfig);
 
 async function generatePages(routes) {
-    const dynamicRoutes = routes.filter(route => route.isDynamic);
-    const staticRoutes = routes.filter(route => !route.isDynamic);
+    const dynamicRoutes = routes.filter((route) => route.isDynamic);
+    const staticRoutes = routes.filter((route) => !route.isDynamic);
 
     const dynamicExports = await dynamicRouteExports();
 
-    const dynamicPages = dynamicExports.map(url => {
-        const route = dynamicRoutes.find(route => {
+    const dynamicPages = dynamicExports.map((url) => {
+        const route = dynamicRoutes.find((route) => {
             const regexp = pathToRegexp(route.url);
             const match = regexp.exec(url);
             return match;

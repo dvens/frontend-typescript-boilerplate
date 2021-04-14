@@ -49,7 +49,7 @@ class Inview {
         let observer = OBSERVERS.get(instanceId);
 
         if (!observer) {
-            observer = new IntersectionObserver(changes => onChange(changes, INSTANCES), options);
+            observer = new IntersectionObserver((changes) => onChange(changes, INSTANCES), options);
             if (instanceId) OBSERVERS.set(instanceId, observer);
         }
 
@@ -106,7 +106,7 @@ class Inview {
      * @memberof Inview
      */
     destroy() {
-        INSTANCES.forEach(instance => instance.observer.disconnect());
+        INSTANCES.forEach((instance) => instance.observer.disconnect());
         INSTANCES.clear();
         ELEMENT_IDS.clear();
         OBSERVERS.clear();

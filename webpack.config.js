@@ -6,8 +6,7 @@ const resolveApp = require('./tools/utilities/resolve-app');
 const isProduction = getDefaultMode() === 'production';
 
 const clientConfig = {
-    entry: [resolveApp('src/index.ts')],
-    includedPackages: [/node_modules\/(?!@atomify)/],
+    // includedPackages: [/node_modules\/(?!@atomify)/],
 };
 
 function getBuildOptions() {

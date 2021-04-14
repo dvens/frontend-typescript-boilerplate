@@ -1,9 +1,8 @@
 {
     "watch": [
-        "server",
-        "src/pages/**/*.{ts,js}"
+        "./src/server"
     ],
-    "ext": "ts js",
-    "exec": "ts-node --project tsconfig.server.json server/server.ts",
+    "ext": "ts js tsx jsx",
+    "exec": "ts-node --project tsconfig.server.json src/server/server.ts",
     "restartable": "rs"
 }

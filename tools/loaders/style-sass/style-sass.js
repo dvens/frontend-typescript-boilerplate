@@ -4,7 +4,7 @@ const { config } = require('../../utilities/get-config');
 
 const isDevelopment = getDefaultMode() === 'development';
 
-const configureCSSLoader = options => {
+const configureCSSLoader = (options) => {
     const defaultOptions = Object.assign(
         {},
         {
@@ -17,7 +17,7 @@ const configureCSSLoader = options => {
         test: /\.(s*)css$/,
         include: /\main.(s*)css$/,
         use: [
-            'style-loader',
+            isDevelopment && 'style-loader',
             !isDevelopment && defaultOptions.extract && MiniCssExtractPlugin.loader,
             {
                 loader: 'css-loader',

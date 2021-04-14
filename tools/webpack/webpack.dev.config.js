@@ -8,7 +8,7 @@ const createConfig = (options, legacy = false) => {
     const baseConfig = createBaseConfig(options, legacy);
 
     const devConfig = {
-        entry: ['webpack-hot-middleware/client'],
+        entry: ['webpack-hot-middleware/client?reload=true'],
         plugins: [new webpack.HotModuleReplacementPlugin()],
     };
 

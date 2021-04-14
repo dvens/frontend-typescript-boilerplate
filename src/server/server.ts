@@ -12,11 +12,11 @@ import express from 'express';
 import logger from 'morgan';
 
 // Config/Utilities
-import { config } from '../tools/utilities/get-config';
+import { config } from '../../tools/utilities/get-config';
 // Middleware
 import errorHandler from './middleware/errorHandler';
 import hotReloadMiddleware from './middleware/hotReload';
-import { webRoutes } from './routes/webRoutes';
+import { webRoutes } from './middleware/webRoutes';
 
 /**
  * Application environment
