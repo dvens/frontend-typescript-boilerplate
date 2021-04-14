@@ -12,7 +12,9 @@
             "es2017",
             "DOM"
         ],
-        "paths": {},
+        "paths": {
+
+        },
         "typeRoots": ["node_modules/@types"],
     },
     "include": ["src/server/**/*.ts"],

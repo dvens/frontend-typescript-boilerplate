@@ -75,7 +75,12 @@ __3. Start the project in dev mode__
 - [Open Wc](https://open-wc.org/) - Open Web Component Recommendations
 
 # Next Steps #
+- Create basic document
 - Create HMR for app within the client.
+- Add Helmet
+- set  window.__INITIAL_STATE__=${serialize(initialState)}; <--- important add serialize-javascript
 - Create static router
+- Create store with global data
+- Create hashing for files and load them through the server
 - Create CLI to generate the setup
 - Create NPM Packages out of the tools folder

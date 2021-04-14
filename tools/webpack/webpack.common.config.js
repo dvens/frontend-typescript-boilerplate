@@ -2,7 +2,6 @@ const SassLintPlugin = require('sass-lint-webpack');
 const CopyPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 const env = require('../utilities/env')();
-const WebpackBar = require('webpackbar');
 
 // Utilities
 const { config, alias } = require('../utilities/get-config');
@@ -57,7 +56,6 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
         devtool: !isProduction ? 'cheap-module-source-map' : undefined,
 
         plugins: [
-            new WebpackBar(),
             new SassLintPlugin(),
             new CopyPlugin(config.copy || {}),
             new webpack.DefinePlugin(env.stringified),

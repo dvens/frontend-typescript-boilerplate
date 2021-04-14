@@ -1,22 +1,25 @@
-import webpack from 'webpack';
-import webpackDevMiddleware from 'webpack-dev-middleware';
-import webpackHotMiddleware from 'webpack-hot-middleware';
+import chalk from 'chalk';
 
 import { config } from '../../../tools/utilities/get-config';
-import webpackConfig from '../../../webpack.config';
 
-const hotReloadMiddleware = (app: any, callback?: () => void) => {
-    const compiler: any = webpack(webpackConfig as any);
+export default function hotReload(app: any) {
+    const webpack = require('webpack');
+    const webpackConfig = require('../../../webpack.config');
+    const webpackHotMiddleware = require('webpack-hot-middleware');
+    const webpackDevMiddleware = require('webpack-dev-middleware');
+    const compiler = webpack(webpackConfig);
     const instance = webpackDevMiddleware(compiler, {
         publicPath: config.publicPath,
+        stats: 'minimal',
+        serverSideRender: true,
+        watchOptions: { ignored: /node_modules/ },
     });
 
     app.use(instance);
     app.use(webpackHotMiddleware(compiler, {}));
 
     instance.waitUntilValid(() => {
-        if (callback) callback();
+        const url = `http://${config.host}:${config.port}`;
+        console.log(`[${new Date().toISOString()}]`, chalk.green(`==> 🌎  Listening at ${url}`));
     });
-};
-
-export default hotReloadMiddleware;
+}

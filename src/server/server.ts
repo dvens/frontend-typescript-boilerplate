@@ -15,8 +15,8 @@ import logger from 'morgan';
 import { config } from '../../tools/utilities/get-config';
 // Middleware
 import errorHandler from './middleware/errorHandler';
-import hotReloadMiddleware from './middleware/hotReload';
-import { webRoutes } from './middleware/webRoutes';
+import hotReload from './middleware/hotReload';
+import ssr from './middleware/ssr';
 
 /**
  * Application environment
@@ -29,6 +29,8 @@ dotenv.config();
  * Initialize app
  */
 const SERVER_PORT = config.port;
+const SERVER_HOST = config.host;
+
 const app = express();
 
 /**
@@ -49,6 +51,13 @@ app.use(cors());
 app.use(compression());
 
 /**
+ * Static files during dev and prod mode
+ */
+const assetsPath =
+    process.env.NODE_ENV === 'production' ? `${config.clientDist}/assets` : config.assets;
+app.use('/assets', express.static(assetsPath));
+
+/**
  * Error handler
  */
 app.use(errorHandler);
@@ -57,47 +66,14 @@ app.use(errorHandler);
  * Development config
  */
 if (process.env.NODE_ENV === 'development') {
-    // Static files during development
-    app.use('/assets', express.static(config.assets));
-
     // Enable hot reload when in production mode.
     // And wait until webpack is compiled.
-    hotReloadMiddleware(app, () => {
-        // Enable browsersync during development
-        app.listen(SERVER_PORT - 50, () => {
-            browserSync({
-                files: config.browserSync,
-                notify: true,
-                open: false,
-                port: SERVER_PORT,
-                proxy: `localhost:${SERVER_PORT - 50}`,
-                ui: false,
-            });
-
-            console.log(
-                `[${new Date().toISOString()}]`,
-                chalk.bgCyanBright(`App is running: http://localhost:${SERVER_PORT}`),
-            );
-        });
-    });
+    hotReload(app);
 }
 
 /**
- * Production config
+ * Serverside rendering
  */
-if (process.env.NODE_ENV === 'production') {
-    // Static files for production
-    app.use('/assets', express.static(`${config.clientDist}/assets`));
+app.get('*', ssr);
 
-    app.listen(SERVER_PORT, () => {
-        console.log(
-            `[${new Date().toISOString()}]`,
-            chalk.blue(`App is running: http://localhost:${SERVER_PORT}`),
-        );
-    });
-}
-
-/**
- * Route Configuration
- */
-webRoutes({ routeExtension: '.tsx', rootFolder: config.pages, app, port: SERVER_PORT });
+app.listen(SERVER_PORT, SERVER_HOST);

@@ -12,8 +12,7 @@ if (!isLocalhost) {
     registerServiceWorker();
 }
 
-hydrate(<App />, document.body);
-
 if (module.hot) {
+    hydrate(<App />, document.body);
     module.hot.accept();
 }

@@ -25,6 +25,7 @@ config.server = resolveApp('server');
 
 // Node.js App
 config.port = process.env.PORT || 3000;
+config.host = process.env.HOST || 'localhost';
 
 // Public folder
 config.public = resolveApp('public');
