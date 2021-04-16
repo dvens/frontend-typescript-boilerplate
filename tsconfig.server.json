@@ -12,11 +12,6 @@
             "es2017",
             "DOM"
         ],
-        "paths": {
-            "@/*": [
-                "./src/*"
-            ]
-        },
         "typeRoots": ["node_modules/@types"],
     },
     "include": ["src/server/**/*.ts"],

@@ -75,14 +75,14 @@ __3. Start the project in dev mode__
 - [Open Wc](https://open-wc.org/) - Open Web Component Recommendations
 
 # Next Steps #
-- Add Helmet + refactor helmet to render all tags seperatly.
 - Create basic store based upon unistore (but refactor the store in this setup)
-- set  window.__INITIAL_STATE__=${serialize(initialState)}; <--- important add serialize-javascript
+- set window.__INITIAL_STATE__=${serialize(initialState)}; <--- important add serialize-javascript
 - Create static router based upon wouter
 - Create hashing for files and load them through the server (polyfill loader for dev and prod)
 - Add css modules
 - Fix storybook for JSX
 - Fix hygen
 - Check if testing is working
+- Update docs
 - Create CLI to generate the setup
 - Create NPM Packages out of the tools folder

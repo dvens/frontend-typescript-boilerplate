@@ -1,17 +1,21 @@
-export const config = {
-    title: 'REACT COOL STARTER',
-    titleTemplate: 'REACT COOL STARTER - %s',
+import { ConfigObject } from '@atomify/kit';
+
+export const config: ConfigObject = {
+    title: 'Starter',
+    base: {
+        href: '/',
+    },
     meta: [
         {
             name: 'description',
-            content: 'The best react universal starter boilerplate in the world.',
+            content: 'A frontend starter',
         },
     ],
     link: [
         {
-            url: '/assets/css/main.css',
+            href: '/assets/css/main.css',
             as: 'style',
-            preload: true,
+            rel: 'preload',
         },
     ],
 };

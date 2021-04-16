@@ -1,17 +1,11 @@
-import { h } from '@atomify/jsx';
+import { h, VNode } from '@atomify/jsx';
 
 import { renderFavicons } from '@/components/templates/Favicons';
 interface DocProps {
-    htmlContent?: JSX.Element;
-    head?: Record<string, any>;
-    initialState?: Record<string, unknown>;
+    htmlContent?: string;
+    head?: VNode[];
+    initialState?: string;
 }
-
-const props = {
-    url: '/assets/css/main.css',
-    as: 'style',
-    preload: true,
-};
 
 const Document = ({ head, htmlContent, initialState }: DocProps) => {
     return (
@@ -20,13 +14,11 @@ const Document = ({ head, htmlContent, initialState }: DocProps) => {
                 <meta charset="UTF-8" />
                 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
                 <meta name="disabled-adaptations" content="watch" />
-                <base href="/" />
-
-                {renderFavicons()}
                 {head && head}
+                {renderFavicons()}
             </head>
             <body>
-                <div id="app">{htmlContent && htmlContent}</div>
+                <div id="app" dangerouslySetInnerHTML={htmlContent} />
 
                 {/* TODO: Use serialize-javascript for mitigating XSS attacks. */}
                 {initialState && (
@@ -34,7 +26,6 @@ const Document = ({ head, htmlContent, initialState }: DocProps) => {
                 )}
 
                 {/*TODO: Replace this with polyfill loader */}
-
                 <script src="/assets/js/main.js" />
             </body>
         </html>
