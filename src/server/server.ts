@@ -3,8 +3,6 @@
  * @description The entry point, responsible to bootstrap all pages.
  * @version 1.0.0
  */
-import browserSync from 'browser-sync';
-import chalk from 'chalk';
 import compression from 'compression';
 import cors from 'cors';
 import dotenv from 'dotenv';
@@ -30,13 +28,15 @@ dotenv.config();
  */
 const SERVER_PORT = config.port;
 const SERVER_HOST = config.host;
+const IS_PROD = process.env.NODE_ENV === 'production';
+const IS_DEV = process.env.NODE_ENV === 'development';
 
 const app = express();
 
 /**
  * Logger
  */
-app.use(logger(process.env.NODE_ENV === 'development' ? 'dev' : 'prod'));
+app.use(logger(IS_DEV ? 'dev' : 'prod'));
 
 /**
  * Cors
@@ -53,8 +53,7 @@ app.use(compression());
 /**
  * Static files during dev and prod mode
  */
-const assetsPath =
-    process.env.NODE_ENV === 'production' ? `${config.clientDist}/assets` : config.assets;
+const assetsPath = IS_PROD ? `${config.clientDist}/assets` : config.assets;
 app.use('/assets', express.static(assetsPath));
 
 /**
@@ -65,7 +64,7 @@ app.use(errorHandler);
 /**
  * Development config
  */
-if (process.env.NODE_ENV === 'development') {
+if (IS_DEV) {
     // Enable hot reload when in production mode.
     // And wait until webpack is compiled.
     hotReload(app);

@@ -1,5 +1,6 @@
 import { h } from '@atomify/jsx';
 
+import { renderFavicons } from '@/components/templates/Favicons';
 interface DocProps {
     htmlContent?: JSX.Element;
     head?: Record<string, any>;
@@ -15,7 +16,7 @@ const Document = ({ head, htmlContent, initialState }: DocProps) => {
                 <meta name="disabled-adaptations" content="watch" />
                 <base href="/" />
 
-                {/*TODO: Implement favicons */}
+                {renderFavicons()}
                 {head && head}
             </head>
             <body>

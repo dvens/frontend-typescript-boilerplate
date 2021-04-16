@@ -75,7 +75,6 @@ __3. Start the project in dev mode__
 - [Open Wc](https://open-wc.org/) - Open Web Component Recommendations
 
 # Next Steps #
-- TODO: Implement favicons for document
 - Add Helmet + refactor helmet to render all tags seperatly.
 - Create basic store based upon unistore (but refactor the store in this setup)
 - set  window.__INITIAL_STATE__=${serialize(initialState)}; <--- important add serialize-javascript

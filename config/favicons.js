@@ -3,7 +3,7 @@ const config = require('./config');
 const options = {
     folder: config.favicons,
     source: `${config.public}/logo.png`,
-    output: `${config.pages}/_layouts/favicons.njk`,
+    output: `${config.source}/components/templates/Favicons.tsx`,
     faviconsPlugin: {
         path: config.faviconsOutputPath, // Path for overriding default icons path. `string`
         appName: 'App', // Your application's name. `string`
