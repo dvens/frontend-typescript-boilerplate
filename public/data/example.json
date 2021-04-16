@@ -1,0 +1,15 @@
+{
+    "products": [{
+        "title": "Product 1",
+        "categories": ["Category 1", "Category 2", "Category 3"],
+        "amount": 1
+    }, {
+        "title": "Product 2",
+        "categories": ["Category 1", "Category 2", "Category 3"],
+        "amount": 5
+    }, {
+        "title": "Product 3",
+        "categories": ["Category 1", "Category 2", "Category 3"],
+        "amount": 10
+    }]
+}

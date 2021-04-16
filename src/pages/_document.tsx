@@ -7,6 +7,12 @@ interface DocProps {
     initialState?: Record<string, unknown>;
 }
 
+const props = {
+    url: '/assets/css/main.css',
+    as: 'style',
+    preload: true,
+};
+
 const Document = ({ head, htmlContent, initialState }: DocProps) => {
     return (
         <html lang="en">

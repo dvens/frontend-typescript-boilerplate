@@ -6,9 +6,9 @@ const getPolyfills = require('./polyfill-loader/get-polyfills');
 const createLoaderScript = require('./polyfill-loader/loader-script');
 
 async function copyPolyfills(polyfills) {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
         mkdirp(`${config.dist}${config.polyfillOutputPath}`, async () => {
-            await polyfills.forEach(async polyfill => {
+            await polyfills.forEach(async (polyfill) => {
                 await fs.writeFileSync(polyfill.url, polyfill.code);
             });
 

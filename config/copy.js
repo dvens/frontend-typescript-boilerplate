@@ -3,7 +3,6 @@
 function fileCopyConfig(config) {
     return {
         patterns: [
-            // Optional when you want to copy assets like images or svgs that are being used by Nunjucks.
             // By default the assets used within CSS or Javascript will be moved by Webpack.
             // {
             //     from: config.images,

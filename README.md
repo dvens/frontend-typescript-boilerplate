@@ -80,5 +80,9 @@ __3. Start the project in dev mode__
 - set  window.__INITIAL_STATE__=${serialize(initialState)}; <--- important add serialize-javascript
 - Create static router based upon wouter
 - Create hashing for files and load them through the server (polyfill loader for dev and prod)
+- Add css modules
+- Fix storybook for JSX
+- Fix hygen
+- Check if testing is working
 - Create CLI to generate the setup
 - Create NPM Packages out of the tools folder

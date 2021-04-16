@@ -1,5 +1,4 @@
 const resolveApp = require('../tools/utilities/resolve-app');
-const getDefaultMode = require('../tools/utilities/get-default-mode');
 const fileCopyConfig = require('./copy');
 const polyfills = require('./polyfills');
 
@@ -64,19 +63,6 @@ config.publicPath = config.assetPrefix;
 
 // Config CSS in JS option
 config.cssInJS = true;
-
-// Browsersync watched files
-config.browserSync = ['src/**/*.tsx'];
-
-// Nunjucks config
-config.nunjucks = {
-    envAppViews: [config.pages, config.components, config.public],
-    project: {
-        debug: getDefaultMode() === 'development' || getDefaultMode() === 'debug',
-        assetPrefix: config.assetPrefix,
-        ...require(`${config.data}/project.json`),
-    },
-};
 
 // Polyfills
 config.polyfills = polyfills;
