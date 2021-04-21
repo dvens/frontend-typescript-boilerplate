@@ -75,9 +75,10 @@ __3. Start the project in dev mode__
 - [Open Wc](https://open-wc.org/) - Open Web Component Recommendations
 
 # Next Steps #
+- Refactor css to css modules + css in js for web components
 - Create hashing for files and load them through the server (polyfill loader for dev and prod)
-- Add css modules
-- Create static router based upon wouter
+- Create static router based upon wouter/with data management fetching data based upon route
+- Add proper error pages for ssr.
 - Fix storybook for JSX
 - Fix hygen
 - Check if testing is working

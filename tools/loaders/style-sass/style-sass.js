@@ -5,6 +5,7 @@ const { config } = require('../../utilities/get-config');
 const isDevelopment = getDefaultMode() === 'development';
 
 const configureCSSLoader = (options) => {
+    console.log(isDevelopment);
     const defaultOptions = Object.assign(
         {},
         {
@@ -47,6 +48,12 @@ const configureCSSLoader = (options) => {
         test: /\.(s*)css$/,
         exclude: /\main.(s*)css$/,
         use: [
+            {
+                loader: 'css-loader',
+                options: {
+                    sourceMap: isDevelopment,
+                },
+            },
             {
                 loader: 'postcss-loader',
                 options: {
