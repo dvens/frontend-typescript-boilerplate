@@ -18,13 +18,14 @@ async function copyPolyfills(polyfills) {
 }
 
 async function generatePolyfills() {
-    const polyfills = getPolyfills(config);
+    console.log('aaa');
+    // const polyfills = getPolyfills(config);
 
-    await copyPolyfills(polyfills);
-    await fs.writeFileSync(
-        `${config.pages}/_layouts/scripts.njk`,
-        createLoaderScript(config.distEntries, polyfills, config),
-    );
+    // await copyPolyfills(polyfills);
+    // await fs.writeFileSync(
+    //     `${config.pages}/_layouts/scripts.njk`,
+    //     createLoaderScript(config.distEntries, polyfills, config),
+    // );
 }
 
 module.exports = generatePolyfills;

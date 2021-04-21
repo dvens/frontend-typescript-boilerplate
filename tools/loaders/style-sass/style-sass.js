@@ -5,7 +5,6 @@ const { config } = require('../../utilities/get-config');
 const isDevelopment = getDefaultMode() === 'development';
 
 const configureCSSLoader = (options) => {
-    console.log(isDevelopment);
     const defaultOptions = Object.assign(
         {},
         {

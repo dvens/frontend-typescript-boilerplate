@@ -149,6 +149,7 @@
         "path-to-regexp": "^6.1.0",
         "regenerator-runtime": "^0.13.3",
         "serialize-javascript": "^5.0.1",
+        "webpack-manifest-plugin": "^3.1.1",
         "whatwg-fetch": "^3.0.0"
     }
 }

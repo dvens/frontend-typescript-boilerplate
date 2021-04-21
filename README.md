@@ -75,9 +75,14 @@ __3. Start the project in dev mode__
 - [Open Wc](https://open-wc.org/) - Open Web Component Recommendations
 
 # Next Steps #
+Important
+- Create hashing for files and load them through the server (polyfill loader for dev and prod). Read out legacy and normal manifest.json. Also add content hash to file names.
+
 - Refactor css to css modules + css in js for web components
-- Create hashing for files and load them through the server (polyfill loader for dev and prod)
 - Create static router based upon wouter/with data management fetching data based upon route
+
+
+After
 - Add proper error pages for ssr.
 - Fix storybook for JSX
 - Fix hygen

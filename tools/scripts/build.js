@@ -7,7 +7,7 @@ const generateServiceWorker = require('../utilities/generate-sw');
 async function build() {
     await run(clean);
     await run(bundle);
-    // await run(generatePolyfills);
+    await run(generatePolyfills);
     // await run(generateServiceWorker);
 }
 
