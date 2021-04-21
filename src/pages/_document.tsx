@@ -1,10 +1,12 @@
 import { h, VNode } from '@atomify/jsx';
+import { AppState } from '@store/index';
+import serialize from 'serialize-javascript';
 
 import { renderFavicons } from '@/components/templates/Favicons';
 interface DocProps {
     htmlContent?: string;
     head?: VNode[];
-    initialState?: string;
+    initialState?: AppState;
 }
 
 const Document = ({ head, htmlContent, initialState }: DocProps) => {
@@ -20,9 +22,12 @@ const Document = ({ head, htmlContent, initialState }: DocProps) => {
             <body>
                 <div id="app" dangerouslySetInnerHTML={htmlContent} />
 
-                {/* TODO: Use serialize-javascript for mitigating XSS attacks. */}
                 {initialState && (
-                    <script dangerouslySetInnerHTML={`window.__INITIAL_STATE__=${initialState}`} />
+                    <script
+                        dangerouslySetInnerHTML={`window.__INITIAL_STATE__=${serialize(
+                            initialState,
+                        )}`}
+                    />
                 )}
 
                 {/*TODO: Replace this with polyfill loader */}

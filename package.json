@@ -59,6 +59,7 @@
         "@types/jasmine": "^3.5.2",
         "@types/morgan": "^1.7.37",
         "@types/node": "^14.14.37",
+        "@types/serialize-javascript": "^5.0.0",
         "@types/storybook__addon-actions": "^5.2.1",
         "@types/storybook__addon-backgrounds": "^5.2.1",
         "@types/storybook__addon-links": "^5.2.1",
@@ -131,9 +132,9 @@
         "workbox-build": "^5.0.0"
     },
     "dependencies": {
-        "@atomify/hooks": "^1.3.0",
-        "@atomify/jsx": "^2.1.1",
-        "@atomify/kit": "^1.3.1",
+        "@atomify/hooks": "^1.3.1",
+        "@atomify/jsx": "^2.1.2",
+        "@atomify/kit": "^1.3.2",
         "@webcomponents/webcomponentsjs": "^2.4.1",
         "body-parser": "^1.19.0",
         "chalk": "^3.0.0",
@@ -147,6 +148,7 @@
         "morgan": "^1.9.1",
         "path-to-regexp": "^6.1.0",
         "regenerator-runtime": "^0.13.3",
+        "serialize-javascript": "^5.0.1",
         "whatwg-fetch": "^3.0.0"
     }
 }
