@@ -76,10 +76,11 @@ __3. Start the project in dev mode__
 
 # Next Steps #
 Important
-- Create hashing for files and load them through the server (polyfill loader for dev and prod). Read out legacy and normal manifest.json. Also add content hash to file names.
+- Create hashing for files and load them through the server (polyfill loader for dev and prod). Read out legacy and normal manifest.json. Also add content hash to file names. (test this with chunks aswell) + implement for css.
 
 - Refactor css to css modules + css in js for web components
 - Create static router based upon wouter/with data management fetching data based upon route
+- move up alias plugin to tools/utilities
 
 
 After
