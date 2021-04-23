@@ -35,14 +35,15 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
         ...userOptions,
     };
 
+    const isProduction = options.mode === 'production';
+
+    const contenthash = isProduction ? '.[contenthash]' : '';
     const outputFilename = `${config.jsOutputPath}${
         legacy ? `${config.legacyPrefix}` : ''
-    }[name].js`;
+    }[name]${contenthash}.js`;
     const outputChunkFilename = `${config.jsOutputPath}${
         legacy ? `chunks/${config.legacyPrefix}` : 'chunks/'
-    }[name].js`;
-
-    const isProduction = options.mode === 'production';
+    }[name]${contenthash}.js`;
 
     const defaultConfig = {
         target: 'web',

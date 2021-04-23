@@ -3,6 +3,7 @@ import { AppState } from '@store/index';
 import serialize from 'serialize-javascript';
 
 import { renderFavicons } from '@/components/templates/Favicons';
+import { renderScripts } from '@/components/templates/Scripts';
 interface DocProps {
     htmlContent?: string;
     head?: VNode[];
@@ -30,8 +31,7 @@ const Document = ({ head, htmlContent, initialState }: DocProps) => {
                     />
                 )}
 
-                {/*TODO: Replace this with polyfill loader */}
-                <script src="/assets/js/main.js" />
+                {renderScripts()}
             </body>
         </html>
     );

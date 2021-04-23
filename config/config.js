@@ -17,6 +17,8 @@ config.dotenv = resolveApp('.env');
 // Entries
 config.appEntry = [resolveApp('src/client/index.ts')];
 config.serverEntry = 'server.ts';
+
+// Config used for the loader script
 config.distEntries = ['main.js'];
 
 // Server folder
@@ -46,7 +48,7 @@ config.dist = resolveApp('build');
 config.clientDist = config.dist;
 
 // Config legacy prefix
-config.legacyPrefix = 'legacy_';
+config.legacyPrefix = 'legacy-';
 
 // Config asset prefix
 config.assetPrefix = process.env.ASSET_PREFIX ? process.env.ASSET_PREFIX : '';
@@ -58,14 +60,10 @@ config.fontsOutputPath = '/assets/fonts/';
 config.jsOutputPath = '/assets/js/';
 config.faviconsOutputPath = '/assets/favicons/';
 config.polyfillOutputPath = '/assets/js/polyfills/';
-config.htmlOutputPath = '';
-config.publicPath = config.assetPrefix;
+config.publicPath = config.assetPrefix || '/';
 
 // Config CSS in JS option
 config.cssInJS = true;
-
-// Polyfills
-config.polyfills = polyfills;
 
 // Service worker options
 config.injectManifest = false;

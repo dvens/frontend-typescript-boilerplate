@@ -3,10 +3,11 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const { merge } = require('webpack-merge');
+const { config } = require('../utilities/get-config');
 
 const createConfig = (options, legacy = false) => {
     const baseConfig = createBaseConfig(options, legacy);
-    const manifestFileName = legacy ? 'legacy-manifest.json' : 'manifest.json';
+    const manifestFileName = legacy ? `${config.legacyPrefix}stats.json` : 'stats.json';
 
     const prodConfig = {
         plugins: [

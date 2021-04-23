@@ -3,7 +3,7 @@
     "version": "0.5.0",
     "license": "MIT",
     "description": "A basic project setup for creating (static) html templates. Filled with automated tasks and configuration options.",
-    "author": "Dept",
+    "author": "Dylan Vens",
     "scripts": {
         "lint-fix": "eslint src/ --ext .ts,.tsx --fix",
         "start": "cross-env NODE_ENV=development PORT=3000 nodemon",
@@ -16,7 +16,7 @@
         "test": "karma start karma.conf.js",
         "generate": "hygen generator",
         "favicons": "cross-env NODE_ENV=production ts-node ./tools/scripts/run favicons",
-        "webpack": "cross-env NODE_ENV=production webpack"
+        "polyfills": "cross-env NODE_ENV=development ts-node ./tools/scripts/run polyfills"
     },
     "contributors": [
         {
@@ -128,7 +128,8 @@
         "webpack-cli": "^4.6.0",
         "webpack-hot-middleware": "^2.25.0",
         "webpack-merge": "^5.7.3",
-        "workbox-build": "^5.0.0"
+        "workbox-build": "^5.0.0",
+        "webpack-manifest-plugin": "^3.1.1"
     },
     "dependencies": {
         "@atomify/css": "^1.2.1",
@@ -149,7 +150,6 @@
         "path-to-regexp": "^6.1.0",
         "regenerator-runtime": "^0.13.3",
         "serialize-javascript": "^5.0.1",
-        "webpack-manifest-plugin": "^3.1.1",
         "whatwg-fetch": "^3.0.0"
     }
 }

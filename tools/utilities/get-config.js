@@ -7,6 +7,7 @@ const getConfig = () => {
     const configString = `${projectDirectory}/config/config.js`;
     const aliasString = `${projectDirectory}/config/alias.js`;
     const faviconString = `${projectDirectory}/config/favicons.js`;
+    const polyfillLoader = `${projectDirectory}/config/polyfills.js`;
 
     if (!fs.existsSync(configString))
         throw new Error(
@@ -17,6 +18,7 @@ const getConfig = () => {
         config: require(configString),
         alias: require(aliasString),
         favicon: require(faviconString),
+        polyfillLoader: require(polyfillLoader),
     };
 };
 

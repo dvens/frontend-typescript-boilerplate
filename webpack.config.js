@@ -2,7 +2,6 @@ const webpackProdConfig = require('./tools/webpack/webpack.prod.config');
 const webpackDevConfig = require('./tools/webpack/webpack.dev.config');
 
 const getDefaultMode = require('./tools/utilities/get-default-mode');
-const resolveApp = require('./tools/utilities/resolve-app');
 const isProduction = getDefaultMode() === 'production';
 
 const clientConfig = {

@@ -1,4 +1,7 @@
-const Terser = require('terser');
+const { minify } = require('terser');
+const getDefaultMode = require('../get-default-mode');
+
+const isProduction = getDefaultMode() === 'production';
 
 /**
  * Loader utility thats being used to load scripts dynamically.
@@ -20,11 +23,11 @@ const loadScriptFunction = `
 const createPolyfillLoader = (polyfills, config) => {
     if (!polyfills) return '';
 
-    const filteredPolyfills = polyfills.filter(polyfill => polyfill.test);
+    const filteredPolyfills = polyfills.filter((polyfill) => polyfill.test);
 
     let code = 'var polyfills = []\n';
 
-    filteredPolyfills.forEach(polyfill => {
+    filteredPolyfills.forEach((polyfill) => {
         code += `if(${polyfill.test}) {
             polyfills.push(loadScript('${config.assetPrefix}${config.polyfillOutputPath}${
             polyfill.name
@@ -35,7 +38,7 @@ const createPolyfillLoader = (polyfills, config) => {
     return code;
 };
 
-const asArrayLiteral = arr => `[${arr.map(e => `'${e}'`).join(',')}]`;
+const asArrayLiteral = (arr) => `[${arr.map((e) => `'${e}'`).join(',')}]`;
 
 /*
  * Creates an entry loader based upon the amount of items, it will use an foreach when there are more multiple entries.
@@ -43,7 +46,7 @@ const asArrayLiteral = arr => `[${arr.map(e => `'${e}'`).join(',')}]`;
  */
 const entryLoaderCreator = (files, prefix, config) => {
     const generatedFiles = files.map(
-        file => `${config.assetPrefix}${config.jsOutputPath}${prefix ? prefix : ''}${file}`,
+        (file) => `${config.assetPrefix}${config.jsOutputPath}${prefix ? prefix : ''}${file}`,
     );
 
     return generatedFiles.length === 1
@@ -54,14 +57,15 @@ const entryLoaderCreator = (files, prefix, config) => {
 /**
  * Creates an function that returns a promise or single executable loadEntries fucntion.
  */
-const createExecuteLoadEntries = polyfills => {
+const createExecuteLoadEntries = (polyfills) => {
     if (polyfills && polyfills.length) {
         return 'polyfills.length ? Promise.all(polyfills).then(loadEntries) : loadEntries();';
     }
     return 'loadEntries()';
 };
 
-const createEntriesLoader = (entries, config) => {
+const createEntriesLoader = (config) => {
+    const entries = config.distEntries;
     const load = entryLoaderCreator(entries, false, config);
     const loadLegacy = config.legacyPrefix
         ? entryLoaderCreator(entries, config.legacyPrefix, config)
@@ -82,11 +86,11 @@ const createEntriesLoader = (entries, config) => {
 const createScripts = (polyfills, config) => {
     if (polyfills.length === 0) return '';
 
-    const filteredPolyfills = polyfills.filter(polyfill => !polyfill.test);
+    const filteredPolyfills = polyfills.filter((polyfill) => !polyfill.test);
 
     return filteredPolyfills
         .map(
-            polyfill =>
+            (polyfill) =>
                 `<script src='${config.assetPrefix}${config.polyfillOutputPath}${
                     polyfill.name
                 }.js' ${polyfill.nomodule ? 'nomodule' : ''}${
@@ -96,23 +100,45 @@ const createScripts = (polyfills, config) => {
         .join(',');
 };
 
+const createDevelopmentScript = (config) => {
+    const { distEntries } = config;
+    const devScripts = [];
+
+    distEntries.forEach((entry) => {
+        devScripts.push(
+            `<script src="${config.assetPrefix}${config.jsOutputPath}${entry}"></script>`,
+        );
+    });
+
+    return devScripts.join('');
+};
+
 /**
  * Creates a loader script that executed immediately.
  */
-const createLoaderScript = (entries, polyfills, config) => {
+const createLoaderScript = async (config, polyfills) => {
     const code = `
     (function () {
         ${loadScriptFunction}
         ${createPolyfillLoader(polyfills, config)}
-        ${createEntriesLoader(entries, config)}
+        ${createEntriesLoader(config)}
     })();`;
 
-    const finalizedCode = config.polyfills.minify ? Terser.minify(code).code : code;
+    let finalizedCode = code;
 
-    return `${createScripts(polyfills, config).replace(
+    if (config.polyfills.minify) {
+        const minified = await minify(code);
+        finalizedCode = minified.code;
+    }
+
+    const prodScript = `${createScripts(polyfills, config).replace(
         ',',
         '\n',
-    )}\n<script>${finalizedCode}</script>`;
+    )}\n<script dangerouslySetInnerHTML='${finalizedCode}' />`;
+
+    const devScripts = createDevelopmentScript(config);
+
+    return isProduction ? prodScript : devScripts;
 };
 
 module.exports = createLoaderScript;
