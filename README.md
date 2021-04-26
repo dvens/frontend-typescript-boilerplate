@@ -76,15 +76,13 @@ __3. Start the project in dev mode__
 
 # Next Steps #
 Important
-- Refactor polyfill loader.
-- Create hashing for files and load them through the server (polyfill loader for dev and prod). Read out legacy and normal manifest.json. Also add content hash to file names. (test this with chunks aswell)
-
-
+- get entries through stats.json and legacy-stats.json;
 - Refactor css to css modules + css in js for web components + hashing for css files.
 - Create static router based upon wouter/with data management fetching data based upon route
 - Create export to static routes
 
 After
+- Clean up config with asset or clientdist prefix.
 - Add proper error pages for ssr.
 - Fix storybook for JSX
 - Fix hygen

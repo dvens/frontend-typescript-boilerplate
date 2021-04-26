@@ -5,7 +5,7 @@ const options = {
     source: `${config.public}/logo.png`,
     output: `${config.components}/templates/Favicons.tsx`,
     faviconsPlugin: {
-        path: config.faviconsOutputPath, // Path for overriding default icons path. `string`
+        path: '/assets/favicons/', // Path for overriding default icons path. `string`
         appName: 'App', // Your application's name. `string`
         appShortName: 'App', // Your application's short_name. `string`. Optional. If not set, appName will be used
         appDescription: 'App starter', // Your application's description. `string`

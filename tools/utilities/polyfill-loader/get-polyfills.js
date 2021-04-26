@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-const Terser = require('terser');
+const { minify } = require('terser');
 
 function getPolyfills(config) {
     const polyfills = [];
@@ -55,7 +55,7 @@ function getPolyfills(config) {
         });
     }
 
-    instructions.forEach(async instruction => {
+    instructions.forEach(async (instruction) => {
         if (!instruction.name || !instruction.path) {
             throw new Error(`A polyfill should have a name and a path property.`);
         }
@@ -67,11 +67,12 @@ function getPolyfills(config) {
 
         let code = fs.readFileSync(codePath, 'utf-8');
 
-        if (!instruction.noMinify && config.polyfills.minify) {
-            code = Terser.minify(code).code;
+        if (config.polyfills.minify) {
+            const minified = await minify(code);
+            code = minified.code;
         }
 
-        const url = `${config.clientDist}${config.polyfillOutputPath}${instruction.name}.js`;
+        const url = `${config.polyfillOutputFolder}${instruction.name}.js`;
 
         // Push polyfill when path and name exists.
         polyfills.push({

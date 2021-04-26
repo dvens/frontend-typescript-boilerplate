@@ -16,7 +16,6 @@
         "test": "karma start karma.conf.js",
         "generate": "hygen generator",
         "favicons": "cross-env NODE_ENV=production ts-node ./tools/scripts/run favicons",
-        "polyfills": "cross-env NODE_ENV=development ts-node ./tools/scripts/run polyfills"
     },
     "contributors": [
         {

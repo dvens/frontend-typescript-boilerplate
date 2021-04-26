@@ -1,6 +1,5 @@
 const resolveApp = require('../tools/utilities/resolve-app');
 const fileCopyConfig = require('./copy');
-const polyfills = require('./polyfills');
 
 const config = {};
 
@@ -16,10 +15,6 @@ config.dotenv = resolveApp('.env');
 
 // Entries
 config.appEntry = [resolveApp('src/client/index.ts')];
-config.serverEntry = 'server.ts';
-
-// Config used for the loader script
-config.distEntries = ['main.js'];
 
 // Server folder
 config.server = resolveApp('server');
@@ -58,11 +53,10 @@ config.imagesOutputPath = '/assets/images/';
 config.svgOutputPath = '/assets/svg/';
 config.fontsOutputPath = '/assets/fonts/';
 config.jsOutputPath = '/assets/js/';
-config.faviconsOutputPath = '/assets/favicons/';
-config.polyfillOutputPath = '/assets/js/polyfills/';
 config.publicPath = config.assetPrefix || '/';
 
 // Config CSS in JS option
+// TODO: Remove when we are using css modules
 config.cssInJS = true;
 
 // Service worker options

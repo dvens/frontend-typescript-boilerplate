@@ -1,7 +1,8 @@
 const { minify } = require('terser');
-const getDefaultMode = require('../get-default-mode');
 
-const isProduction = getDefaultMode() === 'production';
+const EMPTY_ENTRIES = {
+    files: [],
+};
 
 /**
  * Loader utility thats being used to load scripts dynamically.
@@ -20,38 +21,42 @@ const loadScriptFunction = `
 /**
  * Creates polyfill string with a variable where polyfills are being added when their test is valid.
  */
-const createPolyfillLoader = (polyfills, config) => {
+const createPolyfillLoader = (polyfills, assetPrefix) => {
     if (!polyfills) return '';
-
     const filteredPolyfills = polyfills.filter((polyfill) => polyfill.test);
 
     let code = 'var polyfills = []\n';
 
     filteredPolyfills.forEach((polyfill) => {
         code += `if(${polyfill.test}) {
-            polyfills.push(loadScript('${config.assetPrefix}${config.polyfillOutputPath}${
-            polyfill.name
-        }.js', ${Boolean(polyfill.module)} ) )
+            polyfills.push(loadScript('${assetPrefix}${polyfill.name}.js', ${Boolean(
+            polyfill.module,
+        )} ) )
         }\n`;
     });
 
     return code;
 };
 
-const asArrayLiteral = (arr) => `[${arr.map((e) => `'${e}'`).join(',')}]`;
+const asArrayLiteral = (arr) => `[${arr.map((e) => `${JSON.stringify(e)}`).join(',')}]`;
 
 /*
  * Creates an entry loader based upon the amount of items, it will use an foreach when there are more multiple entries.
  * Prefix from the config.legacyPrefix is being used for legacy entries.
  */
-const entryLoaderCreator = (files, prefix, config) => {
-    const generatedFiles = files.map(
-        (file) => `${config.assetPrefix}${config.jsOutputPath}${prefix ? prefix : ''}${file}`,
-    );
+const entryLoaderCreator = (files, config) => {
+    const generatedFiles = files.map((file) => {
+        return {
+            path: `${config.assetPrefix.entries}${file.path}`,
+            module: file.module || false,
+        };
+    });
 
     return generatedFiles.length === 1
-        ? `loadScript('${generatedFiles[0]}')`
-        : `${asArrayLiteral(generatedFiles)}.forEach(function (entry) { loadScript(entry); })`;
+        ? `loadScript('${generatedFiles[0].path}', ${Boolean(generatedFiles[0].module)})`
+        : `${asArrayLiteral(
+              generatedFiles,
+          )}.forEach(function (entry) { loadScript(entry.path, entry.module); })`;
 };
 
 /**
@@ -64,22 +69,21 @@ const createExecuteLoadEntries = (polyfills) => {
     return 'loadEntries()';
 };
 
-const createEntriesLoader = (config) => {
-    const entries = config.distEntries;
-    const load = entryLoaderCreator(entries, false, config);
-    const loadLegacy = config.legacyPrefix
-        ? entryLoaderCreator(entries, config.legacyPrefix, config)
-        : false;
-    const entriesTest = loadLegacy
-        ? `'noModule' in HTMLScriptElement.prototype ? ${load} : ${loadLegacy};`
-        : `${load}`;
+const createEntriesLoader = (config, polfyills) => {
+    const { modern = EMPTY_ENTRIES, legacy = EMPTY_ENTRIES } = config;
+    const loadModern = entryLoaderCreator(modern.files, config);
+    const loadLegacy = entryLoaderCreator(legacy.files, config);
+
+    const entriesTest = legacy.test
+        ? `${legacy.test} ? ${loadModern} : ${loadLegacy};`
+        : `${loadModern}`;
 
     return `
         function loadEntries() {
             ${entriesTest}
         }
 
-        ${createExecuteLoadEntries(entries)}
+        ${createExecuteLoadEntries(polfyills)}
     `;
 };
 
@@ -91,37 +95,22 @@ const createScripts = (polyfills, config) => {
     return filteredPolyfills
         .map(
             (polyfill) =>
-                `<script src='${config.assetPrefix}${config.polyfillOutputPath}${
-                    polyfill.name
-                }.js' ${polyfill.nomodule ? 'nomodule' : ''}${
-                    polyfill.module ? 'type="module"' : ''
-                }></script>`,
+                `<script src='${config.assetPrefix.polyfills}${polyfill.name}.js' ${
+                    polyfill.nomodule ? 'nomodule' : ''
+                }${polyfill.module ? 'type="module"' : ''}></script>`,
         )
         .join(',');
 };
 
-const createDevelopmentScript = (config) => {
-    const { distEntries } = config;
-    const devScripts = [];
-
-    distEntries.forEach((entry) => {
-        devScripts.push(
-            `<script src="${config.assetPrefix}${config.jsOutputPath}${entry}"></script>`,
-        );
-    });
-
-    return devScripts.join('');
-};
-
 /**
- * Creates a loader script that executed immediately.
+ * Creates a production loader script that executed immediately.
  */
-const createLoaderScript = async (config, polyfills) => {
+const createProdLoaderScript = async (config, generatePolyfills) => {
     const code = `
     (function () {
         ${loadScriptFunction}
-        ${createPolyfillLoader(polyfills, config)}
-        ${createEntriesLoader(config)}
+        ${createPolyfillLoader(generatePolyfills, config.assetPrefix.polyfills)}
+        ${createEntriesLoader(config, config.assetPrefix.polyfills)}
     })();`;
 
     let finalizedCode = code;
@@ -131,14 +120,25 @@ const createLoaderScript = async (config, polyfills) => {
         finalizedCode = minified.code;
     }
 
-    const prodScript = `${createScripts(polyfills, config).replace(
+    return `${createScripts(generatePolyfills, config).replace(
         ',',
         '\n',
     )}\n<script dangerouslySetInnerHTML='${finalizedCode}' />`;
-
-    const devScripts = createDevelopmentScript(config);
-
-    return isProduction ? prodScript : devScripts;
 };
 
-module.exports = createLoaderScript;
+/**
+ * Creates a development loader script that executed immediately.
+ */
+const createDevLoaderScript = async (config) => {
+    const { modern, assetPrefix } = config;
+
+    let code = '';
+    modern.files.forEach((file) => (code += `<script src="${assetPrefix.entries}${file.path}" />`));
+
+    return code;
+};
+
+module.exports = {
+    createProdLoaderScript,
+    createDevLoaderScript,
+};
