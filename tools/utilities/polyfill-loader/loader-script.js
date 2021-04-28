@@ -47,7 +47,7 @@ const asArrayLiteral = (arr) => `[${arr.map((e) => `${JSON.stringify(e)}`).join(
 const entryLoaderCreator = (files, config) => {
     const generatedFiles = files.map((file) => {
         return {
-            path: `${config.assetPrefix.entries}${file.path}`,
+            path: `${config.paths.entries}${file.path}`,
             module: file.module || false,
         };
     });
@@ -95,7 +95,7 @@ const createScripts = (polyfills, config) => {
     return filteredPolyfills
         .map(
             (polyfill) =>
-                `<script src='${config.assetPrefix.polyfills}${polyfill.name}.js' ${
+                `<script src='${config.paths.polyfills}${polyfill.name}.js' ${
                     polyfill.nomodule ? 'nomodule' : ''
                 }${polyfill.module ? 'type="module"' : ''}></script>`,
         )
@@ -109,8 +109,8 @@ const createProdLoaderScript = async (config, generatePolyfills) => {
     const code = `
     (function () {
         ${loadScriptFunction}
-        ${createPolyfillLoader(generatePolyfills, config.assetPrefix.polyfills)}
-        ${createEntriesLoader(config, config.assetPrefix.polyfills)}
+        ${createPolyfillLoader(generatePolyfills, config.paths.polyfills)}
+        ${createEntriesLoader(config, config.paths.polyfills)}
     })();`;
 
     let finalizedCode = code;
@@ -130,10 +130,10 @@ const createProdLoaderScript = async (config, generatePolyfills) => {
  * Creates a development loader script that executed immediately.
  */
 const createDevLoaderScript = async (config) => {
-    const { modern, assetPrefix } = config;
+    const { modern, paths } = config;
 
     let code = '';
-    modern.files.forEach((file) => (code += `<script src="${assetPrefix.entries}${file.path}" />`));
+    modern.files.forEach((file) => (code += `<script src="${paths.entries}${file.path}" />`));
 
     return code;
 };

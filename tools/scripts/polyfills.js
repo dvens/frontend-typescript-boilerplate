@@ -7,7 +7,7 @@ const {
     createDevLoaderScript,
 } = require('../utilities/polyfill-loader/loader-script');
 const copyPolyfills = require('../utilities/polyfill-loader/copy-polyfills');
-const { polyfillLoader, config } = require('../utilities/get-config');
+const { polyfillLoader } = require('../utilities/get-config');
 
 const getDefaultMode = require('../utilities/get-default-mode');
 
@@ -27,7 +27,7 @@ async function generatePolyfills() {
         formatted = generateAtomifyComponent(script);
     }
 
-    await fs.writeFileSync(`${config.components}/templates/scripts.tsx`, formatted);
+    await fs.writeFileSync(polyfillLoader.templateOutputPath, formatted);
 }
 
 function generateAtomifyComponent(script) {

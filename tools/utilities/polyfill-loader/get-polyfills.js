@@ -1,4 +1,5 @@
 const path = require('path');
+const crypto = require('crypto');
 const fs = require('fs');
 const { minify } = require('terser');
 
@@ -72,11 +73,14 @@ function getPolyfills(config) {
             code = minified.code;
         }
 
-        const url = `${config.polyfillOutputFolder}${instruction.name}.js`;
+        const name = config.polyfills.hash
+            ? `${instruction.name}.${createContentHash(code)}`
+            : instruction.name;
+        const url = `${config.polyfillOutputPath}${name}.js`;
 
         // Push polyfill when path and name exists.
         polyfills.push({
-            name: instruction.name,
+            name: name,
             test: instruction.test,
             nomodule: !!instruction.nomodule,
             module: !!instruction.module,
@@ -86,6 +90,10 @@ function getPolyfills(config) {
     });
 
     return polyfills;
+}
+
+function createContentHash(content) {
+    return crypto.createHash('md4').update(content).digest('hex');
 }
 
 module.exports = getPolyfills;
