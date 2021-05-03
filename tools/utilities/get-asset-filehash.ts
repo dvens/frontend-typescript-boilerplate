@@ -1,6 +1,6 @@
-const fs = require('fs');
+import fs from 'fs';
 
-const getDefaultMode = require('./get-default-mode');
+import getDefaultMode from './get-default-mode';
 const IS_PRODUCTION = getDefaultMode() === 'production';
 
 function getAssetFilehash(filePath, key, prefix = '') {
@@ -8,7 +8,7 @@ function getAssetFilehash(filePath, key, prefix = '') {
 
     const fallbackKey = `${prefix}${key}`;
     if (fs.existsSync(filePath)) {
-        const statsFile = fs.readFileSync(filePath);
+        const statsFile = fs.readFileSync(filePath, 'utf-8');
         const data = JSON.parse(statsFile);
 
         let hash = fallbackKey;
@@ -25,4 +25,4 @@ function getAssetFilehash(filePath, key, prefix = '') {
     return fallbackKey;
 }
 
-module.exports = getAssetFilehash;
+export default getAssetFilehash;

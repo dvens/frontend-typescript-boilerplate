@@ -1,4 +1,4 @@
-const config = require('./config');
+import config from './config';
 
 const options = {
     folder: config.favicons,
@@ -47,4 +47,4 @@ const options = {
     },
 };
 
-module.exports = options;
+export default options;

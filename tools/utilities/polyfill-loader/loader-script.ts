@@ -1,4 +1,4 @@
-const { minify } = require('terser');
+import { minify } from 'terser';
 
 const EMPTY_ENTRIES = {
     files: [],
@@ -138,7 +138,4 @@ const createDevLoaderScript = async (config) => {
     return code;
 };
 
-module.exports = {
-    createProdLoaderScript,
-    createDevLoaderScript,
-};
+export { createProdLoaderScript, createDevLoaderScript };

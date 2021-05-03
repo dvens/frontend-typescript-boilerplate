@@ -6,7 +6,7 @@
     "author": "Dylan Vens",
     "scripts": {
         "lint-fix": "eslint src/ --ext .ts,.tsx --fix",
-        "start": "yarn polyfills && cross-env NODE_ENV=development PORT=3000 nodemon",
+        "start": "cross-env NODE_ENV=development TS_NODE_PROJECT=tsconfig.tooling.json ts-node ./tools/scripts/run dev",
         "static": "cross-env NODE_ENV=production ts-node ./tools/scripts/run static",
         "build": "cross-env NODE_ENV=production ts-node ./tools/scripts/run build",
         "build:server": "cross-env NODE_ENV=production tsc --project tsconfig.server.json",
@@ -16,8 +16,7 @@
         "test": "karma start karma.conf.js",
         "generate": "hygen generator",
         "polyfills": "cross-env NODE_ENV=development ts-node ./tools/scripts/run polyfills",
-        "favicons": "cross-env NODE_ENV=production ts-node ./tools/scripts/run favicons",
-        "webpack": "cross-env NODE_ENV=production webpack --bail"
+        "favicons": "cross-env NODE_ENV=production ts-node ./tools/scripts/run favicons"
     },
     "contributors": [
         {

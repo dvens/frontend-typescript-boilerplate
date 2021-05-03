@@ -1,4 +1,4 @@
-// const images = require('../tools/utilities/images');
+// import images from '../tools/utilities/images';
 
 function fileCopyConfig(config) {
     return {
@@ -27,4 +27,4 @@ function fileCopyConfig(config) {
     };
 }
 
-module.exports = fileCopyConfig;
+export default fileCopyConfig;

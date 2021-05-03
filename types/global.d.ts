@@ -1,8 +1,11 @@
-interface Window {
-    EnvironmentSettings: {
-        environment: string;
-    };
+declare namespace NodeJS {
+    interface ProcessEnv {
+        NODE_ENV: 'development' | 'production' | 'test';
+        PUBLIC_URL: string;
+        SOURCE_LANGUAGE: 'string';
+    }
 }
+
 declare module '*.module.css' {
     const classes: { [key: string]: string };
     export default classes;

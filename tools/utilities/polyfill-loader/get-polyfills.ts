@@ -1,9 +1,11 @@
-const path = require('path');
-const crypto = require('crypto');
-const fs = require('fs');
-const { minify } = require('terser');
+import crypto from 'crypto';
+import fs from 'fs';
+import path from 'path';
+import { minify } from 'terser';
 
-function getPolyfills(config) {
+import { PolyfillLoader } from './../../types/config.types';
+
+function getPolyfills(config: PolyfillLoader) {
     const polyfills = [];
     const instructions = [...(config.polyfills.customPolyfills || [])];
 
@@ -96,4 +98,4 @@ function createContentHash(content) {
     return crypto.createHash('md4').update(content).digest('hex');
 }
 
-module.exports = getPolyfills;
+export default getPolyfills;

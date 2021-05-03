@@ -1,8 +1,8 @@
-const imagemin = require('imagemin');
-const imageminJpegtran = require('imagemin-jpegtran');
-const imageminPngquant = require('imagemin-pngquant');
-const imageminnMozjpeg = require('imagemin-mozjpeg');
-const imageminSvgo = require('imagemin-svgo');
+import imagemin from 'imagemin';
+import imageminJpegtran from 'imagemin-jpegtran';
+import imageminnMozjpeg from 'imagemin-mozjpeg';
+import imageminPngquant from 'imagemin-pngquant';
+import imageminSvgo from 'imagemin-svgo';
 
 const mozjpegOptions = {
     progressive: true,
@@ -35,4 +35,4 @@ function images(buffer) {
     return imagemin.buffer(buffer, options);
 }
 
-module.exports = images;
+export default images;

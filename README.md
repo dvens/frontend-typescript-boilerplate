@@ -76,6 +76,7 @@ __3. Start the project in dev mode__
 
 # Next Steps #
 Important
+- Transform webpack into ts
 - Add build step with webpack for express server for client + server (refactor current webpack setup).
 
 After refactor

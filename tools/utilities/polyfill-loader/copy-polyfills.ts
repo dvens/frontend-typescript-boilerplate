@@ -1,7 +1,8 @@
-const fs = require('fs');
-const mkdirp = require('mkdirp');
+import fs from 'fs';
+import mkdirp from 'mkdirp';
 
-const { polyfillLoader } = require('../get-config');
+import globalConfig from '../get-config';
+const { polyfillLoader } = globalConfig;
 
 async function copyPolyfills(polyfills) {
     return new Promise((resolve) => {
@@ -10,9 +11,9 @@ async function copyPolyfills(polyfills) {
                 await fs.writeFileSync(polyfill.url, polyfill.code);
             });
 
-            resolve();
+            resolve(true);
         });
     });
 }
 
-module.exports = copyPolyfills;
+export default copyPolyfills;

@@ -1,8 +1,9 @@
-const favicons = require('favicons');
-const fs = require('fs');
-const prettier = require('prettier');
+import favicons from 'favicons';
+import fs from 'fs';
+import prettier from 'prettier';
 
-const { favicon } = require('../utilities/get-config');
+import globalConfig from '../utilities/get-config';
+const { favicon } = globalConfig;
 
 async function generateFavicons() {
     await favicons(favicon.source, favicon.faviconsPlugin, async (error, response) => {
@@ -38,10 +39,10 @@ async function generateFavicons() {
                     options,
                 );
 
-                fs.writeFileSync(favicon.output, formatted);
+                fs.writeFileSync(`${favicon.ouput}`, formatted);
             });
         });
     });
 }
 
-module.exports = generateFavicons;
+export default generateFavicons;

@@ -1,12 +1,12 @@
 {
     "compilerOptions": {
-        "allowJs": true,
         "alwaysStrict": true,
         "allowSyntheticDefaultImports": true,
         "allowUnreachableCode": false,
         "forceConsistentCasingInFileNames": true,
         "jsx": "react",
         "jsxFactory": "h",
+        "outDir": "./build",
         "lib": [
             "dom",
             "es7",
@@ -59,15 +59,5 @@
             ]
         }
     },
-    "include": [
-        "src/**/*",
-        "types/**/*"
-    ],
-    "exclude": [
-        "node_modules",
-        "tools/**/*.*",
-        "config/**/*.*",
-        "**/*.test.ts",
-        ".storybook/**/*.*",
-    ]
+    "include": ["src"]
 }

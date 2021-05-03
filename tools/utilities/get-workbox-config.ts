@@ -1,7 +1,7 @@
-const path = require('path');
-const {
-    config
-} = require('./get-config');
+import path from 'path';
+
+import globalConfig from './get-config';
+const { config } = globalConfig;
 
 function getWorkboxConfig() {
     const workboxConfigPath = path.join(config.root, 'workbox-config.js');
@@ -13,16 +13,22 @@ function getWorkboxConfig() {
         globDirectory: config.dist,
         // cache any html js and css by default
         globPatterns: ['**/*.{js,css,eot,ttf,woff,json}'],
-        runtimeCaching: [{
-            urlPattern: /\/assets\/images\//,
-            handler: 'StaleWhileRevalidate'
-        }],
+        runtimeCaching: [
+            {
+                urlPattern: /\/assets\/images\//,
+                handler: 'StaleWhileRevalidate',
+            },
+        ],
     };
 
     if (config.injectManifest) {
-        defaultWorboxConfig = Object.assign({}, {
-            swSrc: config.swSrc
-        }, defaultWorboxConfig);
+        defaultWorboxConfig = Object.assign(
+            {},
+            {
+                swSrc: config.swSrc,
+            },
+            defaultWorboxConfig,
+        );
 
         delete defaultWorboxConfig.runtimeCaching;
     }
@@ -34,4 +40,4 @@ function getWorkboxConfig() {
     }
 }
 
-module.exports = getWorkboxConfig;
+export default getWorkboxConfig;

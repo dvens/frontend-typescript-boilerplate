@@ -10,11 +10,12 @@ import express from 'express';
 import logger from 'morgan';
 
 // Config/Utilities
-import { config } from '../../tools/utilities/get-config';
+import globalConfig from '../../tools/utilities/get-config';
 // Middleware
 import errorHandler from './middleware/errorHandler';
-import hotReload from './middleware/hotReload';
 import ssr from './middleware/ssr';
+
+const { config } = globalConfig;
 
 /**
  * Application environment
@@ -60,15 +61,6 @@ app.use('/assets', express.static(assetsPath));
  * Error handler
  */
 app.use(errorHandler);
-
-/**
- * Development config
- */
-if (IS_DEV) {
-    // Enable hot reload when in production mode.
-    // And wait until webpack is compiled.
-    hotReload(app);
-}
 
 /**
  * Serverside rendering

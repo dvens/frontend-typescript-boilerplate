@@ -1,15 +1,16 @@
-const fs = require('fs');
-const prettier = require('prettier');
+import fs from 'fs';
+import prettier from 'prettier';
 
-const getPolyfills = require('../utilities/polyfill-loader/get-polyfills');
-const {
-    createProdLoaderScript,
+import globalConfig from '../utilities/get-config';
+import getDefaultMode from '../utilities/get-default-mode';
+import copyPolyfills from '../utilities/polyfill-loader/copy-polyfills';
+import getPolyfills from '../utilities/polyfill-loader/get-polyfills';
+import {
     createDevLoaderScript,
-} = require('../utilities/polyfill-loader/loader-script');
-const copyPolyfills = require('../utilities/polyfill-loader/copy-polyfills');
-const { polyfillLoader } = require('../utilities/get-config');
+    createProdLoaderScript,
+} from '../utilities/polyfill-loader/loader-script';
 
-const getDefaultMode = require('../utilities/get-default-mode');
+const { polyfillLoader } = globalConfig;
 
 const IS_PRODUCTION = getDefaultMode() === 'production';
 
@@ -40,4 +41,4 @@ function generateAtomifyComponent(script) {
 `;
 }
 
-module.exports = generatePolyfills;
+export default generatePolyfills;

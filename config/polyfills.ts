@@ -1,5 +1,5 @@
-const config = require('./config');
-const getAssetFilehash = require('../tools/utilities/get-asset-filehash');
+import getAssetFilehash from '../tools/utilities/get-asset-filehash';
+import config from './config';
 
 const POLYFILL_OUTPUT_PATH = `/assets/js/polyfills/`;
 
@@ -36,4 +36,4 @@ const polyfillConfig = {
     },
 };
 
-module.exports = polyfillConfig;
+export default polyfillConfig;
