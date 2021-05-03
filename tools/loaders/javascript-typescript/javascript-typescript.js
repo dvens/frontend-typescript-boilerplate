@@ -12,9 +12,12 @@ const configureBabelLoader = ({
             '@babel/syntax-dynamic-import',
             '@babel/plugin-proposal-class-properties',
             '@babel/plugin-proposal-object-rest-spread',
+            '@babel/plugin-syntax-jsx',
+            ['@babel/plugin-transform-react-jsx', { pragma: 'h' }],
             ...plugins,
         ],
         presets: [
+            '@babel/preset-typescript',
             [
                 '@babel/preset-env',
                 {
@@ -35,20 +38,7 @@ const configureBabelLoader = ({
             exclude: includedPackages,
             use: [
                 {
-                    loader: require.resolve('babel-loader'),
-                    options,
-                },
-                {
-                    loader: require.resolve('ts-loader'),
-                },
-            ],
-        },
-        {
-            test: /\.(js|jsx)?$/,
-            exclude: includedPackages,
-            use: [
-                {
-                    loader: require.resolve('babel-loader'),
+                    loader: 'babel-loader',
                     options,
                 },
             ],

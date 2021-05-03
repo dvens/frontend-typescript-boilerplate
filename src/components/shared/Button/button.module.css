@@ -1,0 +1,8 @@
+.c-button {
+    display: flex;
+    flex-direction: row;
+}
+
+.button__container {
+    background-color: pink;
+}

@@ -76,6 +76,9 @@ __3. Start the project in dev mode__
 
 # Next Steps #
 Important
+- Add build step with webpack for express server for client + server (refactor current webpack setup).
+
+After refactor
 - Refactor css to css modules + css in js for web components + hashing for css files.
 - Create static router based upon wouter/with data management fetching data based upon route
 - Create export to static routes

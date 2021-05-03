@@ -1,9 +1,0 @@
-{
-    "watch": [
-        "./src/server",
-        "./src/pages/_document.tsx"
-    ],
-    "ext": "ts js tsx jsx",
-    "exec": "ts-node --project tsconfig.server.json -r tsconfig-paths/register src/server/server.ts",
-    "restartable": "rs"
-}

@@ -3,6 +3,8 @@
     "editor.formatOnSave": true,
     "eslint.validate": ["javascript", "javascriptreact", "vue", "typescript", "typescriptreact"],
     "json.format.enable": true,
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "typescript.enablePromptUseWorkspaceTsdk": true,
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true
     }

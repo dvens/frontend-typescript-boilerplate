@@ -7,7 +7,9 @@ const { config } = require('../utilities/get-config');
 
 const createConfig = (options, legacy = false) => {
     const baseConfig = createBaseConfig(options, legacy);
-    const manifestFileName = legacy ? `${config.legacyPrefix}stats.json` : 'stats.json';
+    const manifestFileName = legacy
+        ? `${config.legacyPrefix}asset-manifest.json`
+        : 'asset-manifest.json';
 
     const prodConfig = {
         plugins: [

@@ -5,6 +5,7 @@ import { config } from '@utilities/config';
 
 const App = () => {
     const { counter } = store.getState();
+
     return (
         <Fragment>
             <Head>{Head.renderObjectToChildren(config)}</Head>

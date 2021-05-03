@@ -1,4 +1,3 @@
-import '@source/styles/main.scss';
 import '../polyfills';
 import '@/components/shared/Button';
 

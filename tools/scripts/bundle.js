@@ -7,7 +7,7 @@ const webpackConfig = require(`${config.root}/webpack.config`);
  */
 function bundle() {
     return new Promise((resolve, reject) => {
-        webpack(webpackConfig).run(err => {
+        webpack(webpackConfig).run((err) => {
             if (err) {
                 return reject(err);
             }

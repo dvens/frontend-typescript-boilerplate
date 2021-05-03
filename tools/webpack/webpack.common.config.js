@@ -1,5 +1,6 @@
 const SassLintPlugin = require('sass-lint-webpack');
 const CopyPlugin = require('copy-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
 const webpack = require('webpack');
 const env = require('../utilities/env')();
 
@@ -11,8 +12,7 @@ const isVerbose = process.argv.includes('--verbose');
 
 // Loaders
 const configureBabelLoader = require('../loaders/javascript-typescript');
-const eslintConfig = require('../loaders/eslint');
-const configureCSSLoader = require('../loaders/style-sass');
+const { configureStyleLoader } = require('../loaders/style-loader');
 const imageLoader = require('../loaders/image-loader');
 const fontsLoader = require('../loaders/fonts-loader');
 
@@ -59,6 +59,10 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
         plugins: [
             new SassLintPlugin(),
             new CopyPlugin(config.copy || {}),
+            new ESLintPlugin({
+                emitWarning: true,
+                failOnError: true,
+            }),
             new webpack.DefinePlugin(env.stringified),
             new webpack.DefinePlugin({
                 __SERVER__: 'false',
@@ -75,10 +79,9 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
                     presets: options.babelLoaderPresets,
                     legacy,
                 }),
-                eslintConfig,
 
                 //CSS/SASS
-                ...configureCSSLoader(),
+                ...configureStyleLoader(),
 
                 //Assets
                 imageLoader(),
@@ -95,7 +98,7 @@ const createBaseConfig = (userOptions = {}, legacy = false) => {
 
         resolve: {
             alias,
-            extensions: ['.ts', '.tsx', '.js', '.jsx'],
+            extensions: ['.ts', '.tsx', '.js', '.jsx', '.css', '.scss'],
         },
 
         optimization: {
