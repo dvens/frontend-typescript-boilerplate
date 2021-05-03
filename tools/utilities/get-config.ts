@@ -11,8 +11,8 @@ const polyfillString = `${projectDirectory}/config/polyfills.ts`;
 
 interface GlobalConfig {
     config: Config;
-    alias: Record<string, unknown>;
-    favicon: Record<string, unknown>;
+    alias: any;
+    favicon: any;
     polyfillLoader: PolyfillLoader;
 }
 

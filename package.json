@@ -6,7 +6,7 @@
     "author": "Dylan Vens",
     "scripts": {
         "lint-fix": "eslint src/ --ext .ts,.tsx --fix",
-        "start": "cross-env NODE_ENV=development TS_NODE_PROJECT=tsconfig.tooling.json ts-node ./tools/scripts/run dev",
+        "start": "cross-env NODE_ENV=production TS_NODE_PROJECT=tsconfig.tooling.json ts-node ./tools/scripts/run dev",
         "static": "cross-env NODE_ENV=production ts-node ./tools/scripts/run static",
         "build": "cross-env NODE_ENV=production ts-node ./tools/scripts/run build",
         "build:server": "cross-env NODE_ENV=production tsc --project tsconfig.server.json",
@@ -15,8 +15,7 @@
         "storybook:build": "cross-env NODE_ENV=production build-storybook -o ./build/styleguide -s storybook-static",
         "test": "karma start karma.conf.js",
         "generate": "hygen generator",
-        "polyfills": "cross-env NODE_ENV=development ts-node ./tools/scripts/run polyfills",
-        "favicons": "cross-env NODE_ENV=production ts-node ./tools/scripts/run favicons"
+        "favicons": "cross-env NODE_ENV=production TS_NODE_PROJECT=tsconfig.tooling.json ts-node ./tools/scripts/run favicons"
     },
     "contributors": [
         {
@@ -25,8 +24,8 @@
         }
     ],
     "engines": {
-        "node": ">=10.14",
-        "yarn": "^1.12.3"
+        "node": ">=10.18.1",
+        "yarn": "^1.22.0"
     },
     "private": true,
     "repository": {

@@ -39,7 +39,7 @@ async function generateFavicons() {
                     options,
                 );
 
-                fs.writeFileSync(`${favicon.ouput}`, formatted);
+                fs.writeFileSync(favicon.outputFile, formatted);
             });
         });
     });

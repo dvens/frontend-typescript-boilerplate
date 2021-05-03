@@ -16,22 +16,19 @@ const IS_PRODUCTION = getDefaultMode() === 'production';
 
 async function generatePolyfills() {
     let formatted = '';
-
     if (IS_PRODUCTION) {
         const polyfills = await getPolyfills(polyfillLoader);
         const script = await createProdLoaderScript(polyfillLoader, polyfills);
-        formatted = prettier.format(generateAtomifyComponent(script), { parser: 'babel' });
-
+        formatted = prettier.format(generateTemplate(script), { parser: 'babel' });
         await copyPolyfills(polyfills);
     } else {
         const script = await createDevLoaderScript(polyfillLoader);
-        formatted = generateAtomifyComponent(script);
+        formatted = generateTemplate(script);
     }
-
     await fs.writeFileSync(polyfillLoader.templateOutputPath, formatted);
 }
 
-function generateAtomifyComponent(script) {
+function generateTemplate(script) {
     return `
     import { Fragment, h } from '@atomify/jsx';
 

@@ -3,7 +3,7 @@ import config from './config';
 const options = {
     folder: config.favicons,
     source: `${config.public}/logo.png`,
-    output: `${config.components}/templates/Favicons.tsx`,
+    outputFile: `${config.components}/templates/Favicons.tsx`,
     faviconsPlugin: {
         path: '/assets/favicons/', // Path for overriding default icons path. `string`
         appName: 'App', // Your application's name. `string`

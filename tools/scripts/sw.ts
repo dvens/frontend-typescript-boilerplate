@@ -1,8 +1,8 @@
 import fs from 'fs';
 import { generateSW, injectManifest } from 'workbox-build';
 
-import globalConfig from './get-config';
-import getWorkboxConfig from './get-workbox-config';
+import globalConfig from '../utilities/get-config';
+import getWorkboxConfig from '../utilities/get-workbox-config';
 
 const { config } = globalConfig;
 
