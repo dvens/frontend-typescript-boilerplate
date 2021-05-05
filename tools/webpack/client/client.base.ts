@@ -1,66 +1,51 @@
-const SassLintPlugin = require('sass-lint-webpack');
-const CopyPlugin = require('copy-webpack-plugin');
-const ESLintPlugin = require('eslint-webpack-plugin');
-const webpack = require('webpack');
-const env = require('../utilities/env')();
+import TerserPlugin from 'terser-webpack-plugin';
 
-// Utilities
-const { config, alias } = require('../utilities/get-config');
-
-const getDefaultMode = require('../utilities/get-default-mode');
-const isVerbose = process.argv.includes('--verbose');
+// utilities
+import globalConfig from '../../utilities/get-config';
+import getDefaultMode from '../../utilities/get-default-mode';
+import { normalizePath } from '../../utilities/normalize-path';
 
 // Loaders
-const configureBabelLoader = require('../loaders/javascript-typescript');
-const { configureStyleLoader } = require('../loaders/style-loader');
-const imageLoader = require('../loaders/image-loader');
-const fontsLoader = require('../loaders/fonts-loader');
+import fontsLoader from '../loaders/fonts-loader';
+import imageLoader from '../loaders/image-loader';
+import configureBabelLoader from '../loaders/javascript-typescript';
+import configureStyleLoader from '../loaders/style-loader';
+
+// Plugins
+import { getPlugins } from '../plugins/plugins';
+
+// Config files
+const { config, alias } = globalConfig;
+
+const isVerbose = process.argv.includes('--verbose');
 
 const mode = getDefaultMode();
 const isProduction = mode === 'production';
 
-const createBaseConfig = (legacy = false) => {
-    const contenthash = isProduction ? '.[contenthash]' : '';
+export const createClientBaseConfig = (options: {
+    legacy?: boolean;
+    includedPackages?: string[];
+}) => {
     const outputFilename = `${config.jsOutputPath}${
-        legacy ? `${config.legacyPrefix}` : ''
-    }[name]${contenthash}.js`;
+        options.legacy ? `${config.legacyPrefix}` : ''
+    }[name].[contenthash].js`;
     const outputChunkFilename = `${config.jsOutputPath}${
-        legacy ? `chunks/${config.legacyPrefix}` : 'chunks/'
-    }[name]${contenthash}.js`;
+        options.legacy ? `chunks/${config.legacyPrefix}` : 'chunks/'
+    }[name].[contenthash].js`;
 
     const defaultConfig = {
         target: 'web',
-
         context: config.root,
-
         mode: mode,
-
         entry: config.clientEntry,
-
         devtool: !isProduction ? 'cheap-module-source-map' : undefined,
-
-        plugins: [
-            new SassLintPlugin(),
-            new CopyPlugin(config.copy || {}),
-            new ESLintPlugin({
-                emitWarning: true,
-                failOnError: true,
-            }),
-            new webpack.DefinePlugin(env.stringified),
-            new webpack.DefinePlugin({
-                __SERVER__: 'false',
-                __BROWSER__: 'true',
-            }),
-        ],
-
+        plugins: [...getPlugins()],
         module: {
             rules: [
                 // Javascript/Typescript
                 ...configureBabelLoader({
                     includedPackages: options.includedPackages,
-                    plugins: options.babelLoaderPlugins,
-                    presets: options.babelLoaderPresets,
-                    legacy,
+                    legacy: options.legacy,
                 }),
 
                 //CSS/SASS
@@ -71,31 +56,40 @@ const createBaseConfig = (legacy = false) => {
                 fontsLoader(),
             ],
         },
-
         output: {
             filename: normalizePath(outputFilename),
             chunkFilename: normalizePath(outputChunkFilename),
             path: config.clientDist,
             publicPath: config.publicPath,
         },
-
         resolve: {
             alias,
             extensions: ['.ts', '.tsx', '.js', '.jsx', '.css', '.scss', 'json'],
         },
-
         optimization: {
             splitChunks: {
                 chunks: 'async',
                 automaticNameDelimiter: '.',
             },
+            minimizer: [
+                new TerserPlugin({
+                    terserOptions: {
+                        keep_classnames: true,
+                        keep_fnames: true,
+                        mangle: true,
+                        safari10: true,
+                        output: {
+                            comments: false,
+                        },
+                    },
+                    parallel: true,
+                }),
+            ],
         },
 
         // Don't attempt to continue if there are any errors.
         bail: isProduction,
-
         cache: !isProduction,
-
         // Specify what bundle information gets displayed
         // https://webpack.js.org/configuration/stats/
         stats: {
@@ -114,5 +108,3 @@ const createBaseConfig = (legacy = false) => {
 
     return defaultConfig;
 };
-
-module.exports = createBaseConfig;

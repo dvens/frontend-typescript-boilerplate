@@ -14,10 +14,8 @@ const config: Config = {
     dotenv: resolveApp('.env'),
 
     // Entries
-    appEntry: [resolveApp('src/client/index.ts')],
-
-    // Server folder
-    server: resolveApp('server'),
+    clientEntry: [resolveApp('src/client/index.ts')],
+    serverEntry: [resolveApp('src/server/index.ts')],
 
     // Node.js App
     port: process.env.PORT || 3000,

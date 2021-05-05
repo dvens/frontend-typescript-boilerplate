@@ -1,10 +1,13 @@
-const path = require('path');
-const { config } = require('../../utilities/get-config');
+import path from 'path';
 
-const getDefaultMode = require('../../utilities/get-default-mode');
+import getDefaultMode from '../../utilities/get-default-mode';
 const isDevelopment = getDefaultMode() === 'development';
 
-const imageLoader = (userOptions = {}) => {
+import globalConfig from '../../utilities/get-config';
+
+const { config } = globalConfig;
+
+const imageLoader = (isClient = true) => {
     const defaultOptions = {
         name() {
             if (isDevelopment) {
@@ -13,10 +16,11 @@ const imageLoader = (userOptions = {}) => {
 
             return '[name].[ext]';
         },
-        outputPath(url, resourcePath) {
+        outputPath(_, resourcePath) {
             const relativePath = path.relative(config.public, resourcePath);
             return `/${relativePath}`;
         },
+        emitFile: !isClient,
     };
 
     const imageWebpackLoaderOptions = {
@@ -42,7 +46,7 @@ const imageLoader = (userOptions = {}) => {
         use: [
             {
                 loader: 'file-loader',
-                options: Object.assign({}, defaultOptions, userOptions),
+                options: defaultOptions,
             },
             {
                 loader: 'image-webpack-loader',
@@ -52,4 +56,4 @@ const imageLoader = (userOptions = {}) => {
     };
 };
 
-module.exports = imageLoader;
+export default imageLoader;

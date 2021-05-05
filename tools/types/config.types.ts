@@ -10,10 +10,8 @@ export interface Config {
     dotenv: string;
 
     // Entries
-    appEntry: string[];
-
-    // Server folder
-    server: string;
+    clientEntry: string[];
+    serverEntry: string[];
 
     // Node.js App
     port: number | string;

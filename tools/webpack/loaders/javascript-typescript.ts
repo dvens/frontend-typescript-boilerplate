@@ -1,12 +1,7 @@
-const findSupportedBrowsers = require('../../utilities/get-browser-list');
-const getDefaultMode = require('../../utilities/get-default-mode');
+import findSupportedBrowsers from '../../utilities/get-browser-list';
+import getDefaultMode from '../../utilities/get-default-mode';
 
-const configureBabelLoader = ({
-    includedPackages = [],
-    plugins = [],
-    presets = [],
-    legacy = false,
-}) => {
+const configureBabelLoader = ({ includedPackages = [], legacy = false }) => {
     const options = {
         plugins: [
             '@babel/syntax-dynamic-import',
@@ -14,7 +9,6 @@ const configureBabelLoader = ({
             '@babel/plugin-proposal-object-rest-spread',
             '@babel/plugin-syntax-jsx',
             ['@babel/plugin-transform-react-jsx', { pragma: 'h' }],
-            ...plugins,
         ],
         presets: [
             '@babel/preset-typescript',
@@ -27,10 +21,11 @@ const configureBabelLoader = ({
                     debug: false,
                 },
             ],
-            ...presets,
         ],
         cacheDirectory: getDefaultMode() === 'development',
     };
+
+    // TODO: Add babel.extend.js
 
     return [
         {
@@ -46,4 +41,4 @@ const configureBabelLoader = ({
     ];
 };
 
-module.exports = configureBabelLoader;
+export default configureBabelLoader;

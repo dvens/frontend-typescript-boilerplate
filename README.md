@@ -80,7 +80,7 @@ Important
 - Add build step with webpack for express server for client + server (refactor current webpack setup).
 
 After refactor
-- Refactor css to css modules + css in js for web components + hashing for css files.
+- Refactor css to css modules + css in js for web components + hashing for css files and add css to string for web components.
 - Create static router based upon wouter/with data management fetching data based upon route
 - Create export to static routes
 

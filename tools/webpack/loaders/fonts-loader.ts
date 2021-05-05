@@ -1,9 +1,12 @@
-const { config } = require('../../../utilities/get-config');
+import globalConfig from '../../utilities/get-config';
 
-const fontsLoader = (userOptions = {}) => {
+const { config } = globalConfig;
+
+const fontsLoader = (isClient = true) => {
     const defaultOptions = {
         name: '[name].[ext]',
         outputPath: config.fontsOutputPath,
+        emitFile: !isClient,
     };
 
     return {
@@ -11,10 +14,10 @@ const fontsLoader = (userOptions = {}) => {
         use: [
             {
                 loader: 'file-loader',
-                options: Object.assign({}, defaultOptions, userOptions),
+                options: defaultOptions,
             },
         ],
     };
 };
 
-module.exports = fontsLoader;
+export default fontsLoader;
