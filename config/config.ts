@@ -2,6 +2,7 @@ import resolveApp from '../tools/utilities/resolve-app';
 import { Config } from './../tools/types/config.types';
 import fileCopyConfig from './copy';
 
+// TODO: Check if every config option is being used.
 const config: Config = {
     // Root folder
     root: resolveApp(''),
@@ -18,7 +19,7 @@ const config: Config = {
     serverEntry: [resolveApp('src/server/index.ts')],
 
     // Node.js App
-    port: process.env.PORT || 3000,
+    port: Number(process.env.PORT) || 3000,
     host: process.env.HOST || 'localhost',
 
     // Public folder
@@ -51,6 +52,7 @@ const config: Config = {
     svgOutputPath: '/assets/svg/',
     fontsOutputPath: '/assets/fonts/',
     jsOutputPath: '/assets/js/',
+    cssOutputPath: '/assets/css/',
     publicPath: '',
 
     // Service worker options

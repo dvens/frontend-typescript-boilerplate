@@ -1,3 +1,5 @@
+import '@/styles/globalStyles.scss';
+
 import { Fragment, h } from '@atomify/jsx';
 import { Head } from '@atomify/kit';
 import { store } from '@source/store';

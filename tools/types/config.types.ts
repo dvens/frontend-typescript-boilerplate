@@ -14,7 +14,7 @@ export interface Config {
     serverEntry: string[];
 
     // Node.js App
-    port: number | string;
+    port: number;
     host: string;
 
     // Public folder
@@ -47,6 +47,7 @@ export interface Config {
     svgOutputPath: string;
     fontsOutputPath: string;
     jsOutputPath: string;
+    cssOutputPath: string;
     publicPath: string;
 
     // Service worker options

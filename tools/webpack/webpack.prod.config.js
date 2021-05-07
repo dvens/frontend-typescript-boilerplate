@@ -20,22 +20,6 @@ const createConfig = (options, legacy = false) => {
                 fileName: manifestFileName,
             }),
         ],
-        optimization: {
-            minimizer: [
-                new TerserPlugin({
-                    terserOptions: {
-                        keep_classnames: true,
-                        keep_fnames: true,
-                        mangle: true,
-                        safari10: true,
-                        output: {
-                            comments: false,
-                        },
-                    },
-                    parallel: true,
-                }),
-            ],
-        },
     };
 
     return merge(baseConfig, prodConfig);

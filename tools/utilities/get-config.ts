@@ -12,15 +12,15 @@ const polyfillString = `${projectDirectory}/config/polyfills.ts`;
 interface GlobalConfig {
     config: Config;
     alias: any;
-    favicon: any;
-    polyfillLoader: PolyfillLoader;
+    // favicon: any;
+    // polyfillLoader: PolyfillLoader;
 }
 
 const globalConfig: GlobalConfig = {
     config: require(configString).default,
     alias: require(aliasString).default,
-    favicon: require(faviconString).default,
-    polyfillLoader: require(polyfillString).default,
+    // favicon: require(faviconString).default || {},
+    // polyfillLoader: require(polyfillString).default || {},
 };
 
 export default globalConfig;

@@ -1,8 +1,5 @@
-import TerserPlugin from 'terser-webpack-plugin';
-
 // utilities
 import globalConfig from '../../utilities/get-config';
-import getDefaultMode from '../../utilities/get-default-mode';
 import { normalizePath } from '../../utilities/normalize-path';
 
 // Loaders
@@ -13,33 +10,36 @@ import configureStyleLoader from '../loaders/style-loader';
 
 // Plugins
 import { getPlugins } from '../plugins/plugins';
+import { sharedConfig } from '../shared-config';
 
 // Config files
-const { config, alias } = globalConfig;
+const { config } = globalConfig;
 
-const isVerbose = process.argv.includes('--verbose');
-
-const mode = getDefaultMode();
-const isProduction = mode === 'production';
-
-export const createClientBaseConfig = (options: {
+export interface ClientBase {
     legacy?: boolean;
     includedPackages?: string[];
-}) => {
-    const outputFilename = `${config.jsOutputPath}${
-        options.legacy ? `${config.legacyPrefix}` : ''
-    }[name].[contenthash].js`;
+}
+
+export const createClientBaseConfig = (options: ClientBase) => {
+    const outputFilename = `${config.jsOutputPath}[name].[contenthash].js`;
     const outputChunkFilename = `${config.jsOutputPath}${
         options.legacy ? `chunks/${config.legacyPrefix}` : 'chunks/'
     }[name].[contenthash].js`;
 
+    const entry = options.legacy
+        ? {
+              [`${config.legacyPrefix}main`]: config.clientEntry,
+          }
+        : {
+              main: config.clientEntry,
+          };
+
     const defaultConfig = {
+        ...sharedConfig,
         target: 'web',
-        context: config.root,
-        mode: mode,
-        entry: config.clientEntry,
-        devtool: !isProduction ? 'cheap-module-source-map' : undefined,
-        plugins: [...getPlugins()],
+        name: options.legacy ? 'legacy-client' : 'client',
+        entry,
+        plugins: [...getPlugins(true)],
         module: {
             rules: [
                 // Javascript/Typescript
@@ -59,50 +59,8 @@ export const createClientBaseConfig = (options: {
         output: {
             filename: normalizePath(outputFilename),
             chunkFilename: normalizePath(outputChunkFilename),
-            path: config.clientDist,
+            path: config.dist,
             publicPath: config.publicPath,
-        },
-        resolve: {
-            alias,
-            extensions: ['.ts', '.tsx', '.js', '.jsx', '.css', '.scss', 'json'],
-        },
-        optimization: {
-            splitChunks: {
-                chunks: 'async',
-                automaticNameDelimiter: '.',
-            },
-            minimizer: [
-                new TerserPlugin({
-                    terserOptions: {
-                        keep_classnames: true,
-                        keep_fnames: true,
-                        mangle: true,
-                        safari10: true,
-                        output: {
-                            comments: false,
-                        },
-                    },
-                    parallel: true,
-                }),
-            ],
-        },
-
-        // Don't attempt to continue if there are any errors.
-        bail: isProduction,
-        cache: !isProduction,
-        // Specify what bundle information gets displayed
-        // https://webpack.js.org/configuration/stats/
-        stats: {
-            cached: isVerbose,
-            cachedAssets: isVerbose,
-            chunks: isVerbose,
-            chunkModules: isVerbose,
-            colors: true,
-            hash: isVerbose,
-            modules: isVerbose,
-            reasons: !isProduction,
-            timings: true,
-            version: isVerbose,
         },
     };
 

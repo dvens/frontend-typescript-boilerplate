@@ -10,6 +10,7 @@ if (!isLocalhost) {
 } else {
     registerServiceWorker();
 }
+
 if (module.hot) {
     hydrate(<App />, document.getElementById('app')!);
     module.hot.accept();

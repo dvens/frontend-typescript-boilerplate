@@ -67,4 +67,6 @@ app.use(errorHandler);
  */
 app.get('*', ssr);
 
-app.listen(SERVER_PORT, SERVER_HOST);
+app.listen(SERVER_PORT, SERVER_HOST, () => {
+    console.log('App is started!');
+});

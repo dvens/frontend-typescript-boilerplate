@@ -11,7 +11,6 @@ const configureStyleLoader = (options = {}) => {
     const defaultOptions = Object.assign(
         {},
         {
-            extract: true,
             isClient: true,
         },
         options,
@@ -24,10 +23,11 @@ const configureStyleLoader = (options = {}) => {
                 modules: {
                     localIdentName: '[local]',
                     mode: 'local',
+                    exportGlobals: true,
                     exportOnlyLocals: !defaultOptions.isClient,
                 },
             },
-            defaultOptions.extract,
+            defaultOptions.isClient,
         ),
     };
 
@@ -38,17 +38,17 @@ const configureStyleLoader = (options = {}) => {
             {
                 modules: false,
             },
-            defaultOptions.extract,
+            defaultOptions.isClient,
         ),
     };
 
     return [cssModulesRules, cssRules];
 };
 
-function getStyleLoaders(cssLoaderOptions = {}, extract = true) {
+function getStyleLoaders(cssLoaderOptions = {}, isClient = true) {
     const sourceMap = isDevelopment;
     const styleLoaders = [
-        extract && MiniCssExtractPlugin.loader,
+        isClient && MiniCssExtractPlugin.loader,
         {
             loader: 'css-loader',
             options: {

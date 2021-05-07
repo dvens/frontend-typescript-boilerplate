@@ -6,9 +6,9 @@
     "author": "Dylan Vens",
     "scripts": {
         "lint-fix": "eslint src/ --ext .ts,.tsx --fix",
-        "start": "cross-env NODE_ENV=production TS_NODE_PROJECT=tsconfig.tooling.json ts-node ./tools/scripts/run dev",
+        "start": "cross-env NODE_ENV=development TS_NODE_PROJECT=tsconfig.tooling.json ts-node ./tools/scripts/run dev",
         "static": "cross-env NODE_ENV=production ts-node ./tools/scripts/run static",
-        "build": "cross-env NODE_ENV=production ts-node ./tools/scripts/run build",
+        "build": "cross-env NODE_ENV=production TS_NODE_PROJECT=tsconfig.tooling.json ts-node ./tools/scripts/run build",
         "build:server": "cross-env NODE_ENV=production tsc --project tsconfig.server.json",
         "start:build-server": "cross-env NODE_ENV=production ts-node --transpile-only --files ./build/src/server/server.js",
         "storybook": "start-storybook -p 9001",
