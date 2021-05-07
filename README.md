@@ -86,6 +86,7 @@ After refactor
 
 After
 - Clean up config with asset or clientdist prefix.
+- Check why ESLint is not working
 - Add proper error pages for ssr.
 - Fix storybook for JSX
 - Fix hygen
