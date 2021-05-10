@@ -1,5 +1,7 @@
 import webpack from 'webpack';
-import webpackConfig from '../../webpack.config';
+import getConfig from '../../webpack.config';
+
+const webpackConfig = getConfig(process.env.NODE_ENV || 'development');
 
 /**
  * Creates application bundles from the source files.

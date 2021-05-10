@@ -77,6 +77,9 @@ __3. Start the project in dev mode__
 # Next Steps #
 Important
 - Transform webpack into ts
+- Change config folder into js files.
+- Add asset manifest for legacy and normal
+- create config file within the root that can extend the normal config.
 - Add build step with webpack for express server for client + server (refactor current webpack setup).
 
 After refactor

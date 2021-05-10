@@ -1,3 +1,5 @@
+import nodeExternals from 'webpack-node-externals';
+
 // utilities
 import globalConfig from '../../utilities/get-config';
 import getDefaultMode from '../../utilities/get-default-mode';
@@ -17,54 +19,59 @@ import { sharedConfig } from '../shared-config';
 const { config } = globalConfig;
 const isProduction = getDefaultMode() === 'production';
 
-export interface ClientBase {
-    legacy?: boolean;
+const reStyle = /\.(css|scss|sass)$/;
+const reImage = /\.(bmp|gif|jpg|jpeg|png|svg)$/;
+
+export interface ServerBase {
     includedPackages?: string[];
 }
 
-export const createClientBaseConfig = (options: ClientBase) => {
+export const createServerBaseConfig = (options: ServerBase) => {
     const contenthash = isProduction ? '.[contenthash]' : '';
-    const outputFilename = `${config.jsOutputPath}[name]${contenthash}.js`;
-    const outputChunkFilename = `${config.jsOutputPath}${
-        options.legacy ? `chunks/${config.legacyPrefix}` : 'chunks/'
-    }[name]${contenthash}.js`;
-
-    const entry = options.legacy
-        ? {
-              [`${config.legacyPrefix}main`]: config.clientEntry,
-          }
-        : {
-              main: config.clientEntry,
-          };
+    const outputFilename = `server${contenthash}.js`;
 
     const defaultConfig = {
         ...sharedConfig,
-        target: 'web',
-        name: options.legacy ? 'legacy-client' : 'client',
-        entry,
-        plugins: [...getPlugins(true)],
+        target: 'node',
+        name: 'server',
+        entry: {
+            server: config.serverEntry,
+        },
+        plugins: [...getPlugins(false)],
         module: {
             rules: [
                 // Javascript/Typescript
                 ...configureBabelLoader({
                     includedPackages: options.includedPackages,
-                    legacy: options.legacy,
+                    legacy: false,
                 }),
 
                 //CSS/SASS
-                ...configureStyleLoader(),
+                ...configureStyleLoader({
+                    isClient: false,
+                }),
 
                 //Assets
-                imageLoader(),
-                fontsLoader(),
+                imageLoader(false),
+                fontsLoader(false),
             ],
         },
         output: {
             filename: normalizePath(outputFilename),
-            chunkFilename: normalizePath(outputChunkFilename),
+            libraryTarget: 'commonjs2',
             path: config.dist,
             publicPath: config.publicPath,
         },
+        node: {
+            __filename: false,
+            __dirname: false,
+        },
+        externals: [
+            './asset-manifest.json',
+            nodeExternals({
+                allowlist: [reStyle, reImage],
+            }),
+        ],
     };
 
     return defaultConfig;

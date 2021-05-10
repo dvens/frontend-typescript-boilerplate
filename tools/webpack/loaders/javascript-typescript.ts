@@ -7,11 +7,8 @@ const configureBabelLoader = ({ includedPackages = [], legacy = false }) => {
             '@babel/syntax-dynamic-import',
             '@babel/plugin-proposal-class-properties',
             '@babel/plugin-proposal-object-rest-spread',
-            '@babel/plugin-syntax-jsx',
-            ['@babel/plugin-transform-react-jsx', { pragma: 'h' }],
         ],
         presets: [
-            '@babel/preset-typescript',
             [
                 '@babel/preset-env',
                 {
@@ -26,7 +23,6 @@ const configureBabelLoader = ({ includedPackages = [], legacy = false }) => {
     };
 
     // TODO: Add babel.extend.js
-
     return [
         {
             test: /\.(ts|tsx)?$/,
@@ -35,6 +31,9 @@ const configureBabelLoader = ({ includedPackages = [], legacy = false }) => {
                 {
                     loader: 'babel-loader',
                     options,
+                },
+                {
+                    loader: 'ts-loader',
                 },
             ],
         },

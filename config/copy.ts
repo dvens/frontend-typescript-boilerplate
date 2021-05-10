@@ -1,4 +1,5 @@
-function fileCopyConfig(config) {
+import { Config } from './../tools/types/config.types';
+function fileCopyConfig(config: Config) {
     return {
         patterns: [
             {

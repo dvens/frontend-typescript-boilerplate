@@ -1,25 +1,18 @@
-// const webpackProdConfig = require('./tools/webpack/webpack.prod.config');
-// const webpackDevConfig = require('./tools/webpack/webpack.dev.config');
-
 import createClientDevConfig from './tools/webpack/client/client.dev';
-
-// const getDefaultMode = require('./tools/utilities/get-default-mode');
-// const isProduction = getDefaultMode() === 'production';
+import createServerDevConfig from './tools/webpack/server/server.dev';
 
 const clientConfig = {
     // includedPackages: [/node_modules\/(?!@atomify)/],
 };
 
-function getBuildOptions() {
-    // if (isProduction) {
-    //     // Legacy and normal build
+const serverConfig = {
+    // includedPackages: [],
+};
+
+export default function getConfig(env = 'development') {
+    // if (env === 'production') {
+    //     // Legacy and normal build and server build
     //     return [webpackProdConfig(clientConfig, true), webpackProdConfig(clientConfig)];
-    // } else {
-    //     // Legacy build
-    //     return webpackDevConfig(clientConfig);
     // }
-
-    return [createClientDevConfig(clientConfig)];
+    return [createClientDevConfig(clientConfig), createServerDevConfig(serverConfig)];
 }
-
-export default getBuildOptions();

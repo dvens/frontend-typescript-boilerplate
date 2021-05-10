@@ -6,11 +6,10 @@ const createClientDevConfig = (options: ClientBase) => {
     const baseConfig = createClientBaseConfig(options) as any;
 
     const devConfig = {
-        entry: ['webpack-hot-middleware/client'],
         plugins: [new webpack.HotModuleReplacementPlugin()],
     };
 
-    return merge(devConfig, baseConfig);
+    return merge(baseConfig, devConfig);
 };
 
 export default createClientDevConfig;

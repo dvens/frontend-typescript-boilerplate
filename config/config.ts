@@ -1,5 +1,5 @@
 import resolveApp from '../tools/utilities/resolve-app';
-import { Config } from './../tools/types/config.types';
+import { Config } from '../tools/types/config.types';
 import fileCopyConfig from './copy';
 
 // TODO: Check if every config option is being used.
@@ -20,7 +20,6 @@ const config: Config = {
 
     // Node.js App
     port: Number(process.env.PORT) || 3000,
-    host: process.env.HOST || 'localhost',
 
     // Public folder
     public: resolveApp('public'),
@@ -39,6 +38,7 @@ const config: Config = {
 
     // Dist Folder
     dist: resolveApp('build'),
+    serverDist: '',
     clientDist: '',
 
     // Config legacy prefix
@@ -65,6 +65,7 @@ const config: Config = {
 
 // Overwrite config
 config.clientDist = config.dist;
+config.serverDist = config.dist;
 config.publicPath = config.assetPrefix || '/';
 config.swSrc = `${config.root}/sw-precache.js`;
 config.copy = fileCopyConfig(config);

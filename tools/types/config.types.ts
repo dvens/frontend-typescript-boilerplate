@@ -15,7 +15,6 @@ export interface Config {
 
     // Node.js App
     port: number;
-    host: string;
 
     // Public folder
     public: string;
@@ -35,6 +34,7 @@ export interface Config {
     // Dist Folder
     dist: string;
     clientDist: string;
+    serverDist: string;
 
     // Config legacy prefix
     legacyPrefix: string;
