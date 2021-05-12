@@ -59,7 +59,7 @@ export const createServerBaseConfig = (options: ServerBase) => {
         output: {
             filename: normalizePath(outputFilename),
             libraryTarget: 'commonjs2',
-            path: config.dist,
+            path: config.serverDist,
             publicPath: config.publicPath,
         },
         node: {

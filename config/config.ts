@@ -25,10 +25,10 @@ const config: Config = {
     public: resolveApp('public'),
 
     // Assets Folder
-    assets: resolveApp('public/assets'),
-    images: resolveApp('public/assets/images'),
-    svg: resolveApp('public/assets/svg'),
-    favicons: resolveApp('public/assets/favicons'),
+    assets: resolveApp('public'),
+    images: resolveApp('public/images'),
+    svg: resolveApp('public/svg'),
+    favicons: resolveApp('public/favicons'),
 
     // Data folder
     data: resolveApp('public/data'),
@@ -38,22 +38,21 @@ const config: Config = {
 
     // Dist Folder
     dist: resolveApp('build'),
-    serverDist: '',
+    serverDist: resolveApp('build/server'),
     clientDist: '',
 
     // Config legacy prefix
     legacyPrefix: 'legacy-',
 
-    // Config asset prefix
-    assetPrefix: process.env.ASSET_PREFIX ? process.env.ASSET_PREFIX : '',
+    // Config publicpath
+    publicPath: process.env.ASSET_PREFIX ? process.env.ASSET_PREFIX : '/static/',
 
     // Assets dist folders
-    imagesOutputPath: '/assets/images/',
-    svgOutputPath: '/assets/svg/',
-    fontsOutputPath: '/assets/fonts/',
-    jsOutputPath: '/assets/js/',
-    cssOutputPath: '/assets/css/',
-    publicPath: '',
+    imagesOutputPath: '/images/',
+    svgOutputPath: '/svg/',
+    fontsOutputPath: '/fonts/',
+    jsOutputPath: '/js/',
+    cssOutputPath: '/css/',
 
     // Service worker options
     injectManifest: false,
@@ -65,8 +64,6 @@ const config: Config = {
 
 // Overwrite config
 config.clientDist = config.dist;
-config.serverDist = config.dist;
-config.publicPath = config.assetPrefix || '/';
 config.swSrc = `${config.root}/sw-precache.js`;
 config.copy = fileCopyConfig(config);
 

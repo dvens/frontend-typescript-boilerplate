@@ -4,7 +4,7 @@ function fileCopyConfig(config: Config) {
         patterns: [
             {
                 from: config.favicons,
-                to: 'assets/favicons',
+                to: 'favicons',
             },
         ],
     };

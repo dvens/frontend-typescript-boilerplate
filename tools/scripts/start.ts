@@ -27,6 +27,14 @@ async function start() {
         ...clientConfig.entry.main,
     ];
 
+    clientConfig.output.publicPath = [`${DEVSERVER_HOST}:${WEBPACK_PORT}`, config.publicPath]
+        .join('/')
+        .replace(/([^:+])\/+/g, '$1/');
+
+    serverConfig.output.publicPath = [`${DEVSERVER_HOST}:${WEBPACK_PORT}`, config.publicPath]
+        .join('/')
+        .replace(/([^:+])\/+/g, '$1/');
+
     const multiCompiler = webpack([clientConfig, serverConfig]);
 
     const clientModernCompiler: any = multiCompiler.compilers.find(
@@ -51,12 +59,13 @@ async function start() {
         webpackDevMiddleware(clientModernCompiler, {
             publicPath: clientConfig.output.publicPath,
             stats: clientConfig.stats,
+            serverSideRender: true,
         }),
     );
 
     app.use(webpackHotMiddleware(clientModernCompiler));
 
-    app.use('/assets', express.static(config.assets));
+    app.use('/static/', express.static(config.publicPath));
 
     app.listen(WEBPACK_PORT);
 
@@ -89,7 +98,7 @@ async function start() {
 
     const script = nodemon({
         script: `${config.serverDist}/server.js`,
-        ignore: ['src', 'tools', 'config', './*.*', 'build/assets'],
+        ignore: ['src', 'tools', 'config', './*.*', 'build/static'],
         delay: 200,
     });
 

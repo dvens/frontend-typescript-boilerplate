@@ -39,9 +39,6 @@ export interface Config {
     // Config legacy prefix
     legacyPrefix: string;
 
-    // Config asset prefix
-    assetPrefix: string;
-
     // Assets dist folders
     imagesOutputPath: string;
     svgOutputPath: string;

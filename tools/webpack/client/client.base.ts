@@ -1,4 +1,5 @@
 // utilities
+import path from 'path';
 import globalConfig from '../../utilities/get-config';
 import getDefaultMode from '../../utilities/get-default-mode';
 import { normalizePath } from '../../utilities/normalize-path';
@@ -62,7 +63,7 @@ export const createClientBaseConfig = (options: ClientBase) => {
         output: {
             filename: normalizePath(outputFilename),
             chunkFilename: normalizePath(outputChunkFilename),
-            path: config.dist,
+            path: path.join(config.clientDist, config.publicPath),
             publicPath: config.publicPath,
         },
     };

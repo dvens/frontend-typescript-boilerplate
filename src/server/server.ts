@@ -9,6 +9,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import logger from 'morgan';
+import path from 'path';
 
 // Config/Utilities
 import config from '../../config/config';
@@ -27,7 +28,6 @@ dotenv.config();
  * Initialize app
  */
 const SERVER_PORT = config.port;
-const IS_PROD = process.env.NODE_ENV === 'production';
 const IS_DEV = process.env.NODE_ENV === 'development';
 
 const app = express();
@@ -50,10 +50,9 @@ app.use(cors());
 app.use(compression());
 
 /**
- * Static files during dev and prod mode
+ * Static files
  */
-const assetsPath = IS_PROD ? `${config.clientDist}/assets` : config.assets;
-app.use('/assets', express.static(assetsPath));
+app.use(config.publicPath, express.static(path.join(config.clientDist, config.publicPath)));
 
 /**
  * Error handler

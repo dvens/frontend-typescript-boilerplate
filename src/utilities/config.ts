@@ -13,7 +13,7 @@ export const config: ConfigObject = {
     ],
     link: [
         {
-            href: '/assets/css/main.css',
+            href: 'http://localhost:3001/static/css/main.css',
             as: 'style',
             rel: 'preload',
         },

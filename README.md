@@ -71,16 +71,12 @@ __3. Start the project in dev mode__
 
 (See [commands](docs/Commands.md) for the full list)
 
-# Inspired by: #
-- [Open Wc](https://open-wc.org/) - Open Web Component Recommendations
-
 # Next Steps #
 Important
-- Transform webpack into ts
+- Load assets through (css) and (js) through manifest.json.
 - Change config folder into js files.
-- Add asset manifest for legacy and normal
 - create config file within the root that can extend the normal config.
-- Add build step with webpack for express server for client + server (refactor current webpack setup).
+- Add prod build for server and client.
 
 After refactor
 - Refactor css to css modules + css in js for web components + hashing for css files and add css to string for web components.
