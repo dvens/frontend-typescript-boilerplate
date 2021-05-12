@@ -3,6 +3,7 @@ declare namespace NodeJS {
         NODE_ENV: 'development' | 'production' | 'test';
         PUBLIC_URL: string;
         SOURCE_LANGUAGE: 'string';
+        LOL: string;
     }
 }
 

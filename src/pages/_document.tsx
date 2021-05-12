@@ -17,6 +17,7 @@ const Document = ({ head, htmlContent, initialState }: DocProps) => {
                 <meta charset="UTF-8" />
                 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
                 <meta name="disabled-adaptations" content="watch" />
+                <link rel="stylesheet" href="/static/css/main.css" />
                 {head && head}
                 {renderFavicons()}
             </head>

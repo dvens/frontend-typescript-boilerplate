@@ -1,39 +1,32 @@
 import webpack from 'webpack';
-import nodemon from 'nodemon';
 import express from 'express';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
+import browserSync from 'browser-sync';
 
 // utilities
 import getConfig from '../../webpack.config';
 import globalConfig from '../utilities/get-config';
 import { compilerPromise, logMessage } from '../utilities/compiler-promise';
+import { format } from './run';
+import path from 'path';
 
 const { config } = globalConfig;
 
 const webpackConfig = getConfig(process.env.NODE_ENV || 'development');
-const app = express();
+const server = express();
 
-const WEBPACK_PORT =
-    process.env.WEBPACK_PORT || (!isNaN(Number(config)) ? Number(config) + 1 : 3001);
-
-const DEVSERVER_HOST = process.env.DEVSERVER_HOST || 'http://localhost';
+const watchOptions = {
+    // ignored: /node_modules/,
+};
 
 async function start() {
     const [clientConfig, serverConfig] = webpackConfig;
+    const serverEntry = path.resolve(config.serverDist, 'server.js');
 
-    clientConfig.entry.main = [
-        `webpack-hot-middleware/client?path=${DEVSERVER_HOST}:${WEBPACK_PORT}/__webpack_hmr`,
-        ...clientConfig.entry.main,
-    ];
+    clientConfig.entry.main = [`webpack-hot-middleware/client`, ...clientConfig.entry.main];
 
-    clientConfig.output.publicPath = [`${DEVSERVER_HOST}:${WEBPACK_PORT}`, config.publicPath]
-        .join('/')
-        .replace(/([^:+])\/+/g, '$1/');
-
-    serverConfig.output.publicPath = [`${DEVSERVER_HOST}:${WEBPACK_PORT}`, config.publicPath]
-        .join('/')
-        .replace(/([^:+])\/+/g, '$1/');
+    clientConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
 
     const multiCompiler = webpack([clientConfig, serverConfig]);
 
@@ -45,17 +38,7 @@ async function start() {
     const clientModernPromise = compilerPromise('client', clientModernCompiler);
     const serverPromise = compilerPromise('server', serverCompiler);
 
-    const watchOptions = {
-        ignored: /node_modules/,
-        stats: clientConfig.stats,
-    };
-
-    app.use((_req, res, next) => {
-        res.header('Access-Control-Allow-Origin', '*');
-        return next();
-    });
-
-    app.use(
+    server.use(
         webpackDevMiddleware(clientModernCompiler, {
             publicPath: clientConfig.output.publicPath,
             stats: clientConfig.stats,
@@ -63,28 +46,72 @@ async function start() {
         }),
     );
 
-    app.use(webpackHotMiddleware(clientModernCompiler));
+    server.use(webpackHotMiddleware(clientModernCompiler));
 
-    app.use('/static/', express.static(config.publicPath));
+    server.use('/static/', express.static(config.publicPath));
 
-    app.listen(WEBPACK_PORT);
+    let appPromise;
+    let appPromiseResolve;
+    let appPromiseIsResolved = true;
+    serverCompiler.hooks.compile.tap('server', () => {
+        if (!appPromiseIsResolved) return;
+        appPromiseIsResolved = false;
+        appPromise = new Promise((resolve) => (appPromiseResolve = resolve));
+    });
+
+    let app;
+
+    server.use((req, res) => {
+        appPromise.then(() => app.handle(req, res)).catch((error) => console.error(error));
+    });
+
+    function checkForUpdate(fromUpdate?: boolean) {
+        const hmrPrefix = '[\x1b[35mHMR\x1b[0m] ';
+        if (!app.hot) {
+            throw new Error(`${hmrPrefix}Hot Module Replacement is disabled.`);
+        }
+        if (app.hot.status() !== 'idle') {
+            return Promise.resolve();
+        }
+        return app.hot
+            .check(true)
+            .then((updatedModules) => {
+                if (!updatedModules) {
+                    if (fromUpdate) {
+                        console.info(`${hmrPrefix}Update applied.`);
+                    }
+                    return;
+                }
+                if (updatedModules.length === 0) {
+                    console.info(`${hmrPrefix}Nothing hot updated.`);
+                } else {
+                    console.info(`${hmrPrefix}Updated modules:`);
+                    updatedModules.forEach((moduleId) =>
+                        console.info(`${hmrPrefix} - ${moduleId}`),
+                    );
+                    checkForUpdate(true);
+                }
+            })
+            .catch((error) => {
+                if (['abort', 'fail'].includes(app.hot.status())) {
+                    console.warn(`${hmrPrefix}Cannot apply update.`);
+                    delete require.cache[require.resolve(serverEntry)];
+
+                    app = require(serverEntry).default;
+
+                    console.warn(`${hmrPrefix}App has been reloaded.`);
+                } else {
+                    console.warn(`${hmrPrefix}Update failed: ${error.stack || error.message}`);
+                }
+            });
+    }
 
     serverCompiler.watch(watchOptions, (error, stats) => {
-        if (!error && !stats.hasErrors()) {
-            console.log(stats.toString(serverConfig.stats));
-            return;
-        }
-
-        if (error) {
-            logMessage(error, 'error');
-        }
-
-        if (stats.hasErrors()) {
-            const info = stats.toJson();
-            const errors = info.errors[0].split('\n');
-            logMessage(errors[0], 'error');
-            logMessage(errors[1], 'error');
-            logMessage(errors[2], 'error');
+        if (app && !error && !stats.hasErrors()) {
+            checkForUpdate().then(() => {
+                appPromiseIsResolved = true;
+                appPromiseResolve();
+            });
         }
     });
 
@@ -92,29 +119,35 @@ async function start() {
     try {
         await clientModernPromise;
         await serverPromise;
+
+        const timeStart = new Date();
+        console.info(`[${format(timeStart)}] Launching server...`);
+
+        // Load compiled src/server.js as a middleware
+        app = require(serverEntry).default;
+        appPromiseIsResolved = true;
+        appPromiseResolve();
+
+        // Launch the development server with Browsersync and HMR
+        await new Promise((resolve, reject) =>
+            browserSync.create().init(
+                {
+                    // https://www.browsersync.io/docs/options
+                    server: config.serverEntry,
+                    middleware: [server],
+                    open: !process.argv.includes('--silent'),
+                    ...(config.port ? { port: config.port } : null),
+                },
+                (error, bs) => (error ? reject(error) : resolve(bs)),
+            ),
+        );
+
+        const timeEnd = new Date();
+        const time = timeEnd.getTime() - timeStart.getTime();
+        console.info(`[${format(timeEnd)}] Server launched after ${time} ms`);
     } catch (error) {
         logMessage(error, 'error');
     }
-
-    const script = nodemon({
-        script: `${config.serverDist}/server.js`,
-        ignore: ['src', 'tools', 'config', './*.*', 'build/static'],
-        delay: 200,
-    });
-
-    script.on('restart', () => {
-        logMessage('Server side app has been restarted.', 'warning');
-    });
-
-    script.on('quit', () => {
-        console.log('Process ended');
-        process.exit();
-    });
-
-    script.on('error', () => {
-        logMessage('An error occured. Exiting', 'error');
-        process.exit(1);
-    });
 }
 
 export default start;

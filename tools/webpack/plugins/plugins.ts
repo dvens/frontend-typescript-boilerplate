@@ -9,6 +9,7 @@ const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 import environment from '../../utilities/env';
 import globalConfig from '../../utilities/get-config';
 import getDefaultMode from '../../utilities/get-default-mode';
+import { normalizePath } from '../../utilities/normalize-path';
 
 const { config } = globalConfig;
 
@@ -28,12 +29,16 @@ export const getPlugins = (isClient: boolean = true) =>
             }),
         isClient &&
             new MiniCssExtractPlugin({
-                filename: `${config.cssOutputPath}${
-                    isDevelopment ? '[name].css' : '[name].[contenthash].css'
-                }`,
-                chunkFilename: `${config.cssOutputPath}${
-                    isDevelopment ? '[id].css' : '[id].[contenthash].css'
-                }`,
+                filename: normalizePath(
+                    `${config.cssOutputPath}${
+                        isDevelopment ? '[name].css' : '[name].[contenthash].css'
+                    }`,
+                ),
+                chunkFilename: normalizePath(
+                    `${config.cssOutputPath}${
+                        isDevelopment ? '[id].css' : '[id].[contenthash].css'
+                    }`,
+                ),
             }),
         isClient &&
             new WebpackManifestPlugin({

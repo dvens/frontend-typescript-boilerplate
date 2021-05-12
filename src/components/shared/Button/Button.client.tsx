@@ -10,7 +10,7 @@ export const Button = () => {
 
     return (
         <button className={styles['c-button']}>
-            <div className={styles['button__container']}>hello button {test}</div>
+            <div className={styles['button__container']}>hello button{test}</div>
         </button>
     );
 };

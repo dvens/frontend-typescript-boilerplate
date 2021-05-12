@@ -7,7 +7,7 @@ import chalk from 'chalk';
 import compression from 'compression';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import express from 'express';
+import express, { Express } from 'express';
 import logger from 'morgan';
 import path from 'path';
 
@@ -30,7 +30,7 @@ dotenv.config();
 const SERVER_PORT = config.port;
 const IS_DEV = process.env.NODE_ENV === 'development';
 
-const app = express();
+const app: Express = express();
 
 /**
  * Logger
@@ -64,9 +64,24 @@ app.use(errorHandler);
  */
 app.get('*', ssr);
 
-app.listen(SERVER_PORT, () => {
-    console.log(
-        `[${new Date().toISOString()}]`,
-        chalk.blue(`App is running: http://localhost:${SERVER_PORT}`),
-    );
-});
+/**
+ * Launch server
+ */
+if (!module.hot) {
+    app.listen(SERVER_PORT, () => {
+        console.log(
+            `[${new Date().toISOString()}]`,
+            chalk.blue(`App is running: http://localhost:${SERVER_PORT}`),
+        );
+    });
+}
+
+/**
+ * Hot module replacement
+ */
+if (module.hot) {
+    app.hot = module.hot;
+    module.hot.accept('../pages/routes');
+}
+
+export default app;

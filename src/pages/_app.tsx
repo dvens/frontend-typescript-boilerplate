@@ -11,7 +11,7 @@ const App = () => {
     return (
         <Fragment>
             <Head>{Head.renderObjectToChildren(config)}</Head>
-            <div>Hello world!! {counter.amount}</div>
+            <div>Hello world {counter.amount}</div>
             <test-button />
         </Fragment>
     );

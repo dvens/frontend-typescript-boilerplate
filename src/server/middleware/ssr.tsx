@@ -11,14 +11,12 @@ export default async function ssr(_: Request, res: Response, next: NextFunction)
     const htmlContent = renderToString(<App />);
     const head = Head.renderAsElements();
     const initialState = store.getState();
+    const html = renderToString(
+        <Document htmlContent={htmlContent} head={head} initialState={initialState} />,
+    );
 
     try {
-        res.status(200).send(`
-            <!doctype html>
-            ${renderToString(
-                <Document htmlContent={htmlContent} head={head} initialState={initialState} />,
-            )}
-        `);
+        res.status(200).send(`<!doctype html>${html}`);
     } catch (error) {
         res.status(404).send('Not Found');
         console.error(chalk.red(`==> Rendering error: ${error}`));
