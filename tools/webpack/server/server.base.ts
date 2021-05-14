@@ -2,7 +2,7 @@ import nodeExternals from 'webpack-node-externals';
 
 // utilities
 import globalConfig from '../../utilities/get-config';
-import getDefaultMode from '../../utilities/get-default-mode';
+
 import { normalizePath } from '../../utilities/normalize-path';
 
 // Loaders
@@ -17,7 +17,6 @@ import { sharedConfig } from '../shared-config';
 
 // Config files
 const { config } = globalConfig;
-const isProduction = getDefaultMode() === 'production';
 
 const reStyle = /\.(css|scss|sass)$/;
 const reImage = /\.(bmp|gif|jpg|jpeg|png|svg)$/;
@@ -27,8 +26,7 @@ export interface ServerBase {
 }
 
 export const createServerBaseConfig = (options: ServerBase) => {
-    const contenthash = isProduction ? '.[contenthash]' : '';
-    const outputFilename = `server${contenthash}.js`;
+    const outputFilename = `server.js`;
 
     const defaultConfig = {
         ...sharedConfig,

@@ -13,7 +13,7 @@ interface DocProps {
 const Document = ({ head, htmlContent, initialState }: DocProps) => {
     return (
         <html lang="en">
-            <head>
+            <head className={'aaaa'}>
                 <meta charset="UTF-8" />
                 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
                 <meta name="disabled-adaptations" content="watch" />

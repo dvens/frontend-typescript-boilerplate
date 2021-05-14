@@ -3,13 +3,14 @@ import express from 'express';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import browserSync from 'browser-sync';
+import path from 'path';
 
 // utilities
 import getConfig from '../../webpack.config';
 import globalConfig from '../utilities/get-config';
 import { compilerPromise, logMessage } from '../utilities/compiler-promise';
-import { format } from './run';
-import path from 'path';
+
+const browserSyncServer = browserSync.create();
 
 const { config } = globalConfig;
 
@@ -120,8 +121,7 @@ async function start() {
         await clientModernPromise;
         await serverPromise;
 
-        const timeStart = new Date();
-        console.info(`[${format(timeStart)}] Launching server...`);
+        logMessage('Launching server...', 'info');
 
         // Load compiled src/server.js as a middleware
         app = require(serverEntry).default;
@@ -130,21 +130,28 @@ async function start() {
 
         // Launch the development server with Browsersync and HMR
         await new Promise((resolve, reject) =>
-            browserSync.create().init(
+            browserSyncServer.init(
                 {
                     // https://www.browsersync.io/docs/options
                     server: config.serverEntry,
                     middleware: [server],
                     open: !process.argv.includes('--silent'),
                     ...(config.port ? { port: config.port } : null),
+                    files: [
+                        {
+                            match: ['src/pages/_document.tsx'],
+                            fn: function (event, file) {
+                                browserSyncServer.reload();
+                            },
+                        },
+                    ],
                 },
+
                 (error, bs) => (error ? reject(error) : resolve(bs)),
             ),
         );
 
-        const timeEnd = new Date();
-        const time = timeEnd.getTime() - timeStart.getTime();
-        console.info(`[${format(timeEnd)}] Server launched after ${time} ms`);
+        logMessage(`Server launched!`, 'info');
     } catch (error) {
         logMessage(error, 'error');
     }

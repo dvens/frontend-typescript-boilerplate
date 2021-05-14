@@ -76,15 +76,16 @@ Important
 - Load assets through (css) and (js) through manifest.json.
 - Change config folder into js files.
 - create config file within the root that can extend the normal config.
-- Add prod build for server and client.
+- Fix hmr for @atomify/css
 
 After refactor
-- Refactor css to css modules + css in js for web components + hashing for css files and add css to string for web components.
+- Add css to string option for web components
 - Create static router based upon wouter/with data management fetching data based upon route
 - Create export to static routes
+- Add favicons
+- Add polyfill loader
 
 After
-- Clean up config with asset or clientdist prefix.
 - Check why ESLint is not working
 - Add proper error pages for ssr.
 - Fix storybook for JSX

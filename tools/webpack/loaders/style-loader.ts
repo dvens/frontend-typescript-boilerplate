@@ -48,7 +48,12 @@ const configureStyleLoader = (options = {}) => {
 function getStyleLoaders(cssLoaderOptions = {}, isClient = true) {
     const sourceMap = isDevelopment;
     const styleLoaders = [
-        isClient && MiniCssExtractPlugin.loader,
+        isClient && {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+                esModule: false,
+            },
+        },
         {
             loader: 'css-loader',
             options: {

@@ -21,7 +21,7 @@ const isDevelopment = mode === 'development';
 export const getPlugins = (isClient: boolean = true) =>
     [
         isClient && new SassLintPlugin(),
-        isClient && !isDevelopment && new CopyPlugin(config.copy || {}),
+        isClient && new CopyPlugin(config.copy || {}),
         isClient &&
             new ESLintPlugin({
                 emitWarning: true,

@@ -10,6 +10,7 @@ import Document from '@/pages/_document';
 export default async function ssr(_: Request, res: Response, next: NextFunction) {
     const htmlContent = renderToString(<App />);
     const head = Head.renderAsElements();
+
     const initialState = store.getState();
     const html = renderToString(
         <Document htmlContent={htmlContent} head={head} initialState={initialState} />,

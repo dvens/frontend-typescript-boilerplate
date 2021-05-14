@@ -9,7 +9,7 @@ export interface AppState {
 
 const initialState = {
     counter: {
-        amount: 0,
+        amount: 3,
     },
 };
 
