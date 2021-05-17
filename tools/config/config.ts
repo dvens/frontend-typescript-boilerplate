@@ -66,4 +66,21 @@ const defaultConfig: Config = {
 defaultConfig.clientDist = defaultConfig.dist;
 defaultConfig.swSrc = `${defaultConfig.root}/sw-precache.js`;
 
-export default defaultConfig;
+function getDefaultConfig() {
+    let projectConfig = {};
+
+    try {
+        projectConfig = require(`${projectDirectory}/config/project.config.js`)(defaultConfig);
+    } catch (e) {
+        /** noop */
+    }
+
+    const mergedConfig = {
+        ...defaultConfig,
+        ...projectConfig,
+    };
+
+    return mergedConfig;
+}
+
+export default getDefaultConfig();
