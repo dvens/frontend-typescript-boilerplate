@@ -3,9 +3,7 @@ import path from 'path';
 import getDefaultMode from '../../utilities/get-default-mode';
 const isDevelopment = getDefaultMode() === 'development';
 
-import globalConfig from '../../utilities/get-config';
-
-const { config } = globalConfig;
+import defaultConfig from '../../config/config';
 
 const imageLoader = (isClient = true) => {
     const defaultOptions = {
@@ -17,7 +15,7 @@ const imageLoader = (isClient = true) => {
             return '[name].[ext]';
         },
         outputPath(_, resourcePath) {
-            const relativePath = path.relative(config.public, resourcePath);
+            const relativePath = path.relative(defaultConfig.public, resourcePath);
             return `/${relativePath}`;
         },
         emitFile: !isClient,

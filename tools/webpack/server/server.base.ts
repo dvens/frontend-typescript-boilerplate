@@ -1,7 +1,7 @@
 import nodeExternals from 'webpack-node-externals';
 
 // utilities
-import globalConfig from '../../utilities/get-config';
+import defaultConfig from '../../config/config';
 
 import { normalizePath } from '../../utilities/normalize-path';
 
@@ -16,7 +16,6 @@ import { getPlugins } from '../plugins/plugins';
 import { sharedConfig } from '../shared-config';
 
 // Config files
-const { config } = globalConfig;
 
 const reStyle = /\.(css|scss|sass)$/;
 const reImage = /\.(bmp|gif|jpg|jpeg|png|svg)$/;
@@ -28,12 +27,12 @@ export interface ServerBase {
 export const createServerBaseConfig = (options: ServerBase) => {
     const outputFilename = `server.js`;
 
-    const defaultConfig = {
+    const config = {
         ...sharedConfig,
         target: 'node',
         name: 'server',
         entry: {
-            server: config.serverEntry,
+            server: defaultConfig.serverEntry,
         },
         plugins: [...getPlugins(false)],
         module: {
@@ -57,8 +56,8 @@ export const createServerBaseConfig = (options: ServerBase) => {
         output: {
             filename: normalizePath(outputFilename),
             libraryTarget: 'commonjs2',
-            path: config.serverDist,
-            publicPath: config.publicPath,
+            path: defaultConfig.serverDist,
+            publicPath: defaultConfig.publicPath,
         },
         node: {
             __filename: false,
@@ -72,5 +71,5 @@ export const createServerBaseConfig = (options: ServerBase) => {
         ],
     };
 
-    return defaultConfig;
+    return config;
 };

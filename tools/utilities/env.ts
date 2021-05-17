@@ -1,9 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-
-import globalConfig from './get-config';
-
-const { config } = globalConfig;
+import defaultConfig from '../config/config';
 
 if (!process.env.NODE_ENV) {
     throw new Error(
@@ -13,10 +10,10 @@ if (!process.env.NODE_ENV) {
 
 // https://github.com/bkeepers/dotenv#what-other-env-files-can-i-use
 const dotenvFiles = [
-    `${config.dotenv}.${process.env.NODE_ENV}.local`,
-    `${config.dotenv}.${process.env.NODE_ENV}`,
-    process.env.NODE_ENV !== 'test' && `${config.dotenv}.local`,
-    config.dotenv,
+    `${defaultConfig.dotenv}.${process.env.NODE_ENV}.local`,
+    `${defaultConfig.dotenv}.${process.env.NODE_ENV}`,
+    process.env.NODE_ENV !== 'test' && `${defaultConfig.dotenv}.local`,
+    defaultConfig.dotenv,
 ].filter(Boolean);
 
 dotenvFiles.forEach((dotenvFile) => {

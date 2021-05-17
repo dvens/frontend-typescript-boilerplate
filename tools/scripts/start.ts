@@ -7,12 +7,11 @@ import path from 'path';
 
 // utilities
 import getConfig from '../../webpack.config';
-import globalConfig from '../utilities/get-config';
+
 import { compilerPromise, logMessage } from '../utilities/compiler-promise';
+import defaultConfig from '../config/config';
 
 const browserSyncServer = browserSync.create();
-
-const { config } = globalConfig;
 
 const webpackConfig = getConfig(process.env.NODE_ENV || 'development');
 const server = express();
@@ -23,7 +22,7 @@ const watchOptions = {
 
 async function start() {
     const [clientConfig, serverConfig] = webpackConfig;
-    const serverEntry = path.resolve(config.serverDist, 'server.js');
+    const serverEntry = path.resolve(defaultConfig.serverDist, 'server.js');
 
     clientConfig.entry.main = [`webpack-hot-middleware/client`, ...clientConfig.entry.main];
 
@@ -49,7 +48,7 @@ async function start() {
 
     server.use(webpackHotMiddleware(clientModernCompiler));
 
-    server.use('/static/', express.static(config.publicPath));
+    server.use('/static/', express.static(defaultConfig.publicPath));
 
     let appPromise;
     let appPromiseResolve;
@@ -79,30 +78,33 @@ async function start() {
             .then((updatedModules) => {
                 if (!updatedModules) {
                     if (fromUpdate) {
-                        console.info(`${hmrPrefix}Update applied.`);
+                        logMessage(`${hmrPrefix}Update applied.`, 'info');
                     }
                     return;
                 }
                 if (updatedModules.length === 0) {
-                    console.info(`${hmrPrefix}Nothing hot updated.`);
+                    logMessage(`${hmrPrefix}Nothing hot updated.`, 'info');
                 } else {
-                    console.info(`${hmrPrefix}Updated modules:`);
+                    logMessage(`${hmrPrefix}Updated modules:`, 'info');
                     updatedModules.forEach((moduleId) =>
-                        console.info(`${hmrPrefix} - ${moduleId}`),
+                        logMessage(`${hmrPrefix} - ${moduleId}`, 'info'),
                     );
                     checkForUpdate(true);
                 }
             })
             .catch((error) => {
                 if (['abort', 'fail'].includes(app.hot.status())) {
-                    console.warn(`${hmrPrefix}Cannot apply update.`);
+                    logMessage(`${hmrPrefix}Cannot apply update.`, 'warning');
                     delete require.cache[require.resolve(serverEntry)];
 
                     app = require(serverEntry).default;
 
-                    console.warn(`${hmrPrefix}App has been reloaded.`);
+                    logMessage(`${hmrPrefix}App has been reloaded.`, 'warning');
                 } else {
-                    console.warn(`${hmrPrefix}Update failed: ${error.stack || error.message}`);
+                    logMessage(
+                        `${hmrPrefix}Update failed: ${error.stack || error.message}`,
+                        'warning',
+                    );
                 }
             });
     }
@@ -116,7 +118,7 @@ async function start() {
         }
     });
 
-    // wait until client and server is compiled
+    // Wait until client and server are compiled
     try {
         await clientModernPromise;
         await serverPromise;
@@ -133,14 +135,14 @@ async function start() {
             browserSyncServer.init(
                 {
                     // https://www.browsersync.io/docs/options
-                    server: config.serverEntry,
+                    server: defaultConfig.serverEntry,
                     middleware: [server],
                     open: !process.argv.includes('--silent'),
-                    ...(config.port ? { port: config.port } : null),
+                    ...(defaultConfig.port ? { port: defaultConfig.port } : null),
                     files: [
                         {
                             match: ['src/pages/_document.tsx'],
-                            fn: function (event, file) {
+                            fn: function () {
                                 browserSyncServer.reload();
                             },
                         },

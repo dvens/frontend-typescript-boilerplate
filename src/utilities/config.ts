@@ -1,7 +1,7 @@
 import { ConfigObject } from '@atomify/kit';
 
 export const config: ConfigObject = {
-    title: 'Starter',
+    title: 'Frontend Starter',
     base: {
         href: '/',
     },

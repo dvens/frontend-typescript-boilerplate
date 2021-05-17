@@ -1,8 +1,8 @@
 // utilities
 import path from 'path';
-import globalConfig from '../../utilities/get-config';
 import getDefaultMode from '../../utilities/get-default-mode';
 import { normalizePath } from '../../utilities/normalize-path';
+import defaultConfig from '../../config/config';
 
 // Loaders
 import fontsLoader from '../loaders/fonts-loader';
@@ -15,7 +15,6 @@ import { getPlugins } from '../plugins/plugins';
 import { sharedConfig } from '../shared-config';
 
 // Config files
-const { config } = globalConfig;
 const isProduction = getDefaultMode() === 'production';
 
 export interface ClientBase {
@@ -26,20 +25,20 @@ export interface ClientBase {
 
 export const createClientBaseConfig = (options: ClientBase) => {
     const contenthash = isProduction ? '.[contenthash]' : '';
-    const outputFilename = `${config.jsOutputPath}[name]${contenthash}.js`;
-    const outputChunkFilename = `${config.jsOutputPath}${
-        options.legacy ? `chunks/${config.legacyPrefix}` : 'chunks/'
+    const outputFilename = `${defaultConfig.jsOutputPath}[name]${contenthash}.js`;
+    const outputChunkFilename = `${defaultConfig.jsOutputPath}${
+        options.legacy ? `chunks/${defaultConfig.legacyPrefix}` : 'chunks/'
     }[name]${contenthash}.js`;
 
     const entry = options.legacy
         ? {
-              [`${config.legacyPrefix}main`]: config.clientEntry,
+              [`${defaultConfig.legacyPrefix}main`]: defaultConfig.clientEntry,
           }
         : {
-              main: config.clientEntry,
+              main: defaultConfig.clientEntry,
           };
 
-    const defaultConfig = {
+    const config = {
         ...sharedConfig,
         target: 'web',
         name: options.legacy ? 'legacy-client' : 'client',
@@ -66,10 +65,10 @@ export const createClientBaseConfig = (options: ClientBase) => {
         output: {
             filename: normalizePath(outputFilename),
             chunkFilename: normalizePath(outputChunkFilename),
-            path: path.join(config.clientDist, config.publicPath),
-            publicPath: config.publicPath,
+            path: path.join(defaultConfig.clientDist, defaultConfig.publicPath),
+            publicPath: defaultConfig.publicPath,
         },
     };
 
-    return defaultConfig;
+    return config;
 };

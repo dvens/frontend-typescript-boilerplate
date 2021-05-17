@@ -14,7 +14,7 @@ const serverConfig = {
     // includedPackages: [],
 };
 
-export default function getConfig(env = 'development') {
+function getConfig(env = 'development') {
     if (env === 'production') {
         return [
             // Client modern build
@@ -27,3 +27,5 @@ export default function getConfig(env = 'development') {
     }
     return [createClientDevConfig(clientConfig), createServerDevConfig(serverConfig)];
 }
+
+export default getConfig;

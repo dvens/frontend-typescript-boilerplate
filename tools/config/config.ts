@@ -1,9 +1,9 @@
-import resolveApp from '../tools/utilities/resolve-app';
-import { Config } from '../tools/types/config.types';
-import fileCopyConfig from './copy';
+import { Config } from '../types/config.types';
+import resolveApp from '../utilities/resolve-app';
 
-// TODO: Check if every config option is being used.
-const config: Config = {
+export const projectDirectory = process.env.projectDirectory || process.cwd();
+
+const defaultConfig: Config = {
     // Root folder
     root: resolveApp(''),
 
@@ -59,12 +59,11 @@ const config: Config = {
     swSrc: '',
 
     // Webpack copy config
-    copy: {},
+    copy: null,
 };
 
 // Overwrite config
-config.clientDist = config.dist;
-config.swSrc = `${config.root}/sw-precache.js`;
-config.copy = fileCopyConfig(config);
+defaultConfig.clientDist = defaultConfig.dist;
+defaultConfig.swSrc = `${defaultConfig.root}/sw-precache.js`;
 
-export default config;
+export default defaultConfig;

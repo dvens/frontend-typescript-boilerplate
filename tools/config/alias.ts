@@ -1,13 +1,18 @@
-import resolveApp from '../tools/utilities/resolve-app';
-import tsconfig from '../tsconfig.json';
-
-// Get alliases from tsconfig
-const aliases = tsconfig.compilerOptions.paths;
-const aliasKeys = Object.keys(aliases);
+import { projectDirectory } from './config';
+import resolveApp from '../utilities/resolve-app';
 
 const striptSlashStar = (string) => string.replace('/*', '');
 
+let aliases = {};
+
+try {
+    // Get alliases from tsconfig
+    const tsconfig = require(`${projectDirectory}/tsconfig.json`);
+    aliases = tsconfig.compilerOptions.paths;
+} catch (e) {}
+
 function setAliasConfig() {
+    const aliasKeys = Object.keys(aliases);
     const webpackAliases = aliasKeys.reduce((obj, key) => {
         const aliasPath = striptSlashStar(aliases[key][0]).replace('./', '');
 

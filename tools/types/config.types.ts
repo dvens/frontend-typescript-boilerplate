@@ -52,7 +52,7 @@ export interface Config {
     swSrc: string;
 
     // Webpack copy config
-    copy: Record<string, unknown>;
+    copy: Record<string, unknown> | null;
 }
 
 export interface PolyfillLoader {

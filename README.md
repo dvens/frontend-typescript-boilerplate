@@ -72,23 +72,17 @@ __3. Start the project in dev mode__
 (See [commands](docs/Commands.md) for the full list)
 
 # Next Steps #
-Important
-- Change config folder into js files.
-- create config file within the root that can extend the normal config.
-- Fix hmr for @atomify/css
-
-After refactor
 - Add css to string option for web components
 - Create static router based upon wouter/with data management fetching data based upon route
 - Create export to static routes
 - Add favicons
 - Add polyfill loader
-- Remove alias function to tools
-
+- Fix hmr for @atomify/css
 
 After
 - Check why ESLint is not working
 - Add proper error pages for ssr.
+- Add babel extend
 - Fix storybook for JSX
 - Fix hygen
 - Check if testing is working

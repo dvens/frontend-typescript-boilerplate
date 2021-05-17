@@ -1,11 +1,8 @@
 import del from 'del';
-
-import globalConfig from '../utilities/get-config';
-
-const { config } = globalConfig;
+import defaultConfig from '../config/config';
 
 async function clean() {
-    del.sync(config.dist);
+    del.sync(defaultConfig.dist);
 }
 
 export default clean;

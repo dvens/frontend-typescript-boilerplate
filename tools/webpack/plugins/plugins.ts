@@ -7,11 +7,9 @@ const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 
 // Utilities
 import environment from '../../utilities/env';
-import globalConfig from '../../utilities/get-config';
+import defaultConfig from '../../config/config';
 import getDefaultMode from '../../utilities/get-default-mode';
 import { normalizePath } from '../../utilities/normalize-path';
-
-const { config } = globalConfig;
 
 const env = environment();
 
@@ -21,7 +19,7 @@ const isDevelopment = mode === 'development';
 export const getPlugins = (isClient: boolean = true, manifestSharedSeed = {}) =>
     [
         isClient && new SassLintPlugin(),
-        isClient && new CopyPlugin(config.copy || {}),
+        isClient && defaultConfig.copy && new CopyPlugin(defaultConfig.copy),
         isClient &&
             new ESLintPlugin({
                 emitWarning: true,
@@ -30,12 +28,12 @@ export const getPlugins = (isClient: boolean = true, manifestSharedSeed = {}) =>
         isClient &&
             new MiniCssExtractPlugin({
                 filename: normalizePath(
-                    `${config.cssOutputPath}${
+                    `${defaultConfig.cssOutputPath}${
                         isDevelopment ? '[name].css' : '[name].[contenthash].css'
                     }`,
                 ),
                 chunkFilename: normalizePath(
-                    `${config.cssOutputPath}${
+                    `${defaultConfig.cssOutputPath}${
                         isDevelopment ? '[id].css' : '[id].[contenthash].css'
                     }`,
                 ),

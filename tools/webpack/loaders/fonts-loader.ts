@@ -1,11 +1,9 @@
-import globalConfig from '../../utilities/get-config';
-
-const { config } = globalConfig;
+import defaultConfig from '../../config/config';
 
 const fontsLoader = (isClient = true) => {
     const defaultOptions = {
         name: '[name].[ext]',
-        outputPath: config.fontsOutputPath,
+        outputPath: defaultConfig.fontsOutputPath,
         emitFile: !isClient,
     };
 
