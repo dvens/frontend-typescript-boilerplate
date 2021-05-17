@@ -4,8 +4,13 @@ import getDefaultMode from '../../utilities/get-default-mode';
 
 const isDevelopment = getDefaultMode() === 'development';
 
-const cssRegex = /\.(css|scss|sass)$/;
+const cssRegex = /\.(css|scss)$/;
 const cssModuleRegex = /\.module\.(css|scss)$/;
+const cssClientRegex = /\.client\.(css|scss)$/;
+
+type LoaderTypes = {
+    [key: string]: any;
+};
 
 const configureStyleLoader = (options = {}) => {
     const defaultOptions = Object.assign(
@@ -25,39 +30,51 @@ const configureStyleLoader = (options = {}) => {
                     localIdentName: '[local]',
                     mode: 'local',
                     exportGlobals: true,
-                    exportOnlyLocals: !defaultOptions.isClient || defaultOptions.isLegacy,
+                    exportOnlyLocals: !defaultOptions.isClient,
                 },
             },
+
             defaultOptions.isClient,
-            defaultOptions.isLegacy,
         ),
     };
 
     const cssRules = {
         test: cssRegex,
-        exclude: cssModuleRegex,
+        exclude: [cssModuleRegex, cssClientRegex],
         use: getStyleLoaders(
             {
                 modules: false,
             },
+
             defaultOptions.isClient,
-            defaultOptions.isLegacy,
         ),
     };
 
-    return [cssModulesRules, cssRules];
+    const cssClientRules = {
+        test: cssClientRegex,
+        use: getStyleLoaders(
+            {
+                modules: false,
+                esModule: false,
+            },
+            false,
+        ),
+    };
+
+    cssClientRules.use.unshift('to-string-loader');
+
+    return [cssModulesRules, cssRules, cssClientRules];
 };
 
-function getStyleLoaders(cssLoaderOptions = {}, isClient, isLegacy) {
+function getStyleLoaders(cssLoaderOptions = {}, extract): any {
     const sourceMap = isDevelopment;
     const styleLoaders = [
-        isClient &&
-            !isLegacy && {
-                loader: MiniCssExtractPlugin.loader,
-                options: {
-                    esModule: false,
-                },
+        extract && {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+                esModule: false,
             },
+        },
         {
             loader: 'css-loader',
             options: {

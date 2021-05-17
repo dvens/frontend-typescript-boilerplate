@@ -137,7 +137,7 @@ async function start() {
                     // https://www.browsersync.io/docs/options
                     server: defaultConfig.serverEntry,
                     middleware: [server],
-                    open: !process.argv.includes('--silent'),
+                    open: false,
                     ...(defaultConfig.port ? { port: defaultConfig.port } : null),
                     files: [
                         {

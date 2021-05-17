@@ -72,12 +72,11 @@ __3. Start the project in dev mode__
 (See [commands](docs/Commands.md) for the full list)
 
 # Next Steps #
-- Add css to string option for web components
-- Create static router based upon wouter/with data management fetching data based upon route
-- Create export to static routes
 - Add favicons
 - Add polyfill loader
 - Fix hmr for @atomify/css
+- Create static router based upon wouter/with data management fetching data based upon route
+- Create export to static routes
 
 After
 - Check why ESLint is not working
