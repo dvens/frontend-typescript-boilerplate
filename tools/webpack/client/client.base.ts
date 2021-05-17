@@ -20,7 +20,8 @@ const isProduction = getDefaultMode() === 'production';
 
 export interface ClientBase {
     legacy?: boolean;
-    includedPackages?: string[];
+    includedPackages?: string[] | RegExp[];
+    manifestSharedSeed?: any;
 }
 
 export const createClientBaseConfig = (options: ClientBase) => {
@@ -43,7 +44,7 @@ export const createClientBaseConfig = (options: ClientBase) => {
         target: 'web',
         name: options.legacy ? 'legacy-client' : 'client',
         entry,
-        plugins: [...getPlugins(true)],
+        plugins: [...getPlugins(true, options.manifestSharedSeed)],
         module: {
             rules: [
                 // Javascript/Typescript
@@ -53,7 +54,9 @@ export const createClientBaseConfig = (options: ClientBase) => {
                 }),
 
                 //CSS/SASS
-                ...configureStyleLoader(),
+                ...configureStyleLoader({
+                    isLegacy: options.legacy,
+                }),
 
                 //Assets
                 imageLoader(),

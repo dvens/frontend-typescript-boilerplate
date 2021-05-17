@@ -37,6 +37,16 @@ const configureBabelLoader = ({ includedPackages = [], legacy = false }) => {
                 },
             ],
         },
+        {
+            test: /\.(js|jsx)?$/,
+            exclude: includedPackages,
+            use: [
+                {
+                    loader: 'babel-loader',
+                    options,
+                },
+            ],
+        },
     ];
 };
 

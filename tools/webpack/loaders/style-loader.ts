@@ -12,6 +12,7 @@ const configureStyleLoader = (options = {}) => {
         {},
         {
             isClient: true,
+            isLegacy: false,
         },
         options,
     );
@@ -24,10 +25,11 @@ const configureStyleLoader = (options = {}) => {
                     localIdentName: '[local]',
                     mode: 'local',
                     exportGlobals: true,
-                    exportOnlyLocals: !defaultOptions.isClient,
+                    exportOnlyLocals: !defaultOptions.isClient || defaultOptions.isLegacy,
                 },
             },
             defaultOptions.isClient,
+            defaultOptions.isLegacy,
         ),
     };
 
@@ -39,21 +41,23 @@ const configureStyleLoader = (options = {}) => {
                 modules: false,
             },
             defaultOptions.isClient,
+            defaultOptions.isLegacy,
         ),
     };
 
     return [cssModulesRules, cssRules];
 };
 
-function getStyleLoaders(cssLoaderOptions = {}, isClient = true) {
+function getStyleLoaders(cssLoaderOptions = {}, isClient, isLegacy) {
     const sourceMap = isDevelopment;
     const styleLoaders = [
-        isClient && {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-                esModule: false,
+        isClient &&
+            !isLegacy && {
+                loader: MiniCssExtractPlugin.loader,
+                options: {
+                    esModule: false,
+                },
             },
-        },
         {
             loader: 'css-loader',
             options: {

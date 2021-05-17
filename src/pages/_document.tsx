@@ -8,16 +8,19 @@ interface DocProps {
     htmlContent?: string;
     head?: VNode[];
     initialState?: AppState;
+    css: string[];
 }
 
-const Document = ({ head, htmlContent, initialState }: DocProps) => {
+const Document = ({ head, htmlContent, initialState, css }: DocProps) => {
     return (
         <html lang="en">
-            <head className={'aaaa'}>
+            <head>
                 <meta charset="UTF-8" />
                 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
                 <meta name="disabled-adaptations" content="watch" />
-                <link rel="stylesheet" href="/static/css/main.css" />
+                {css.filter(Boolean).map((href) => (
+                    <link rel="stylesheet" href={href} />
+                ))}
                 {head && head}
                 {renderFavicons()}
             </head>

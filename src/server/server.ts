@@ -13,6 +13,7 @@ import path from 'path';
 
 // Config/Utilities
 import config from '../../config/config';
+import manifestHelper from '../../tools/utilities/manifest-helper';
 // Middleware
 import errorHandler from './middleware/errorHandler';
 import ssr from './middleware/ssr';
@@ -58,6 +59,16 @@ app.use(config.publicPath, express.static(path.join(config.clientDist, config.pu
  * Error handler
  */
 app.use(errorHandler);
+
+/**
+ * Manifest
+ */
+const manifestPath = path.join(config.clientDist, config.publicPath);
+app.use(
+    manifestHelper({
+        manifestPath: `${manifestPath}/asset-manifest.json`,
+    }),
+);
 
 /**
  * Serverside rendering

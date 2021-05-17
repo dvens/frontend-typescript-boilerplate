@@ -18,7 +18,7 @@ const env = environment();
 const mode = getDefaultMode();
 const isDevelopment = mode === 'development';
 
-export const getPlugins = (isClient: boolean = true) =>
+export const getPlugins = (isClient: boolean = true, manifestSharedSeed = {}) =>
     [
         isClient && new SassLintPlugin(),
         isClient && new CopyPlugin(config.copy || {}),
@@ -43,6 +43,8 @@ export const getPlugins = (isClient: boolean = true) =>
         isClient &&
             new WebpackManifestPlugin({
                 fileName: 'asset-manifest.json',
+                seed: manifestSharedSeed,
+                writeToFileEmit: true,
             }),
 
         new webpack.DefinePlugin(env.stringified),

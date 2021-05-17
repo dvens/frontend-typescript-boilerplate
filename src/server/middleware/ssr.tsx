@@ -13,7 +13,12 @@ export default async function ssr(_: Request, res: Response, next: NextFunction)
 
     const initialState = store.getState();
     const html = renderToString(
-        <Document htmlContent={htmlContent} head={head} initialState={initialState} />,
+        <Document
+            htmlContent={htmlContent}
+            head={head}
+            initialState={initialState}
+            css={[res.locals.assetPath('main.css')]}
+        />,
     );
 
     try {

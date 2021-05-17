@@ -73,7 +73,6 @@ __3. Start the project in dev mode__
 
 # Next Steps #
 Important
-- Load assets through (css) and (js) through manifest.json.
 - Change config folder into js files.
 - create config file within the root that can extend the normal config.
 - Fix hmr for @atomify/css
@@ -84,6 +83,8 @@ After refactor
 - Create export to static routes
 - Add favicons
 - Add polyfill loader
+- Remove alias function to tools
+
 
 After
 - Check why ESLint is not working
