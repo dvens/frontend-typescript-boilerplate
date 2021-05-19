@@ -17,7 +17,6 @@ const configureStyleLoader = (options = {}) => {
         {},
         {
             isClient: true,
-            isLegacy: false,
         },
         options,
     );

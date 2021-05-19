@@ -53,9 +53,7 @@ export const createClientBaseConfig = (options: ClientBase) => {
                 }),
 
                 //CSS/SASS
-                ...configureStyleLoader({
-                    isLegacy: options.legacy,
-                }),
+                ...configureStyleLoader(),
 
                 //Assets
                 imageLoader(),

@@ -3,9 +3,9 @@
   "name": "App",
   "description": "App starter",
   "icons": {
-    "60": "/assets/favicons/firefox_app_60x60.png",
-    "128": "/assets/favicons/firefox_app_128x128.png",
-    "512": "/assets/favicons/firefox_app_512x512.png"
+    "60": "/static/favicons/firefox_app_60x60.png",
+    "128": "/static/favicons/firefox_app_128x128.png",
+    "512": "/static/favicons/firefox_app_512x512.png"
   },
   "developer": {
     "name": null,
