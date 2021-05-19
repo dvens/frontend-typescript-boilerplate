@@ -50,7 +50,7 @@ __10.__ Typescript is being used within this setup. [Typescript Cheatsheet](http
 
 __11.__ Linting: prettier, eslint and editorconfig.
 
-__12.__ Auto generated favicons by using [Favicons](https://github.com/itgalaxy/favicons).å
+__12.__ Auto generated favicons by using [Favicons](https://github.com/itgalaxy/favicons).
 
 __13.__ Code generator by using [Hygen](http://www.hygen.io/)
 
@@ -72,7 +72,6 @@ __3. Start the project in dev mode__
 (See [commands](docs/Commands.md) for the full list)
 
 # Next Steps #
-- Add favicons.
 - Add polyfill loader.
 - Add service worker.
 - Fix hmr for @atomify/css
@@ -83,12 +82,12 @@ After
 - Check why ESLint is not working
 - Add proper error pages for ssr.
 - Add babel extend
-- Fix storybook for JSX
-- Fix hygen
+- Fix/add storybook for JSX
+- Fix/add hygen
 - Check if testing is working
 - Update docs
 - TEST the setup :)
 
 After testing the setup
-- Create CLI to generate the setup
+- Create CLI to generate the setup + add correct types
 - Create NPM Packages out of the tools folder

@@ -57,11 +57,8 @@ export interface Config {
 
 export interface PolyfillLoader {
     templateOutputPath: string;
-    polyfillOutputPath: string;
-    paths: {
-        entries: string;
-        polyfills: string;
-    };
+    polyfillsDir: string;
+    relativePathToPolyfills: string;
     modern: {
         files: Array<{
             path: string;
