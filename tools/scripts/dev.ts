@@ -5,8 +5,8 @@ import generatePolyfills from './polyfills';
 
 async function dev() {
     await run(clean);
-    await generatePolyfills();
     await start();
+    await generatePolyfills();
 }
 
 export default dev;
