@@ -72,7 +72,6 @@ __3. Start the project in dev mode__
 (See [commands](docs/Commands.md) for the full list)
 
 # Next Steps #
-- Add polyfill loader.
 - Add service worker.
 - Fix hmr for @atomify/css
 - Create static router based upon wouter/with data management fetching data based upon route

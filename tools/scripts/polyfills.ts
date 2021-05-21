@@ -31,6 +31,7 @@ async function generatePolyfills() {
 
         formatted = prettier.format(
             generateTemplate(`${polyfillScript}\n<script dangerouslySetInnerHTML='${code}' />`),
+            { parser: 'babel' },
         );
     } else {
         const { code } = await createDevLoaderScript(config);
