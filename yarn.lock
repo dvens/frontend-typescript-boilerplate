@@ -17,20 +17,20 @@
   dependencies:
     "@atomify/shared" "^1.2.2"
 
-"@atomify/jsx@^2.1.4":
-  version "2.1.4"
-  resolved "https://registry.yarnpkg.com/@atomify/jsx/-/jsx-2.1.4.tgz#d94a79f89e9984ea50e2a36997b684c81c32a819"
-  integrity sha512-XxkazWaddn70rp5n2qY7Ns6lLP3A/tXFcNsWzUYOcZfITkdfMPhctqTwIfhbinffE9CKBBs/rWKxPgi3CEFtzQ==
+"@atomify/jsx@^2.1.5":
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/@atomify/jsx/-/jsx-2.1.5.tgz#6d06e5c7a71ab1c25dc462269495242bb5468194"
+  integrity sha512-m7LYkgfPtr3zGouabqykG8pAOdXHQR4GX9y3TUKBNUH3+bUXmzE11hVQUh8FFZUuM8+avRJYPKZI96IwNHiTQg==
   dependencies:
     "@atomify/shared" "^1.2.2"
 
-"@atomify/kit@^1.3.4":
-  version "1.3.4"
-  resolved "https://registry.yarnpkg.com/@atomify/kit/-/kit-1.3.4.tgz#82aaac2a9ac12f2e2d2bbe635e23c707afd34aa9"
-  integrity sha512-7l6MiLIUu0CdN+07pCNbfdefZ7SwuhCJ1HlvcnZlfipQaQm5Wf2ny2QkMMCDCpCM9SHpNWqjwIeE/cYhq0esKg==
+"@atomify/kit@^1.3.5":
+  version "1.3.5"
+  resolved "https://registry.yarnpkg.com/@atomify/kit/-/kit-1.3.5.tgz#e9a3a2aa481708f9a7d7180ba311b73cdde89cd0"
+  integrity sha512-tArh1FxICSrj5i9RzTZoW8tAOUkHGbnTj2AgDIfFjkH3cry+NojTwpvlbE4B8Y9jBUjq9itqBN4r1k8iZwK25A==
   dependencies:
     "@atomify/hooks" "^1.3.3"
-    "@atomify/jsx" "^2.1.4"
+    "@atomify/jsx" "^2.1.5"
     "@atomify/shared" "^1.2.2"
 
 "@atomify/shared@^1.2.2":

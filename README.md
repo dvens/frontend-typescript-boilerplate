@@ -71,7 +71,10 @@ __3. Start the project in dev mode__
 
 (See [commands](docs/Commands.md) for the full list)
 
-# Next Steps #
+# Next Steps
+- Fix render function Atomify/jsx
+- Fix render to string
+- Fix Fragment for Atomify/jsx to be putted in h()
 - Create static router based upon wouter/with data management fetching data based upon route
 - Create export to static routes
 

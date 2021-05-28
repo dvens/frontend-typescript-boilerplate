@@ -1,18 +1,23 @@
 interface MatcherOptions {
     url: string;
-    regex?: { [param: string]: RegExp };
+    regex?: MatcherRegex;
 }
-
-interface Params {
+export interface Params {
     [id: string]: string;
 }
+
+export type MatcherRegex = { [param: string]: RegExp };
+export type Matcher = {
+    params: Params;
+    url: string;
+} | null;
 
 const OPTIONAL_PARAM = /\((.*?)\)/g;
 const NAMED_PARAM = /(\(\?)?:\w+/g;
 const SPLAT_PARAM = /\*\w+/g;
 const ESCAPE_STRING_REGEX = /[\-{}\[\]+?.,\\\^$|#\s]/g;
 
-export const matcher = (path: string, options: MatcherOptions) => {
+export const matcher = (path: string, options: MatcherOptions): Matcher => {
     const { url, regex = null } = options;
 
     const result: Params = {};
@@ -29,6 +34,7 @@ export const matcher = (path: string, options: MatcherOptions) => {
             index === params.length - 1 ? param || '' : param ? decodeURIComponent(param) : '';
         const paramName = paramNames[index];
 
+        // Check if there is a custom regex (ex: check if the param is a number)
         if (regex && paramName in regex && !validateRegex(regex[paramName], paramValue))
             return null;
 
