@@ -14,7 +14,7 @@ type RouterContext = {
 
 type RouteProps = {
     match?: Matcher;
-    path: string;
+    path?: string;
     component?: VnodeType;
     regex?: MatcherRegex;
 };
@@ -53,6 +53,8 @@ export const Router: FunctionComponent<BuildRouterProps & { staticRoutes?: boole
 };
 
 export const Route: RouteComponent = ({ children, match, component, path, regex }) => {
+    if (!path) return children;
+
     const { location } = routerContext.context;
     const useRouteMatch = matcher(path, { url: location, regex: regex });
 
@@ -71,7 +73,22 @@ export const Route: RouteComponent = ({ children, match, component, path, regex 
     return typeof children === 'function' ? children(isMatch.params) : children;
 };
 
-export function isValidElement(object: VNode) {
+export const Link: FunctionComponent<{
+    to: string;
+    className?: string;
+    extraProps?: { [key: string]: any };
+    staticRoutes?: boolean;
+}> = ({ to, children, extraProps = {}, staticRoutes = true }) => {
+    const staticRoute = isValidElement(children)
+        ? h('a', { href: to, ...extraProps }, children)
+        : h('a', { href: to, ...extraProps });
+
+    if (staticRoutes) return staticRoute;
+
+    return h('router-link', {}, [staticRoute]);
+};
+
+export function isValidElement(object: any) {
     return typeof object === 'object' && object !== null;
 }
 
@@ -88,10 +105,15 @@ export const Switch: FunctionComponent = ({ children }) => {
     const firstMatchedRoute = elements.find(
         (element) =>
             isValidElement(element) &&
+            element.props.path &&
             matcher(element.props.path, { url: location, regex: element.props.regex }),
     );
 
     if (firstMatchedRoute) return firstMatchedRoute;
+
+    const defaultRoute = elements.find((element) => isValidElement(element) && !element.props.path);
+
+    if (defaultRoute) return defaultRoute;
 
     return null;
 };

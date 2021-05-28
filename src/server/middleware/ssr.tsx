@@ -7,8 +7,8 @@ import { NextFunction, Request, Response } from 'express';
 import App from '@/pages/_app';
 import Document from '@/pages/_document';
 
-export default async function ssr(_: Request, res: Response, next: NextFunction) {
-    const htmlContent = renderToString(<App />);
+export default async function ssr(req: Request, res: Response, next: NextFunction) {
+    const htmlContent = renderToString(<App location={req.url} />);
     const head = Head.renderAsElements();
 
     const initialState = store.getState();

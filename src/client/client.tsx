@@ -12,6 +12,6 @@ if (!isLocalhost) {
 }
 
 if (module.hot) {
-    hydrate(<App />, document.getElementById('app')!);
+    hydrate(<App location={window.location.pathname} />, document.getElementById('app')!);
     module.hot.accept();
 }
