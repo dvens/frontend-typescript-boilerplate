@@ -1,7 +1,5 @@
-import { defineElement, setupDefaultRender } from '@atomify/hooks';
-import { h, JSXRenderer } from '@atomify/jsx';
-
-setupDefaultRender(JSXRenderer);
+import { defineElement } from '@atomify/hooks';
+import { h } from '@atomify/jsx';
 
 import styles from './button.module.css';
 

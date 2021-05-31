@@ -1,5 +1,7 @@
 import '@/polyfills';
+import './setup';
 import '@components/shared/Button';
+import '@components/features/Router/client-router';
 
 import { h, hydrate } from '@atomify/jsx';
 import App from '@pages/_app';
@@ -12,6 +14,6 @@ if (!isLocalhost) {
 }
 
 if (module.hot) {
-    hydrate(<App location={window.location.pathname} />, document.getElementById('app')!);
+    // hydrate(<App location={window.location.pathname} />, document.getElementById('app')!);
     module.hot.accept();
 }
