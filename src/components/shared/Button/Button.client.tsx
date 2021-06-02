@@ -1,5 +1,5 @@
 import { defineElement } from '@atomify/hooks';
-import { h } from '@atomify/jsx';
+import { Fragment, h } from '@atomify/jsx';
 
 import styles from './button.module.css';
 
@@ -13,4 +13,4 @@ export const Button = () => {
     );
 };
 
-defineElement('test-button', Button);
+defineElement('test-button', Button, { useShadowDom: true });

@@ -23,7 +23,7 @@ const App: FunctionComponent<{ location: string }> = ({ location }) => {
             <Head>{Head.renderObjectToChildren(config)}</Head>
             hello world!
             <div>Hello world {counter.amount}</div>
-            <Router location={location}>
+            <Router location={location} staticRoutes={false}>
                 <Switch>
                     <Route path={'/posts(/:id)(/)'}>
                         <SomeSamplePage />
