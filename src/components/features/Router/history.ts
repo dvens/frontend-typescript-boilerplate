@@ -20,9 +20,11 @@ export const useHistory = ({ base = '' } = {}) => {
             const search = location.search;
             const hash = `${pathname}${search}`;
 
-            prevHash.current = hash;
-            historyState.path = pathname;
-            historyState.search = search;
+            if (prevHash.current !== hash) {
+                prevHash.current = hash;
+                historyState.path = pathname;
+                historyState.search = search;
+            }
         };
 
         events.forEach((e) => addEventListener(e, checkForUpdates));

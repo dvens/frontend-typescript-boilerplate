@@ -1,5 +1,6 @@
 import { h, renderToString } from '@atomify/jsx';
 import { Head } from '@atomify/kit';
+import { routeConfig } from '@pages/routes';
 import { store } from '@source/store';
 import chalk from 'chalk';
 import { NextFunction, Request, Response } from 'express';
@@ -8,7 +9,7 @@ import App from '@/pages/_app';
 import Document from '@/pages/_document';
 
 export default async function ssr(req: Request, res: Response, next: NextFunction) {
-    const htmlContent = renderToString(<App location={req.url} />);
+    const htmlContent = renderToString(<App location={req.url} routeConfig={routeConfig} />);
     const head = Head.renderAsElements();
 
     const initialState = store.getState();

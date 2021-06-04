@@ -94,7 +94,7 @@ if (!module.hot) {
  */
 if (module.hot) {
     app.hot = module.hot;
-    module.hot.accept('../pages/routes');
+    module.hot.accept('@pages/routes');
 }
 
 export default app;

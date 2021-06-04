@@ -1,4 +1,4 @@
-import { defineElement, useElement, useListen, useWatch } from '@atomify/hooks';
+import { defineElement, onDidUnload, useElement, useListen, useWatch } from '@atomify/hooks';
 
 import { useHistory } from './history';
 
@@ -20,8 +20,6 @@ const RouterLink = () => {
             !isModifiedEvent(event)
         ) {
             event.preventDefault();
-
-            // TODO Implement navigate
             navigate(href);
         }
     });

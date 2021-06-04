@@ -141,7 +141,7 @@ async function start() {
                     ...(defaultConfig.port ? { port: defaultConfig.port } : null),
                     files: [
                         {
-                            match: ['src/pages/_document.tsx'],
+                            match: ['src/pages/_document.tsx', 'src/pages/_app.tsx'],
                             fn: function () {
                                 browserSyncServer.reload();
                             },

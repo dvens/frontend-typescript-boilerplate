@@ -12,7 +12,7 @@ type RouterContext = {
     match: Params;
 } & BuildRouterProps;
 
-type RouteProps = {
+export type RouteProps = {
     match?: Matcher;
     path?: string;
     component?: VnodeType;

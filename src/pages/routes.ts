@@ -1,5 +1,23 @@
-export const routes = [
+import { RouteConfig } from '@components/features/Router/render-routes';
+
+import ErrorPage from './404';
+import HomePage from './home';
+import SomeSamplePage from './samplePage';
+
+export const routeConfig: RouteConfig = [
     {
-        path: 'test666',
+        path: '/posts(/:id)(/)',
+        component: SomeSamplePage,
+    },
+    {
+        path: '/posts(/)',
+        component: SomeSamplePage,
+    },
+    {
+        path: '/',
+        component: HomePage,
+    },
+    {
+        component: ErrorPage,
     },
 ];
