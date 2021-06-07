@@ -16,17 +16,12 @@ const App: FunctionComponent<{ location: string; routeConfig: RouteConfig }> = (
 
     return (
         <Fragment>
-            <Link to={'/posts/3'} staticRoutes={false}>
-                To posts
-            </Link>
-            <Link to={'/'} staticRoutes={false}>
-                To home
-            </Link>
+            <Link to={'/posts/3'}>To posts</Link>
+            <Link to={'/'}>To home</Link>
+            <Link to={'/nothing'}>To nothing</Link>
             <Head>{Head.renderObjectToChildren(config)}</Head>
             <div>Hello world {counter.amount}</div>
-            <Router location={location} staticRoutes={false}>
-                {renderRoutes(routeConfig)}
-            </Router>
+            <Router location={location}>{renderRoutes(routeConfig)}</Router>
         </Fragment>
     );
 };

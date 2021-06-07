@@ -72,9 +72,8 @@ __3. Start the project in dev mode__
 (See [commands](docs/Commands.md) for the full list)
 
 # Next Steps
-- Fix generate polyfills
-- Add router-outlet functionality.
 - Create static router based upon wouter/with data management fetching data based upon route
+- Fix generate polyfills
 - Create export to static routes
 
 After

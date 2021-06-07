@@ -21,7 +21,7 @@ export type RouteProps = {
 
 export type RouteComponent<P = any> = FunctionComponent<P & RouteProps>;
 
-const routerContext: { context: RouterContext } = {
+export const routerContext: { context: RouterContext } = {
     context: {
         location: '',
         currentRoute: '',
@@ -29,7 +29,7 @@ const routerContext: { context: RouterContext } = {
     },
 };
 
-const createRouterContext = ({
+export const createRouterContext = ({
     location = '',
     base = '',
     match = {},
@@ -49,7 +49,7 @@ export const Router: FunctionComponent<BuildRouterProps & { staticRoutes?: boole
 }) => {
     routerContext.context = createRouterContext({ location, base, currentRoute: '', match: {} });
 
-    return staticRoutes ? h('div', {}, children) : h('router-outlet', { location }, children);
+    return staticRoutes ? h(Fragment, {}, children) : h('router-outlet', {}, children);
 };
 
 export const Route: RouteComponent = ({ children, match, component, path, regex }) => {
@@ -113,7 +113,8 @@ export const Switch: FunctionComponent = ({ children }) => {
 
     const defaultRoute = elements.find((element) => isValidElement(element) && !element.props.path);
 
-    if (defaultRoute) return defaultRoute;
+    if (defaultRoute && defaultRoute.props.component)
+        return h(defaultRoute.props.component, {}, null);
 
     return null;
 };
