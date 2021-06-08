@@ -12,5 +12,3 @@ export async function copyPolyfills(config, polyfills) {
         });
     });
 }
-
-export async function createPolyfillsManifest(config, data) {}

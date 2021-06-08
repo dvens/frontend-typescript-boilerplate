@@ -58,6 +58,7 @@ export interface Config {
 export interface PolyfillLoader {
     polyfillsDir: string;
     relativePathToPolyfills: string;
+    manifestDir: string;
     modern: {
         files: Array<{
             path: string;

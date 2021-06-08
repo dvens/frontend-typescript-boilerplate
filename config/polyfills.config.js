@@ -5,6 +5,7 @@ module.exports = function config(defaultConfig) {
 
     const polyfillConfig = {
         polyfillsDir: `${defaultConfig.clientDist}${POLYFILL_OUTPUT_PATH}`,
+        manifestDir: `${defaultConfig.clientDist}${defaultConfig.publicPath}`,
         relativePathToPolyfills: POLYFILL_OUTPUT_PATH,
         polyfills: {
             coreJs: true,

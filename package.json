@@ -15,7 +15,8 @@
         "storybook:build": "cross-env NODE_ENV=production build-storybook -o ./build/styleguide -s storybook-static",
         "test": "karma start karma.conf.js",
         "generate": "hygen generator",
-        "favicons": "cross-env NODE_ENV=production TS_NODE_PROJECT=tsconfig.tooling.json ts-node ./tools/scripts/run favicons"
+        "favicons": "cross-env NODE_ENV=production TS_NODE_PROJECT=tsconfig.tooling.json ts-node ./tools/scripts/run favicons",
+        "polyfills": "cross-env NODE_ENV=production TS_NODE_PROJECT=tsconfig.tooling.json ts-node ./tools/scripts/run polyfills"
     },
     "contributors": [
         {
