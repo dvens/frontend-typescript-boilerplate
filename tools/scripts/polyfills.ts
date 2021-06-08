@@ -27,7 +27,7 @@ async function generatePolyfills() {
         })),
     };
 
-    await fs.writeFileSync(`${data.manifestDir}polyfill-manifest.json`, JSON.stringify(data));
+    await fs.writeFileSync(`${data.manifestDir}polyfills-manifest.json`, JSON.stringify(data));
 }
 
 export default generatePolyfills;
