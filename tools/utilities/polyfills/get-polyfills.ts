@@ -5,7 +5,7 @@ import { minify } from 'terser';
 
 import { PolyfillLoader } from './../../types/config.types';
 
-export function getPolyfills(config?: PolyfillLoader) {
+export async function getPolyfills(config?: PolyfillLoader) {
     if (!config) return null;
 
     const polyfills = [];

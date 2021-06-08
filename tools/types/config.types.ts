@@ -56,7 +56,6 @@ export interface Config {
 }
 
 export interface PolyfillLoader {
-    templateOutputPath: string;
     polyfillsDir: string;
     relativePathToPolyfills: string;
     modern: {

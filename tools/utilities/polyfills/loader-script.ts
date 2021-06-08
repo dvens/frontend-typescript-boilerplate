@@ -69,7 +69,7 @@ const createExecuteLoadEntries = (polyfills) => {
     return 'loadEntries()';
 };
 
-const createEntriesLoader = (config, polfyills) => {
+const createEntriesLoader = (config, polyfills) => {
     const { modern = EMPTY_ENTRIES, legacy = EMPTY_ENTRIES } = config;
     const loadModern = entryLoaderCreator(modern.files);
     const loadLegacy = entryLoaderCreator(legacy.files);
@@ -83,7 +83,7 @@ const createEntriesLoader = (config, polfyills) => {
             ${entriesTest}
         }
 
-        ${createExecuteLoadEntries(polfyills)}
+        ${createExecuteLoadEntries(polyfills)}
     `;
 };
 

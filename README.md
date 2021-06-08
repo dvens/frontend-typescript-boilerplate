@@ -72,8 +72,10 @@ __3. Start the project in dev mode__
 (See [commands](docs/Commands.md) for the full list)
 
 # Next Steps
+- Add polyfills manifest generator
+- Add <Scripts> component that loads the polyfills throught polyfills-manifest.json + adds the script tags.
+- Add config and polyfills into the json.
 - Create static router based upon wouter/with data management fetching data based upon route
-- Fix generate polyfills
 - Create export to static routes
 
 After
@@ -90,3 +92,4 @@ After
 After testing the setup
 - Create CLI to generate the setup + add correct types
 - Create NPM Packages out of the tools folder
+- Remove @tools from tsconfig and replace it with @frontend-tools

@@ -65,6 +65,7 @@ export const createServerBaseConfig = (options: ServerBase) => {
         },
         externals: [
             './asset-manifest.json',
+            './polyfills-manifest.json',
             nodeExternals({
                 allowlist: [reStyle, reImage],
             }),

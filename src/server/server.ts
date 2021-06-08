@@ -3,6 +3,9 @@
  * @description The entry point, responsible to bootstrap all pages.
  * @version 1.0.0
  */
+// Config/Utilities
+import defaultConfig from '@tools/config/config';
+import manifestHelper from '@tools/utilities/manifest-helper';
 import chalk from 'chalk';
 import compression from 'compression';
 import cors from 'cors';
@@ -11,9 +14,6 @@ import express, { Express } from 'express';
 import logger from 'morgan';
 import path from 'path';
 
-// Config/Utilities
-import defaultConfig from '../../tools/config/config';
-import manifestHelper from '../../tools/utilities/manifest-helper';
 // Middleware
 import errorHandler from './middleware/errorHandler';
 import ssr from './middleware/ssr';
