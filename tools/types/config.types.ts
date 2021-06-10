@@ -55,6 +55,24 @@ export interface Config {
     copy: Record<string, unknown> | null;
 }
 
+export type Polyfill = Array<{
+    name: string;
+    path: string;
+    test?: string;
+    nomodule?: boolean;
+    module?: boolean;
+}>;
+export interface Polyfills {
+    coreJs?: boolean;
+    regeneratorRuntime?: boolean;
+    webcomponents?: boolean;
+    fetch?: boolean;
+    intersectionObserver?: boolean;
+    minify?: boolean;
+    hash?: boolean;
+    customPolyfills?: Polyfill;
+}
+
 export interface PolyfillLoader {
     polyfillsDir: string;
     relativePathToPolyfills: string;
@@ -62,7 +80,7 @@ export interface PolyfillLoader {
     modern: {
         files: Array<{
             path: string;
-            module: boolean;
+            module?: boolean;
         }>;
     };
 
@@ -70,23 +88,8 @@ export interface PolyfillLoader {
         test: string;
         files: Array<{
             path: string;
-            module: boolean;
-        }>;
-    };
-    polyfills: {
-        coreJs: boolean;
-        regeneratorRuntime: boolean;
-        webcomponents: boolean;
-        fetch: boolean;
-        intersectionObserver: boolean;
-        minify: boolean;
-        hash: boolean;
-        customPolyfills: Array<{
-            name: string;
-            path: string;
-            test?: string;
-            nomodule?: boolean;
             module?: boolean;
         }>;
     };
+    polyfills: Polyfills;
 }

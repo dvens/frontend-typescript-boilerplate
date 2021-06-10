@@ -3,7 +3,9 @@ import { getPolyfills } from '../utilities/polyfills/get-polyfills';
 import defaultConfig from '../config/config';
 import { copyPolyfills } from '../utilities/polyfills';
 import fs from 'fs';
+import getDefaultMode from '../utilities/get-default-mode';
 
+const IS_PRODUCTION = getDefaultMode() === 'production';
 let config = null;
 
 try {
@@ -14,7 +16,10 @@ try {
 
 async function generatePolyfills() {
     const polyfills = await getPolyfills(config);
-    await copyPolyfills(config, polyfills);
+
+    if (IS_PRODUCTION) {
+        await copyPolyfills(config, polyfills);
+    }
 
     // Generate polyfill-manifest.json
     const data = {

@@ -1,5 +1,6 @@
 import { h, VNode } from '@atomify/jsx';
 import { AppState } from '@store/index';
+import { ScriptProps } from '@tools/utilities/polyfills/loader-script';
 import serialize from 'serialize-javascript';
 
 import { renderFavicons } from '@/components/templates/Favicons';
@@ -9,9 +10,11 @@ interface DocProps {
     head?: VNode[];
     initialState?: AppState;
     css: string[];
+    scripts?: ScriptProps[];
+    polyfillScript?: string | null;
 }
 
-const Document = ({ head, htmlContent, initialState, css }: DocProps) => {
+const Document = ({ head, htmlContent, initialState, css, scripts, polyfillScript }: DocProps) => {
     return (
         <html lang="en">
             <head>
@@ -34,6 +37,8 @@ const Document = ({ head, htmlContent, initialState, css }: DocProps) => {
                         )}`}
                     />
                 )}
+                {scripts && scripts.map((props) => <script {...props} />)}
+                {polyfillScript && <script dangerouslySetInnerHTML={polyfillScript} />}
             </body>
         </html>
     );
