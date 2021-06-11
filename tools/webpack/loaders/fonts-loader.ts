@@ -1,9 +1,9 @@
-import defaultConfig from '../../config/config';
+import projectConfig from '../../config/config';
 
 const fontsLoader = (isClient = true) => {
     const defaultOptions = {
         name: '[name].[ext]',
-        outputPath: defaultConfig.fontsOutputPath,
+        outputPath: projectConfig.fontsOutputPath,
         emitFile: !isClient,
     };
 

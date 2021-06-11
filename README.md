@@ -77,9 +77,9 @@ __3. Start the project in dev mode__
 - Create export to static routes
 
 After
-- Check why ESLint is not working
 - Add proper error pages for ssr.
 - Add babel extend
+- Add: https://github.com/lukeed/webpack-format-messages
 - Fix/add storybook for JSX
 - Fix/add hygen
 - Fix/add testing

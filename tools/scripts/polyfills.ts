@@ -1,6 +1,6 @@
 import { projectDirectory } from '../config/config';
 import { getPolyfills } from '../utilities/polyfills/get-polyfills';
-import defaultConfig from '../config/config';
+import projectConfig from '../config/config';
 import { copyPolyfills } from '../utilities/polyfills';
 import fs from 'fs';
 import getDefaultMode from '../utilities/get-default-mode';
@@ -9,7 +9,7 @@ const IS_PRODUCTION = getDefaultMode() === 'production';
 let config = null;
 
 try {
-    config = require(`${projectDirectory}/config/polyfills.config.js`)(defaultConfig);
+    config = require(`${projectDirectory}/config/polyfills.config.js`)(projectConfig);
 } catch (e) {
     /** noop */
 }

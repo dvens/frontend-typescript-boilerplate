@@ -2,7 +2,7 @@ import favicons from 'favicons';
 import fs from 'fs';
 import prettier from 'prettier';
 import { projectDirectory } from '../config/config';
-import defaultConfig from '../config/config';
+import projectConfig from '../config/config';
 
 let config = {
     source: '',
@@ -12,7 +12,7 @@ let config = {
 };
 
 try {
-    config = require(`${projectDirectory}/config/favicons.config.js`)(defaultConfig);
+    config = require(`${projectDirectory}/config/favicons.config.js`)(projectConfig);
 } catch (e) {
     /** noop */
 }

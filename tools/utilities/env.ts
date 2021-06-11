@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import defaultConfig from '../config/config';
+import projectConfig from '../config/config';
 
 if (!process.env.NODE_ENV) {
     throw new Error(
@@ -10,10 +10,10 @@ if (!process.env.NODE_ENV) {
 
 // https://github.com/bkeepers/dotenv#what-other-env-files-can-i-use
 const dotenvFiles = [
-    `${defaultConfig.dotenv}.${process.env.NODE_ENV}.local`,
-    `${defaultConfig.dotenv}.${process.env.NODE_ENV}`,
-    process.env.NODE_ENV !== 'test' && `${defaultConfig.dotenv}.local`,
-    defaultConfig.dotenv,
+    `${projectConfig.dotenv}.${process.env.NODE_ENV}.local`,
+    `${projectConfig.dotenv}.${process.env.NODE_ENV}`,
+    process.env.NODE_ENV !== 'test' && `${projectConfig.dotenv}.local`,
+    projectConfig.dotenv,
 ].filter(Boolean);
 
 dotenvFiles.forEach((dotenvFile) => {

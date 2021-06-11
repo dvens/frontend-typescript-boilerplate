@@ -1,7 +1,7 @@
 import nodeExternals from 'webpack-node-externals';
 
 // utilities
-import defaultConfig from '../../config/config';
+import projectConfig from '../../config/config';
 
 import { normalizePath } from '../../utilities/normalize-path';
 
@@ -32,7 +32,7 @@ export const createServerBaseConfig = (options: ServerBase) => {
         target: 'node',
         name: 'server',
         entry: {
-            server: defaultConfig.serverEntry,
+            server: projectConfig.serverEntry,
         },
         plugins: [...getPlugins(false)],
         module: {
@@ -56,8 +56,8 @@ export const createServerBaseConfig = (options: ServerBase) => {
         output: {
             filename: normalizePath(outputFilename),
             libraryTarget: 'commonjs2',
-            path: defaultConfig.serverDist,
-            publicPath: defaultConfig.publicPath,
+            path: projectConfig.serverDist,
+            publicPath: projectConfig.publicPath,
         },
         node: {
             __filename: false,

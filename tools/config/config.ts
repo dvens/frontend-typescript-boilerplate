@@ -3,7 +3,7 @@ import resolveApp from '../utilities/resolve-app';
 
 export const projectDirectory = process.env.projectDirectory || process.cwd();
 
-const defaultConfig: Config = {
+const projectConfig: Config = {
     // Root folder
     root: resolveApp(''),
 
@@ -63,24 +63,26 @@ const defaultConfig: Config = {
 };
 
 // Overwrite config
-defaultConfig.clientDist = defaultConfig.dist;
-defaultConfig.swSrc = `${defaultConfig.root}/sw-precache.js`;
+projectConfig.clientDist = projectConfig.dist;
+projectConfig.swSrc = `${projectConfig.root}/sw-precache.js`;
 
-function getDefaultConfig() {
-    let projectConfig = {};
+function getProjectConfig() {
+    let projectExtendedConfig = {};
 
     try {
-        projectConfig = require(`${projectDirectory}/config/project.config.js`)(defaultConfig);
+        projectExtendedConfig = require(`${projectDirectory}/config/project.config.js`)(
+            projectConfig,
+        );
     } catch (e) {
         /** noop */
     }
 
     const mergedConfig = {
-        ...defaultConfig,
         ...projectConfig,
+        ...projectExtendedConfig,
     };
 
     return mergedConfig;
 }
 
-export default getDefaultConfig();
+export default getProjectConfig();

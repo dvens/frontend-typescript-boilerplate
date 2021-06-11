@@ -1,9 +1,9 @@
-module.exports = function config(defaultConfig) {
+module.exports = function config(projectConfig) {
     const config = {
         copy: {
             patterns: [
                 {
-                    from: defaultConfig.favicons,
+                    from: projectConfig.favicons,
                     to: 'favicons',
                 },
             ],

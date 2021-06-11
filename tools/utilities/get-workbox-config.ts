@@ -1,15 +1,15 @@
 import path from 'path';
 
-import defaultConfig from '../config/config';
+import projectConfig from '../config/config';
 
 function getWorkboxConfig() {
-    const workboxConfigPath = path.join(defaultConfig.root, 'workbox-config.js');
+    const workboxConfigPath = path.join(projectConfig.root, 'workbox-config.js');
 
     let defaultWorboxConfig = {
         // where to output the generated sw
-        swDest: path.join(defaultConfig.dist, 'sw.js'),
+        swDest: path.join(projectConfig.dist, 'sw.js'),
         // directory to match patterns against to be precached
-        globDirectory: defaultConfig.dist,
+        globDirectory: projectConfig.dist,
         // cache any html js and css by default
         globPatterns: ['**/*.{js,css,eot,ttf,woff,json}'],
         runtimeCaching: [
@@ -20,11 +20,11 @@ function getWorkboxConfig() {
         ],
     };
 
-    if (defaultConfig.injectManifest) {
+    if (projectConfig.injectManifest) {
         defaultWorboxConfig = Object.assign(
             {},
             {
-                swSrc: defaultConfig.swSrc,
+                swSrc: projectConfig.swSrc,
             },
             defaultWorboxConfig,
         );

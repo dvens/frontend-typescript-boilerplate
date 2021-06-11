@@ -2,7 +2,7 @@
 import path from 'path';
 import getDefaultMode from '../../utilities/get-default-mode';
 import { normalizePath } from '../../utilities/normalize-path';
-import defaultConfig from '../../config/config';
+import projectConfig from '../../config/config';
 
 // Loaders
 import fontsLoader from '../loaders/fonts-loader';
@@ -25,17 +25,17 @@ export interface ClientBase {
 
 export const createClientBaseConfig = (options: ClientBase) => {
     const contenthash = isProduction ? '.[contenthash]' : '';
-    const outputFilename = `${defaultConfig.jsOutputPath}[name]${contenthash}.js`;
-    const outputChunkFilename = `${defaultConfig.jsOutputPath}${
-        options.legacy ? `chunks/${defaultConfig.legacyPrefix}` : 'chunks/'
+    const outputFilename = `${projectConfig.jsOutputPath}[name]${contenthash}.js`;
+    const outputChunkFilename = `${projectConfig.jsOutputPath}${
+        options.legacy ? `chunks/${projectConfig.legacyPrefix}` : 'chunks/'
     }[name]${contenthash}.js`;
 
     const entry = options.legacy
         ? {
-              [`${defaultConfig.legacyPrefix}main`]: defaultConfig.clientEntry,
+              [`${projectConfig.legacyPrefix}main`]: projectConfig.clientEntry,
           }
         : {
-              main: defaultConfig.clientEntry,
+              main: projectConfig.clientEntry,
           };
 
     const config = {
@@ -63,8 +63,8 @@ export const createClientBaseConfig = (options: ClientBase) => {
         output: {
             filename: normalizePath(outputFilename),
             chunkFilename: normalizePath(outputChunkFilename),
-            path: path.join(defaultConfig.clientDist, defaultConfig.publicPath),
-            publicPath: defaultConfig.publicPath,
+            path: path.join(projectConfig.clientDist, projectConfig.publicPath),
+            publicPath: projectConfig.publicPath,
         },
     };
 

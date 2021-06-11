@@ -1,8 +1,8 @@
 import del from 'del';
-import defaultConfig from '../config/config';
+import projectConfig from '../config/config';
 
 async function clean() {
-    del.sync(defaultConfig.dist);
+    del.sync(projectConfig.dist);
 }
 
 export default clean;

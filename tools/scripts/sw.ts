@@ -1,14 +1,14 @@
 import fs from 'fs';
 import { generateSW, injectManifest } from 'workbox-build';
 
-import defaultConfig from '../config/config';
+import projectConfig from '../config/config';
 
 import getWorkboxConfig from '../utilities/get-workbox-config';
 
 async function generateServiceWorker() {
     const workboxConfig = getWorkboxConfig();
 
-    if (!defaultConfig.injectManifest) {
+    if (!projectConfig.injectManifest) {
         const { count, size } = await generateSW(workboxConfig);
         console.log(`Generated, which will precache ${count} files, totaling ${size} bytes.`);
     } else {

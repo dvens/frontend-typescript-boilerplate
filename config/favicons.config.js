@@ -1,8 +1,8 @@
-module.exports = function config(defaultConfig) {
+module.exports = function config(projectConfig) {
     const config = {
         folder: './public/favicons',
         source: `./public/logo.png`,
-        outputFile: `${defaultConfig.components}/templates/Favicons.tsx`,
+        outputFile: `${projectConfig.components}/templates/Favicons.tsx`,
         faviconsPlugin: {
             path: '/static/favicons/', // Path for overriding default icons path. `string`
             appName: 'App', // Your application's name. `string`

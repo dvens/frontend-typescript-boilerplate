@@ -2,7 +2,7 @@ import { PolyfillLoader } from './../types/config.types';
 import fs from 'fs';
 import { lookup } from './manifest-helper';
 import { projectDirectory } from '../config/config';
-import defaultConfig from '../config/config';
+import projectConfig from '../config/config';
 import { createDevLoaderScript, createProdLoaderScript } from './polyfills/loader-script';
 
 let config = {};
@@ -10,7 +10,7 @@ let polyfillManifest: any = null;
 
 try {
     // TODO: Change this into getting polyfill-manifest.json
-    config = require(`${projectDirectory}/config/polyfills.config.js`)(defaultConfig);
+    config = require(`${projectDirectory}/config/polyfills.config.js`)(projectConfig);
 } catch (e) {
     /** noop */
 }
@@ -27,9 +27,9 @@ function getPolyfillManifest(dir: string) {
 
 export const getScripts = async (isDebug: boolean) => {
     const polyfillConfig: PolyfillLoader = {
-        polyfillsDir: `${defaultConfig.clientDist}`,
-        manifestDir: `${defaultConfig.clientDist}${defaultConfig.publicPath}`,
-        relativePathToPolyfills: `${defaultConfig.clientDist}${defaultConfig.publicPath}`,
+        polyfillsDir: `${projectConfig.clientDist}`,
+        manifestDir: `${projectConfig.clientDist}${projectConfig.publicPath}`,
+        relativePathToPolyfills: `${projectConfig.clientDist}${projectConfig.publicPath}`,
         modern: {
             files: [{ path: lookup('main.js') }],
         },

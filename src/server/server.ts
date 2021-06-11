@@ -4,7 +4,7 @@
  * @version 1.0.0
  */
 // Config/Utilities
-import defaultConfig from '@tools/config/config';
+import projectConfig from '@tools/config/config';
 import manifestHelper from '@tools/utilities/manifest-helper';
 import chalk from 'chalk';
 import compression from 'compression';
@@ -28,11 +28,11 @@ dotenv.config();
 /**
  * Initialize app
  */
-const SERVER_PORT = defaultConfig.port;
+const SERVER_PORT = projectConfig.port;
 const IS_DEV = process.env.NODE_ENV === 'development';
 
 const app: Express = express();
-const publicPath = path.join(defaultConfig.clientDist, defaultConfig.publicPath);
+const publicPath = path.join(projectConfig.clientDist, projectConfig.publicPath);
 
 /**
  * Logger
@@ -54,7 +54,7 @@ app.use(compression());
 /**
  * Static files
  */
-app.use(defaultConfig.publicPath, express.static(publicPath));
+app.use(projectConfig.publicPath, express.static(publicPath));
 
 /**
  * Error handler

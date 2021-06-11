@@ -33,9 +33,6 @@ export default async function ssr(req: Request, res: Response, next: NextFunctio
     try {
         res.status(200).send(`<!doctype html>${html}`);
     } catch (error) {
-        res.status(404).send('Not Found');
-        console.error(chalk.red(`==> Rendering error: ${error}`));
+        next(error);
     }
-
-    next();
 }

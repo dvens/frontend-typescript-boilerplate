@@ -4,7 +4,7 @@ import TerserPlugin from 'terser-webpack-plugin';
 
 import getDefaultMode from '../utilities/get-default-mode';
 import alias from '../config/alias';
-import defaultConfig from '../config/config';
+import projectConfig from '../config/config';
 
 const isVerbose = process.argv.includes('--verbose');
 
@@ -12,7 +12,7 @@ const mode = getDefaultMode();
 const isProduction = mode === 'production';
 
 export const sharedConfig = {
-    context: defaultConfig.root,
+    context: projectConfig.root,
     mode: mode,
     devtool: !isProduction ? 'cheap-module-source-map' : undefined,
     resolve: {

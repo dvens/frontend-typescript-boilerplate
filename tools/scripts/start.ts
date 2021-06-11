@@ -8,8 +8,8 @@ import path from 'path';
 // utilities
 import getConfig from '../../webpack.config';
 
-import { compilerPromise, logMessage } from '../utilities/compiler-promise';
-import defaultConfig from '../config/config';
+import { createCompilationPromise, logMessage } from '../utilities/compiler-promise';
+import projectConfig from '../config/config';
 
 const browserSyncServer = browserSync.create();
 
@@ -22,7 +22,7 @@ const watchOptions = {
 
 async function start() {
     const [clientConfig, serverConfig] = webpackConfig;
-    const serverEntry = path.resolve(defaultConfig.serverDist, 'server.js');
+    const serverEntry = path.resolve(projectConfig.serverDist, 'server.js');
 
     clientConfig.entry.main = [`webpack-hot-middleware/client`, ...clientConfig.entry.main];
 
@@ -35,8 +35,12 @@ async function start() {
     );
     const serverCompiler = multiCompiler.compilers.find((compiler) => compiler.name === 'server');
 
-    const clientModernPromise = compilerPromise('client', clientModernCompiler);
-    const serverPromise = compilerPromise('server', serverCompiler);
+    const clientModernPromise = createCompilationPromise(
+        'client',
+        clientModernCompiler,
+        clientConfig.stats,
+    );
+    const serverPromise = createCompilationPromise('server', serverCompiler, serverConfig.stats);
 
     server.use(
         webpackDevMiddleware(clientModernCompiler, {
@@ -48,7 +52,7 @@ async function start() {
 
     server.use(webpackHotMiddleware(clientModernCompiler));
 
-    server.use('/static/', express.static(defaultConfig.publicPath));
+    server.use('/static/', express.static(projectConfig.publicPath));
 
     let appPromise;
     let appPromiseResolve;
@@ -135,10 +139,10 @@ async function start() {
             browserSyncServer.init(
                 {
                     // https://www.browsersync.io/docs/options
-                    server: defaultConfig.serverEntry,
+                    server: projectConfig.serverEntry,
                     middleware: [server],
                     open: false,
-                    ...(defaultConfig.port ? { port: defaultConfig.port } : null),
+                    ...(projectConfig.port ? { port: projectConfig.port } : null),
                     files: [
                         {
                             match: ['src/pages/_document.tsx', 'src/pages/_app.tsx'],
