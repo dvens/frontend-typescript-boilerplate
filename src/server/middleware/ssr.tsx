@@ -4,7 +4,6 @@ import { routeConfig } from '@pages/routes';
 import { store } from '@source/store';
 import getDefaultMode from '@tools/utilities/get-default-mode';
 import { getScripts } from '@tools/utilities/scripts';
-import chalk from 'chalk';
 import { NextFunction, Request, Response } from 'express';
 
 import App from '@/pages/_app';

@@ -1,6 +1,6 @@
 import { RouteConfig } from '@components/features/Router/render-routes';
 
-import ErrorPage from './404';
+import NotFoundPage from './404';
 import HomePage from './home';
 import SomeSamplePage from './samplePage';
 
@@ -18,6 +18,6 @@ export const routeConfig: RouteConfig = [
         component: HomePage,
     },
     {
-        component: ErrorPage,
+        component: NotFoundPage,
     },
 ];
