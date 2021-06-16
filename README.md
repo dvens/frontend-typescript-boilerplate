@@ -72,14 +72,14 @@ __3. Start the project in dev mode__
 (See [commands](docs/Commands.md) for the full list)
 
 # Next Steps
-- Create export to static routes
+- Add to the build folder /public/static/ https://expressjs.com/en/starter/static-files.html
+- Add /public/ folder for images (served as /images/, /fonts/)
+- Add /static/ folder for js and css
+- Test public url + asset prefixes (also sw.js)
 
-After
-- Add babel extend
-- Add: https://github.com/lukeed/webpack-format-messages
 - Fix/add storybook for JSX
-- Fix/add hygen
 - Fix/add testing
+- Fix/add hygen
 - Fix hmr for @atomify/css
 - Update docs
 - TEST the setup :)
@@ -89,3 +89,6 @@ After testing the setup
 - Create CLI to generate the setup + add correct types
 - Create NPM Packages out of the tools folder
 - Remove @tools from tsconfig and replace it with @frontend-tools
+
+Future todos
+- Create export to static routes

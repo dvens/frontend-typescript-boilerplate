@@ -1,7 +1,7 @@
 import { h } from '@atomify/jsx';
 
 import { matcher, Params } from './matcher';
-import { isValidElement, Route, RouteProps, Switch } from './Router';
+import { Route, RouteProps, Switch } from './Router';
 
 export type RouteConfig = (RouteProps & {
     action?: (params?: Params) => Promise<any> | void;

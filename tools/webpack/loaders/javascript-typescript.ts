@@ -1,8 +1,13 @@
+import fs from 'fs';
+import { projectDirectory } from '../../config/config';
 import findSupportedBrowsers from '../../utilities/get-browser-list';
 import getDefaultMode from '../../utilities/get-default-mode';
 
+const extendFilePath = `${projectDirectory}/babel.extend.js`;
+const hasExtendFile = fs.existsSync(extendFilePath);
+
 const configureBabelLoader = ({ includedPackages = [], legacy = false }) => {
-    const options = {
+    let options = {
         plugins: [
             '@babel/syntax-dynamic-import',
             '@babel/plugin-proposal-class-properties',
@@ -22,7 +27,10 @@ const configureBabelLoader = ({ includedPackages = [], legacy = false }) => {
         cacheDirectory: getDefaultMode() === 'development',
     };
 
-    // TODO: Add babel.extend.js
+    if (hasExtendFile) {
+        options = require(extendFilePath)(options);
+    }
+
     return [
         {
             test: /\.(ts|tsx)?$/,

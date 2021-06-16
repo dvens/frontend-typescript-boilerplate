@@ -8,15 +8,15 @@ const isLocalhost = Boolean(
 
 function registerServiceWorker() {
     if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
+        window.addEventListener('load', function () {
             navigator.serviceWorker
                 .register('sw.js', {
                     scope: '/',
                 })
-                .then(function(reg) {
+                .then(function (reg) {
                     console.log(`Serviceworker - Registration succeeded. Scope is ${reg.scope}`);
                 })
-                .catch(function(err) {
+                .catch(function (err) {
                     console.error(`Serviceworker - Registration failed with error ${err}`);
                 });
         });
@@ -25,7 +25,7 @@ function registerServiceWorker() {
 
 function unRegisterServiceWorker() {
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.ready.then(registration => {
+        navigator.serviceWorker.ready.then((registration) => {
             registration.unregister();
         });
     }

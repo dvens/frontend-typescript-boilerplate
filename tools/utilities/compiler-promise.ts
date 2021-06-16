@@ -22,8 +22,6 @@ export function createCompilationPromise(name: string, compiler: any, config: an
         });
 
         compiler.hooks.done.tap(name, (stats: any) => {
-            // TODO: Add https://github.com/lukeed/webpack-format-messages
-            // logMessage(stats.toString(config.stats));
             const timeEnd = new Date();
             const time = timeEnd.getTime() - timeStart.getTime();
             if (stats.hasErrors()) {

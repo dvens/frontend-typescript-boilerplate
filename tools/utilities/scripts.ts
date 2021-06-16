@@ -1,19 +1,10 @@
 import { PolyfillLoader } from './../types/config.types';
 import fs from 'fs';
 import { lookup } from './manifest-helper';
-import { projectDirectory } from '../config/config';
 import projectConfig from '../config/config';
 import { createDevLoaderScript, createProdLoaderScript } from './polyfills/loader-script';
 
-let config = {};
 let polyfillManifest: any = null;
-
-try {
-    // TODO: Change this into getting polyfill-manifest.json
-    config = require(`${projectDirectory}/config/polyfills.config.js`)(projectConfig);
-} catch (e) {
-    /** noop */
-}
 
 function getPolyfillManifest(dir: string) {
     if (polyfillManifest) return polyfillManifest;
@@ -47,7 +38,6 @@ export const getScripts = async (isDebug: boolean) => {
             minify: true,
             hash: true,
         },
-        ...config,
     };
 
     if (isDebug) {
@@ -58,7 +48,7 @@ export const getScripts = async (isDebug: boolean) => {
             `${polyfillConfig.manifestDir}polyfills-manifest.json`,
         );
         const { polyfills, code } = await createProdLoaderScript(
-            { ...manifest, ...polyfillConfig },
+            { ...polyfillConfig, ...manifest },
             manifest.generatedPolyfills,
         );
 
