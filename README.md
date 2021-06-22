@@ -72,18 +72,18 @@ __3. Start the project in dev mode__
 (See [commands](docs/Commands.md) for the full list)
 
 # Next Steps
+- Fix typings for the tools
+- Create CLI to generate the setup + add correct types
+- Create NPM Packages out of the tools folder
+- Remove @tools from tsconfig and replace it with @frontend-tools
+
+After seperate tooling for the setup
 - Fix/add storybook for JSX
 - Fix/add testing
 - Fix/add hygen
 - Fix hmr for @atomify/css
 - Update docs
 - TEST the setup :)
-
-After testing the setup
-- Cleanup the code.
-- Create CLI to generate the setup + add correct types
-- Create NPM Packages out of the tools folder
-- Remove @tools from tsconfig and replace it with @frontend-tools
 
 Future todos
 - Create export to static routes

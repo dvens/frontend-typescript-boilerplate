@@ -1,7 +1,7 @@
 import { projectDirectory } from './config';
 import resolveApp from '../utilities/resolve-app';
 
-const striptSlashStar = (string) => string.replace('/*', '');
+const striptSlashStar = (string: string) => string.replace('/*', '');
 
 let aliases = {};
 
@@ -13,10 +13,13 @@ try {
 
 function setAliasConfig() {
     const aliasKeys = Object.keys(aliases);
-    const webpackAliases = aliasKeys.reduce((obj, key) => {
-        const aliasPath = striptSlashStar(aliases[key][0]).replace('./', '');
+    const webpackAliases = aliasKeys.reduce((obj: any, key: string) => {
+        const aliasPath = striptSlashStar(aliases[key as keyof typeof aliases][0]).replace(
+            './',
+            '',
+        );
 
-        obj[striptSlashStar(key)] = resolveApp(aliasPath);
+        obj[striptSlashStar(key) as keyof typeof obj] = resolveApp(aliasPath);
 
         return obj;
     }, {});
