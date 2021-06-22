@@ -13,4 +13,4 @@ export const Button = () => {
     );
 };
 
-defineElement('test-button', Button, { useShadowDom: true });
+defineElement('test-button', Button);

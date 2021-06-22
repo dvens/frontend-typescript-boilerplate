@@ -14,6 +14,7 @@ import express, { Express } from 'express';
 import logger from 'morgan';
 import path from 'path';
 
+import { PUBLIC_PATH } from './constants';
 // Middleware
 import errorHandler from './middleware/errorHandler';
 import ssr from './middleware/ssr';
@@ -32,7 +33,6 @@ const SERVER_PORT = projectConfig.port;
 const IS_DEV = process.env.NODE_ENV === 'development';
 
 const app: Express = express();
-const publicPath = path.join(projectConfig.clientDist, projectConfig.publicPath);
 
 /**
  * Logger
@@ -54,7 +54,7 @@ app.use(compression());
 /**
  * Static files
  */
-app.use(projectConfig.publicPath, express.static(publicPath));
+app.use('/static', express.static(PUBLIC_PATH));
 
 /**
  * Error handler
@@ -67,10 +67,16 @@ app.use(errorHandler);
 
 app.use(
     manifestHelper({
-        manifestPath: `${publicPath}/asset-manifest.json`,
+        manifestPath: `${PUBLIC_PATH}/asset-manifest.json`,
         cache: !IS_DEV,
     }),
 );
+
+/**
+ * Service worker
+ */
+app.get('/sw.js', (_, res) => res.sendFile(path.join(__dirname, '../sw.js')));
+app.get('/workbox-*.js', (req, res) => res.sendFile(path.join(__dirname, `..${req.path}`)));
 
 /**
  * Serverside rendering

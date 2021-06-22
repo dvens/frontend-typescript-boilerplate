@@ -21,6 +21,7 @@ const Document = ({ head, htmlContent, initialState, css, scripts, polyfillScrip
                 <meta charset="UTF-8" />
                 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
                 <meta name="disabled-adaptations" content="watch" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
                 {css.filter(Boolean).map((href) => (
                     <link rel="stylesheet" href={href} />
                 ))}

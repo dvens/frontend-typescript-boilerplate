@@ -52,7 +52,7 @@ async function start() {
 
     server.use(webpackHotMiddleware(clientModernCompiler));
 
-    server.use('/static/', express.static(projectConfig.publicPath));
+    server.use(projectConfig.publicPath, express.static(projectConfig.publicPath));
 
     let appPromise;
     let appPromiseResolve;

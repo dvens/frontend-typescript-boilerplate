@@ -11,7 +11,8 @@ function getWorkboxConfig() {
         // directory to match patterns against to be precached
         globDirectory: projectConfig.dist,
         // cache any html js and css by default
-        globPatterns: ['**/*.{js,css,eot,ttf,woff,json}'],
+        globPatterns: [`static/**/*.{js,css,eot,ttf,woff,json}`],
+        sourcemap: false,
         runtimeCaching: [
             {
                 urlPattern: /\/static\/images\//,

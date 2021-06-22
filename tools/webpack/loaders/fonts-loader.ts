@@ -1,9 +1,15 @@
 import projectConfig from '../../config/config';
+import { removeDoubleSlash } from '../../utilities/normalize-path';
 
 const fontsLoader = (isClient = true) => {
     const defaultOptions = {
         name: '[name].[ext]',
-        outputPath: projectConfig.fontsOutputPath,
+        publicPath: removeDoubleSlash(
+            `${projectConfig.publicPath}${projectConfig.fontsOutputPath}`,
+        ),
+        outputPath: removeDoubleSlash(
+            `${projectConfig.publicPath}${projectConfig.fontsOutputPath}`,
+        ),
         emitFile: !isClient,
     };
 

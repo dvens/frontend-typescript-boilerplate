@@ -4,20 +4,17 @@ import getDefaultMode from '../../utilities/get-default-mode';
 const isDevelopment = getDefaultMode() === 'development';
 
 import projectConfig from '../../config/config';
+import { removeDoubleSlash } from '../../utilities/normalize-path';
 
 const imageLoader = (isClient = true) => {
     const defaultOptions = {
-        name() {
-            if (isDevelopment) {
-                return '[path][name].[ext]';
-            }
-
-            return '[name].[ext]';
-        },
-        outputPath(_, resourcePath) {
-            const relativePath = path.relative(projectConfig.public, resourcePath);
-            return `/${relativePath}`;
-        },
+        name: '[name].[ext]',
+        publicPath: removeDoubleSlash(
+            `${projectConfig.publicPath}${projectConfig.imagesOutputPath}`,
+        ),
+        outputPath: removeDoubleSlash(
+            `${projectConfig.publicPath}${projectConfig.imagesOutputPath}`,
+        ),
         emitFile: !isClient,
     };
 

@@ -9,13 +9,18 @@ import { NextFunction, Request, Response } from 'express';
 import App from '@/pages/_app';
 import Document from '@/pages/_document';
 
+import { PUBLIC_PATH } from '../constants';
+
 const IS_DEVELOPMENT = getDefaultMode() === 'development';
 
 export default async function ssr(req: Request, res: Response, next: NextFunction) {
     const htmlContent = renderToString(<App location={req.url} routeConfig={routeConfig} />);
     const head = Head.renderAsElements();
 
-    const { scripts, code } = await getScripts(IS_DEVELOPMENT);
+    const { scripts, code } = await getScripts({
+        isDebug: IS_DEVELOPMENT,
+        manifestPath: `${PUBLIC_PATH}/polyfills-manifest.json`,
+    });
 
     const initialState = store.getState();
     const html = renderToString(

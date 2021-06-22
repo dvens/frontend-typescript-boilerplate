@@ -72,11 +72,6 @@ __3. Start the project in dev mode__
 (See [commands](docs/Commands.md) for the full list)
 
 # Next Steps
-- Add to the build folder /public/static/ https://expressjs.com/en/starter/static-files.html
-- Add /public/ folder for images (served as /images/, /fonts/)
-- Add /static/ folder for js and css
-- Test public url + asset prefixes (also sw.js)
-
 - Fix/add storybook for JSX
 - Fix/add testing
 - Fix/add hygen

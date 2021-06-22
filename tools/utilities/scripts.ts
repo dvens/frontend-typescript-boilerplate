@@ -1,7 +1,6 @@
 import { PolyfillLoader } from './../types/config.types';
 import fs from 'fs';
 import { lookup } from './manifest-helper';
-import projectConfig from '../config/config';
 import { createDevLoaderScript, createProdLoaderScript } from './polyfills/loader-script';
 
 let polyfillManifest: any = null;
@@ -16,11 +15,17 @@ function getPolyfillManifest(dir: string) {
     }
 }
 
-export const getScripts = async (isDebug: boolean) => {
+export const getScripts = async ({
+    isDebug,
+    manifestPath,
+}: {
+    isDebug: boolean;
+    manifestPath: string;
+}) => {
     const polyfillConfig: PolyfillLoader = {
-        polyfillsDir: `${projectConfig.clientDist}`,
-        manifestDir: `${projectConfig.clientDist}${projectConfig.publicPath}`,
-        relativePathToPolyfills: `${projectConfig.clientDist}${projectConfig.publicPath}`,
+        polyfillsDir: '',
+        manifestDir: '',
+        relativePathToPolyfills: '',
         modern: {
             files: [{ path: lookup('main.js') }],
         },
@@ -44,9 +49,7 @@ export const getScripts = async (isDebug: boolean) => {
         const { scripts } = createDevLoaderScript(polyfillConfig);
         return { scripts, code: null };
     } else {
-        const manifest = getPolyfillManifest(
-            `${polyfillConfig.manifestDir}polyfills-manifest.json`,
-        );
+        const manifest = getPolyfillManifest(manifestPath);
         const { polyfills, code } = await createProdLoaderScript(
             { ...polyfillConfig, ...manifest },
             manifest.generatedPolyfills,
