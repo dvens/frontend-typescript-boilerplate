@@ -35,12 +35,8 @@ async function start() {
     );
     const serverCompiler = multiCompiler.compilers.find((compiler) => compiler.name === 'server');
 
-    const clientModernPromise = createCompilationPromise(
-        'client',
-        clientModernCompiler,
-        clientConfig.stats,
-    );
-    const serverPromise = createCompilationPromise('server', serverCompiler, serverConfig.stats);
+    const clientModernPromise = createCompilationPromise('client', clientModernCompiler);
+    const serverPromise = createCompilationPromise('server', serverCompiler);
 
     server.use(
         webpackDevMiddleware(clientModernCompiler, {

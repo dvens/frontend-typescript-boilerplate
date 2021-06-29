@@ -13,7 +13,7 @@ export const logMessage = (message: any, level: string = 'info') => {
     console.log(`[${new Date().toISOString()}]`, chalk[color](message));
 };
 
-export function createCompilationPromise(name: string, compiler: any, config: any) {
+export function createCompilationPromise(name: string, compiler: any) {
     return new Promise((resolve, reject) => {
         let timeStart = new Date();
         compiler.hooks.compile.tap(name, () => {

@@ -6,9 +6,9 @@ import generateServiceWorker from './sw';
 
 async function build() {
     await run(clean);
-    await bundle();
-    await generatePolyfills();
-    await generateServiceWorker();
+    await run(bundle);
+    await run(generatePolyfills);
+    await run(generateServiceWorker);
 }
 
 export default build;
