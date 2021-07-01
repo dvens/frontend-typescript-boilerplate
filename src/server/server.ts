@@ -4,8 +4,8 @@
  * @version 1.0.0
  */
 // Config/Utilities
-import projectConfig from '@tools/config/config';
-import manifestHelper from '@tools/utilities/manifest-helper';
+import { manifestHelper, devConfig } from '@dev-scripts/shared';
+
 import chalk from 'chalk';
 import compression from 'compression';
 import cors from 'cors';
@@ -29,7 +29,7 @@ dotenv.config();
 /**
  * Initialize app
  */
-const SERVER_PORT = projectConfig.port;
+const SERVER_PORT = devConfig.port;
 const IS_DEV = process.env.NODE_ENV === 'development';
 
 const app: Express = express();

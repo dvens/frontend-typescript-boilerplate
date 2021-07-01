@@ -1,4 +1,4 @@
-const getDefaultMode = require('./tools/utilities/get-default-mode').default;
+const { getDefaultMode } = require('@dev-scripts/shared');
 
 const BROWSERS = ['> 1%', 'last 2 versions', 'Firefox ESR', 'ie >= 11', 'iOS 8'];
 

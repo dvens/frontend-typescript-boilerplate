@@ -1,7 +1,9 @@
-import createClientDevConfig from './tools/webpack/client/client.dev';
-import createClientProdConfig from './tools/webpack/client/client.prod';
-import createServerDevConfig from './tools/webpack/server/server.dev';
-import createServerProdConfig from './tools/webpack/server/server.prod';
+const {
+    createClientProdConfig,
+    createClientDevConfig,
+    createServerProdConfig,
+    createServerDevConfig,
+} = require('@dev-scripts/webpack');
 
 const clientConfig = {
     includedPackages: [/node_modules\/(?!@atomify)/],
@@ -28,4 +30,4 @@ function getConfig(env = 'development') {
     return [createClientDevConfig(clientConfig), createServerDevConfig(serverConfig)];
 }
 
-export default getConfig;
+module.exports = getConfig;

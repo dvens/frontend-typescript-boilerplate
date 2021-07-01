@@ -72,9 +72,9 @@ __3. Start the project in dev mode__
 (See [commands](docs/Commands.md) for the full list)
 
 # Next Steps
-- Fix typings for the tools
-- Create CLI to generate the setup + add correct types
-- Create NPM Packages out of the tools folder
+- Fix devscript production process.env
+- Fix webpack-dev-middleware
+- Check atomify/jsx render by flattening children.
 - Remove @tools from tsconfig and replace it with @frontend-tools
 
 After seperate tooling for the setup
