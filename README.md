@@ -72,16 +72,10 @@ __3. Start the project in dev mode__
 (See [commands](docs/Commands.md) for the full list)
 
 # Next Steps
-- Fix devscript production process.env
-- Fix webpack-dev-middleware
-- Check atomify/jsx render by flattening children.
-- Remove @tools from tsconfig and replace it with @frontend-tools
-
-After seperate tooling for the setup
 - Fix/add storybook for JSX
 - Fix/add testing
 - Fix/add hygen
-- Fix hmr for @atomify/css
+- Fix hmr for @atomify/css (shadow dom)
 - Update docs
 - TEST the setup :)
 

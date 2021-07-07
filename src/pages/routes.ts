@@ -1,8 +1,8 @@
-import { RouteConfig } from '@components/features/Router/render-routes';
-
 import NotFoundPage from './404';
 import HomePage from './home';
 import SomeSamplePage from './samplePage';
+
+import { RouteConfig } from '@components/features/Router/render-routes';
 
 export const routeConfig: RouteConfig = [
     {

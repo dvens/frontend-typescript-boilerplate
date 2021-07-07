@@ -2,6 +2,7 @@ import '@/styles/globalStyles.scss';
 
 import { Fragment, FunctionComponent, h } from '@atomify/jsx';
 import { Head } from '@atomify/kit';
+
 import { renderRoutes } from '@components/features/Router';
 import { RouteConfig } from '@components/features/Router/render-routes';
 import { Link, Router } from '@components/features/Router/Router';

@@ -1,9 +1,10 @@
 import { h, renderToString } from '@atomify/jsx';
 import { Head } from '@atomify/kit';
-import ErrorPage from '@pages/_error';
 import { Response } from 'express';
 
 import Document from '@/pages/_document';
+
+import ErrorPage from '@pages/_error';
 
 const errorHandler = (err: Error, _req: any, res: Response, _next: any) => {
     const htmlContent = renderToString(<ErrorPage error={err.message} />);

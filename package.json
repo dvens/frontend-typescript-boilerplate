@@ -6,9 +6,9 @@
     "author": "Dylan Vens",
     "scripts": {
         "lint-fix": "eslint src/ --ext .ts,.tsx --fix",
-        "start": "dev-scripts start",
-        "build": "cross-env NODE_ENV=production TS_NODE_PROJECT=tsconfig.tooling.json ts-node ./tools/scripts/run build",
-        "serve:build": "cross-env NODE_ENV=production ts-node --transpile-only --files ./build/server/server.js",
+        "dev": "dev-scripts dev",
+        "build": "dev-scripts build",
+        "serve": "dev-scripts serve",
         "storybook": "start-storybook -p 9001",
         "storybook:build": "cross-env NODE_ENV=production build-storybook -o ./build/styleguide -s storybook-static",
         "test": "karma start karma.conf.js",
@@ -30,8 +30,9 @@
         "url": "https://bitbucket.org/tamtam-nl/tamtam-frontend-setup"
     },
     "devDependencies": {
-        "@dev-scripts/cli": "^0.2.0",
-        "@dev-scripts/webpack": "^0.2.0",
+        "@dev-scripts/cli": "^0.2.3",
+        "@dev-scripts/eslint": "^0.1.1",
+        "@dev-scripts/webpack": "^0.2.2",
         "@types/compression": "^1.7.0",
         "@types/cors": "^2.8.10",
         "@types/morgan": "^1.9.2",
@@ -46,6 +47,7 @@
         "compression": "^1.7.4",
         "cors": "^2.8.5",
         "dotenv": "^8.2.0",
-        "morgan": "^1.9.1"
+        "morgan": "^1.9.1",
+        "nodemon": "^2.0.9"
     }
 }

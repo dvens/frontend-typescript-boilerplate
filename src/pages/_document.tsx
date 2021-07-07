@@ -1,8 +1,9 @@
 import { h, VNode } from '@atomify/jsx';
-import { AppState } from '@store/index';
 import serialize from 'serialize-javascript';
 
 import { renderFavicons } from '@/components/templates/Favicons';
+
+import { AppState } from '@store/index';
 
 interface DocProps {
     htmlContent?: string;

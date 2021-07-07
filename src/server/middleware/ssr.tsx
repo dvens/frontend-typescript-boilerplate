@@ -1,7 +1,5 @@
 import { h, renderToString } from '@atomify/jsx';
 import { Head } from '@atomify/kit';
-import { routeConfig } from '@pages/routes';
-import { store } from '@source/store';
 import { getScripts, getDefaultMode } from '@dev-scripts/shared';
 import { NextFunction, Request, Response } from 'express';
 
@@ -9,6 +7,9 @@ import App from '@/pages/_app';
 import Document from '@/pages/_document';
 
 import { PUBLIC_PATH } from '../constants';
+
+import { routeConfig } from '@pages/routes';
+import { store } from '@source/store';
 
 const IS_DEVELOPMENT = getDefaultMode() === 'development';
 

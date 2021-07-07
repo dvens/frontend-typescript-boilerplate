@@ -17,7 +17,7 @@ const NAMED_PARAM = /(\(\?)?:\w+/g;
 const SPLAT_PARAM = /\*\w+/g;
 const ESCAPE_STRING_REGEX = /[\-{}\[\]+?.,\\\^$|#\s]/g;
 
-export const matcher = (path: string = '', options: MatcherOptions): Matcher => {
+export const matcher = (path = '', options: MatcherOptions): Matcher => {
     const { url, regex = null } = options;
 
     const result: Params = {};

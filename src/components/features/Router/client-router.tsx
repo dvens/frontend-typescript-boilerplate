@@ -9,11 +9,13 @@ import {
     useWatch,
 } from '@atomify/hooks';
 import { h, hydrate } from '@atomify/jsx';
-import { RouteConfig } from '@components/features/Router/render-routes';
+
 
 import { useHistory } from './history';
 import { Matcher, matcher } from './matcher';
 import { createRouterContext, routerContext } from './Router';
+
+import { RouteConfig } from '@components/features/Router/render-routes';
 
 function isModifiedEvent(event: MouseEvent) {
     return !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);

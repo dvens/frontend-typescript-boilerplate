@@ -4,15 +4,15 @@
  * @version 1.0.0
  */
 // Config/Utilities
-import { manifestHelper, devConfig } from '@dev-scripts/shared';
+import path from 'path';
 
+import { manifestHelper, devConfig } from '@dev-scripts/shared';
 import chalk from 'chalk';
 import compression from 'compression';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express, { Express } from 'express';
 import logger from 'morgan';
-import path from 'path';
 
 import { PUBLIC_PATH } from './constants';
 // Middleware

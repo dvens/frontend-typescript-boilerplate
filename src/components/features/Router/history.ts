@@ -1,4 +1,4 @@
-import { onDidLoad, onDidUnload, useReactive, useRef } from '@atomify/hooks';
+import { onDidLoad, useReactive, useRef } from '@atomify/hooks';
 
 // Implementation of https://github.com/molefrog/wouter/blob/master/use-location.js
 const eventPopstate = 'popstate';
