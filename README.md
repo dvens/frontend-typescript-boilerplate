@@ -72,7 +72,6 @@ __3. Start the project in dev mode__
 (See [commands](docs/Commands.md) for the full list)
 
 # Next Steps
-- Add storybook for JSX (webpack 5 https://storybook.js.org/blog/storybook-for-webpack-5/)
 - add testing
 - add hygen
 - Fix hmr for @atomify/css (shadow dom)
