@@ -10,7 +10,7 @@
     "build": "dev-scripts build",
     "serve": "dev-scripts serve",
     "storybook": "start-storybook -p 6006",
-    "storybook:build": "cross-env NODE_ENV=production build-storybook -o ./build/styleguide -s storybook-static",
+    "storybook:build": "cross-env NODE_ENV=production build-storybook -o ./build/styleguide",
     "test": "karma start karma.conf.js",
     "generate": "hygen generator",
     "build-storybook": "build-storybook"
