@@ -1,4 +1,3 @@
-import { defineElement } from '@atomify/hooks';
 import { h } from '@atomify/jsx';
 
 import styles from './button.module.css';
@@ -12,5 +11,3 @@ export const Button = () => {
         </button>
     );
 };
-
-defineElement('test-button', Button);

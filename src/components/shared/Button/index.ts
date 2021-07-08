@@ -1,1 +1,1 @@
-export { Button } from './Button.client';
+export { Button } from './Button';
