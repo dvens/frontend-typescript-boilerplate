@@ -20,3 +20,11 @@ const Template = () => {
 };
 
 export const Primary = Template.bind({});
+
+Primary.parameters = {
+    docs: {
+        source: {
+            code: `${renderToString(<Button />)}`,
+        },
+    },
+};

@@ -1,4 +1,4 @@
-import { ComponentChildren, Fragment, FunctionComponent, h, VNode, VnodeType } from '@atomify/jsx';
+import { Fragment, FunctionComponent, h, VNode, VnodeType } from '@atomify/jsx';
 
 import { Matcher, matcher, MatcherRegex, Params } from './matcher';
 

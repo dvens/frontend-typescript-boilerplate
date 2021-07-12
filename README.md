@@ -73,7 +73,6 @@ __3. Start the project in dev mode__
 
 # Next Steps
 - add testing
-- add hygen
 - Fix hmr for @atomify/css (shadow dom)
 - Update docs
 - TEST the setup :)

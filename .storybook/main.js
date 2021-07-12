@@ -4,7 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
-    addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
+    addons: ['@storybook/addon-links', '@storybook/addon-essentials', '@storybook/addon-a11y'],
     core: {
         builder: 'webpack5',
     },
@@ -14,6 +14,7 @@ module.exports = {
             ...alias,
         };
 
+        // Reset rules
         config.module.rules = [];
 
         config.module.rules.push(
