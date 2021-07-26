@@ -1,17 +1,5 @@
 # Docs
-- [Commands](docs/Commands.md)
-- [Folder structure](docs/FolderStructure.md)
-- [HTML Templating - Nunjucks](docs/Templating.md)
-- [Webpack](docs/Webpack.md)
-- [Routes and static rendering](docs/Routes.md)
-- [Favicons and manifest.json](docs/Favicons.md)
-- [Polyfills](docs/Polyfills.md)
-- [Web Components](docs/WebComponents.md)
-- [Testing](docs/Testing.md)
-- [Storybook](docs/Storybook.md)
-- [Serviceworker](docs/Serviceworker.md)
-- [Generating](docs/Generating.md)
-- [Utilities](docs/Utilities.md)
+:warning: This is still work in progress! :warning:
 
 # Table of Contents
 1.  [Setup](#setup)
@@ -30,13 +18,13 @@ Filled with automated tasks and configuration options through [Webpack](https://
 # Features #
 __1.__ Express Server for development (and for production if you want SSR).
 
-__2.__ Generating Static Routes (Nunjucks to HTML) and dynamic routes based upon slugs
+__2.__ Routes based upon a simple static router
 
 __3.__ Hot Module Replacement for Typescript and SASS.
 
 __4.__ Dynamic polyfill loader based upon the settings (`config/polyfills.js`).
 
-__5.__ Auto generating and injection of favicons and manifest.json (manageable through `config/favicons.js`).
+__5.__ Auto generating and injection of favicons and manifest.json (manageable through `config/favicons.js`) [Favicons](https://github.com/itgalaxy/favicons).
 
 __6.__ Modern and modern/legacy webpack bundle.
 
@@ -44,15 +32,9 @@ __7.__ Auto generated Serviceworker through Workbox.
 
 __8.__ Styleguide through Storybook.
 
-__9.__ Testing with Karma and Jasmine.
+__9.__ Typescript is being used within this setup. [Typescript Cheatsheet](https://github.com/typescript-cheatsheets/react-typescript-cheatsheet).
 
-__10.__ Typescript is being used within this setup. [Typescript Cheatsheet](https://github.com/typescript-cheatsheets/react-typescript-cheatsheet).
-
-__11.__ Linting: prettier, eslint and editorconfig.
-
-__12.__ Auto generated favicons by using [Favicons](https://github.com/itgalaxy/favicons).
-
-__13.__ Code generator by using [Hygen](http://www.hygen.io/)
+__10.__ Linting: prettier, eslint and editorconfig.
 
 ------
 
@@ -69,13 +51,11 @@ __3. Start the project in dev mode__
 
 `yarn start`
 
-(See [commands](docs/Commands.md) for the full list)
-
 # Next Steps
-- add testing
+- Add testing
+- Add documentation
 - Fix hmr for @atomify/css (shadow dom)
-- Update docs
-- TEST the setup :)
+
 
 Future todos
 - Create export to static routes
