@@ -1277,7 +1277,7 @@
     prettier "^2.1.2"
     typescript "^4.2.3"
 
-"@dev-scripts/shared@^0.1.10", "@dev-scripts/shared@^0.1.11":
+"@dev-scripts/shared@^0.1.10":
   version "0.1.11"
   resolved "https://registry.yarnpkg.com/@dev-scripts/shared/-/shared-0.1.11.tgz#01213c9b2d15a898b148d775ea912c78f2151051"
   integrity sha512-hexz5hyGvWNIS/AEH+L2lSt+5ltAMAuEVltH8aqFWPiMfaiz3rEs2/vc9NM52JqyBzO5OWROMHdELkWdlwg1Xg==
@@ -1294,10 +1294,27 @@
     terser "^5.6.1"
     whatwg-fetch "^3.0.0"
 
-"@dev-scripts/webpack@^0.3.10":
-  version "0.3.10"
-  resolved "https://registry.yarnpkg.com/@dev-scripts/webpack/-/webpack-0.3.10.tgz#c99917da171d9d2a108a9e30ecaade4e61e6a4fb"
-  integrity sha512-k5P9ss577k/mjlxiMUuEaO9Ggz8vPppVS7dOR4fOYXzbAm89cN6fXp/T3uwbIDPG0PTMOgOf5/QI5ssZdBhf8A==
+"@dev-scripts/shared@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@dev-scripts/shared/-/shared-0.2.0.tgz#4a29c35bdd42ed10f620ddaabf707c7c48423274"
+  integrity sha512-1Um+28uWlXVZgdlvf9zl/dQhaO3XGOzbxXf9HgR0cnEjdUDyiN6RENW0pQFObgoGL5RTSnO+wsECkZwU3mXdTw==
+  dependencies:
+    "@types/mkdirp" "^1.0.1"
+    "@webcomponents/webcomponentsjs" "^2.4.1"
+    browserslist "^4.16.6"
+    chalk "^4.1.0"
+    core-js-bundle "^3.6.4"
+    dotenv "^8.2.0"
+    intersection-observer "^0.7.0"
+    mkdirp "^1.0.4"
+    regenerator-runtime "^0.13.3"
+    terser "^5.6.1"
+    whatwg-fetch "^3.0.0"
+
+"@dev-scripts/webpack@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@dev-scripts/webpack/-/webpack-0.4.0.tgz#3cdc56a5eb9667f59519d6a7aec9850c714a9bf8"
+  integrity sha512-g0+pxPmNHK7wuxd/1dz7sHqLyoqMm1yeIBuWItglwbM0nMuGeo+1RLwWxMgQfrISXqtF5eqqFPaB1dyX3pyP2g==
   dependencies:
     "@babel/core" "7.13.14"
     "@babel/plugin-proposal-class-properties" "^7.2.3"
@@ -1306,7 +1323,7 @@
     "@babel/plugin-syntax-import-meta" "^7.10.4"
     "@babel/polyfill" "7.12.1"
     "@babel/preset-env" "7.13.12"
-    "@dev-scripts/shared" "^0.1.11"
+    "@dev-scripts/shared" "^0.2.0"
     "@types/copy-webpack-plugin" "^8.0.0"
     "@types/mini-css-extract-plugin" "^2.0.1"
     "@types/terser-webpack-plugin" "^5.0.3"

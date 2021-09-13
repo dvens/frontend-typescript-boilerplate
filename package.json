@@ -9,9 +9,8 @@
     "dev": "dev-scripts dev",
     "build": "dev-scripts build",
     "serve": "dev-scripts serve",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -p 9000",
     "storybook:build": "cross-env NODE_ENV=production build-storybook -o ./build/styleguide",
-    "generate": "hygen generator",
     "build-storybook": "build-storybook"
   },
   "contributors": [
@@ -33,7 +32,7 @@
     "@babel/core": "^7.14.6",
     "@dev-scripts/cli": "^0.2.7",
     "@dev-scripts/eslint": "^0.2.0",
-    "@dev-scripts/webpack": "^0.3.10",
+    "@dev-scripts/webpack": "^0.4.0",
     "@storybook/addon-a11y": "^6.3.4",
     "@storybook/addon-actions": "^6.3.3",
     "@storybook/addon-essentials": "^6.3.3",
