@@ -17,20 +17,20 @@
   dependencies:
     "@atomify/shared" "^1.2.2"
 
-"@atomify/jsx@^2.1.11":
-  version "2.1.11"
-  resolved "https://registry.yarnpkg.com/@atomify/jsx/-/jsx-2.1.11.tgz#1f29d25d3aa8bde1c7ea77fba22483252244f797"
-  integrity sha512-ujTIty9F+EsS8Htjc5vMaQCxA/NwxEQYOnYX1TAmq0WYK6bPay6eIvS8nJWlFXk5Bz/jx39QjOmAvsc9jvpoaw==
+"@atomify/jsx@^2.2.2":
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/@atomify/jsx/-/jsx-2.2.2.tgz#6fc1a23e81a5dc78ddd01f8dc5e81da14a182804"
+  integrity sha512-zeTOKwxJs7KInptPJHfyOCAejiPz6gIKZBKGoYFBEkw11YeleFWVasUy2KqZhsJs/R2hVBaPatvmnySswhXNUA==
   dependencies:
     "@atomify/shared" "^1.2.2"
 
-"@atomify/kit@^1.3.12":
-  version "1.3.12"
-  resolved "https://registry.yarnpkg.com/@atomify/kit/-/kit-1.3.12.tgz#150622f143f6fa4c385f250ede8a8b29a1ed8579"
-  integrity sha512-qXNm8nn6fYCxEQuZFe+ruG543PIycGoZ1g125j4ELnaDZWc9ZYnjdwimZziElb4ceiuLfBEt95AGjlVMERGBXQ==
+"@atomify/kit@^1.4.2":
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/@atomify/kit/-/kit-1.4.2.tgz#5cdbfc193b69b928b229e665924e3d74a3920282"
+  integrity sha512-EBy4pNrx34E6d9zTwCtbMBvxDkIfadtoKcAPpCdsCLCrLcFx9AxiaMuR3G6y1mPJnxdfnms/WDOq5N2hfmt4sw==
   dependencies:
     "@atomify/hooks" "^1.3.4"
-    "@atomify/jsx" "^2.1.11"
+    "@atomify/jsx" "^2.2.2"
     "@atomify/shared" "^1.2.2"
 
 "@atomify/shared@^1.2.2":
@@ -5313,6 +5313,14 @@ chalk@^4.0.0, chalk@^4.1.0:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.1.1.tgz#c80b3fab28bf6371e6863325eee67e618b77e6ad"
   integrity sha512-diHzdDKxcU+bAsUboHLPEDQiw0qEe0qd7SYUn3HgcFlWgbDcfLGswOHYeGrHKzG9z6UYf01d9VFMfZxPM1xZSg==
+  dependencies:
+    ansi-styles "^4.1.0"
+    supports-color "^7.1.0"
+
+chalk@^4.1.2:
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.1.2.tgz#aac4e2b7734a740867aeb16bf02aad556a1e7a01"
+  integrity sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==
   dependencies:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
