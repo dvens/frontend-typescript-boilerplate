@@ -1311,10 +1311,10 @@
     terser "^5.6.1"
     whatwg-fetch "^3.0.0"
 
-"@dev-scripts/webpack@^0.4.0":
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/@dev-scripts/webpack/-/webpack-0.4.0.tgz#3cdc56a5eb9667f59519d6a7aec9850c714a9bf8"
-  integrity sha512-g0+pxPmNHK7wuxd/1dz7sHqLyoqMm1yeIBuWItglwbM0nMuGeo+1RLwWxMgQfrISXqtF5eqqFPaB1dyX3pyP2g==
+"@dev-scripts/webpack@^0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@dev-scripts/webpack/-/webpack-0.4.1.tgz#c9fe015cf5b81f7b624bc098eac5ca27982a0fbd"
+  integrity sha512-iiIm7DycGimRhjCLVOxEXson0IT+bL+Kn6OZIiTUefWBYdOOlSR9hJYtaAENxws2fhmZS1bKoRx80TnBZqk66w==
   dependencies:
     "@babel/core" "7.13.14"
     "@babel/plugin-proposal-class-properties" "^7.2.3"
