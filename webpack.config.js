@@ -21,8 +21,6 @@ function getConfig(env = 'development') {
         return [
             // Client modern build
             createClientProdConfig(clientConfig),
-            // Client legacy build
-            createClientProdConfig({ ...clientConfig, legacy: true }),
             // Server build
             createServerProdConfig(serverConfig),
         ];

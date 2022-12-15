@@ -53,6 +53,8 @@ app.use(compression());
 
 /**
  * Static files
+ * Creates a virtual path prefix
+ * explained here: https://expressjs.com/en/starter/static-files.html
  */
 app.use('/static', express.static(PUBLIC_PATH));
 

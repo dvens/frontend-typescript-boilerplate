@@ -1,26 +1,16 @@
 import { h, renderToString } from '@atomify/jsx';
 import { Head } from '@atomify/kit';
-import { getScripts, getDefaultMode } from '@dev-scripts/shared';
 import { NextFunction, Request, Response } from 'express';
 
 import App from '@/pages/_app';
 import Document from '@/pages/_document';
 
-import { PUBLIC_PATH } from '../constants';
-
 import { routeConfig } from '@pages/routes';
 import { store } from '@source/store';
-
-const IS_DEVELOPMENT = getDefaultMode() === 'development';
 
 export default async function ssr(req: Request, res: Response, next: NextFunction) {
     const htmlContent = renderToString(<App location={req.url} routeConfig={routeConfig} />);
     const head = Head.renderAsElements();
-
-    const { scripts, code } = await getScripts({
-        isDebug: IS_DEVELOPMENT,
-        manifestPath: `${PUBLIC_PATH}/polyfills-manifest.json`,
-    });
 
     const initialState = store.getState();
     const html = renderToString(
@@ -29,8 +19,7 @@ export default async function ssr(req: Request, res: Response, next: NextFunctio
             head={head}
             initialState={initialState}
             css={[res.locals.assetPath('main.css')]}
-            scripts={scripts}
-            polyfillScript={code}
+            scripts={[res.locals.assetPath('main.js')]}
         />,
     );
 

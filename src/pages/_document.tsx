@@ -10,11 +10,10 @@ interface DocProps {
     head?: VNode[];
     initialState?: AppState;
     css: string[];
-    scripts?: Array<{ src: string; type: null | string; nomodule: boolean }>;
-    polyfillScript?: string | null;
+    scripts?: string[];
 }
 
-const Document = ({ head, htmlContent, initialState, css, scripts, polyfillScript }: DocProps) => {
+const Document = ({ head, htmlContent, initialState, css, scripts }: DocProps) => {
     return (
         <html lang="en">
             <head>
@@ -38,8 +37,7 @@ const Document = ({ head, htmlContent, initialState, css, scripts, polyfillScrip
                         )}`}
                     />
                 )}
-                {scripts && scripts.map((props) => <script {...props} />)}
-                {polyfillScript && <script dangerouslySetInnerHTML={polyfillScript} />}
+                {scripts && scripts.map((props) => <script defer src={props} />)}
             </body>
         </html>
     );

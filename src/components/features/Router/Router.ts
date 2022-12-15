@@ -79,9 +79,7 @@ export const Link: FunctionComponent<{
     extraProps?: { [key: string]: any };
     staticRoutes?: boolean;
 }> = ({ to, children, extraProps = {}, staticRoutes = true }) => {
-    const staticRoute = isValidElement(children)
-        ? h('a', { href: to, ...extraProps }, children)
-        : h('a', { href: to, ...extraProps });
+    const staticRoute = h('a', { href: to, ...extraProps }, children);
 
     if (staticRoutes) return staticRoute;
 

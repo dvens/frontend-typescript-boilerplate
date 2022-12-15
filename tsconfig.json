@@ -4,7 +4,7 @@
         "allowSyntheticDefaultImports": true,
         "allowUnreachableCode": false,
         "forceConsistentCasingInFileNames": true,
-        "jsx": "react",
+        "jsx": "preserve",
         "jsxFactory": "h",
         "outDir": "./build",
         "lib": [

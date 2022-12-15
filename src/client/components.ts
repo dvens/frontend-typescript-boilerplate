@@ -1,4 +1,4 @@
 /*
  * Import components
  */
-import '@components/shared/Button';
+import '@components/shared/CustomElement/CustomElement';
